@@ -1,0 +1,5 @@
+minilibx_linux
+*.o
+cub3D
+*.a
+*.cub
