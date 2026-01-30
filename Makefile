@@ -17,7 +17,7 @@ MLX_LIB		=	-L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 all: $(NAME) 
 
 $(NAME) : $(OBJS) $(LIBMAKE)
-	$(CC) $(CFLAGS) $(OBJS)  $(MLX_LIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS)  $(MLX_LIB) $(LIBFT) -o $(NAME)
 
 $(LIBMAKE):
 	make -C $(LIBFT_DIR)

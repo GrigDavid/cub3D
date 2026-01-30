@@ -1,5 +1,68 @@
 #include "cub3D.h"
 
+typedef struct dzyadz
+{
+	t_player	*player;
+	t_mlx		*mlx;
+} t_pass;
+
+void	draw_square(int side, int x, int y, t_mlx *mlx)
+{
+	int	i;
+
+	i = 0;
+	while (i < side)
+	{
+		if (y - side / 2 + i > 0 && y - side / 2 + i < mlx->win_height && x - side / 2 > 0 && x - side / 2 < mlx->win_width)
+			*(unsigned int *)(mlx->img_addr + (y - side / 2 + i) * mlx->line_length + (x - side / 2) * (mlx->bits_per_pixel / 8)) = 0xffffff;
+		if (y - side / 2 + i > 0 && y - side / 2 + i < mlx->win_height && x + side / 2 > 0 && x + side / 2 < mlx->win_width)
+			*(unsigned int *)(mlx->img_addr + (y - side / 2 + i) * mlx->line_length + (x + side / 2) * (mlx->bits_per_pixel / 8)) = 0xffffff;
+		if (x - side / 2 + i > 0 && x - side / 2 + i < mlx->win_width && y - side / 2 > 0 && y + side / 2 < mlx->win_height)
+			*(unsigned int *)(mlx->img_addr + (y - side / 2) * mlx->line_length + (x - side / 2 + i) * (mlx->bits_per_pixel / 8)) = 0xffffff;
+		if (x - side / 2 + i > 0 && x - side / 2 + i < mlx->win_width && y - side / 2 > 0 && y + side / 2 < mlx->win_height)
+			*(unsigned int *)(mlx->img_addr + (y + side / 2) * mlx->line_length + (x - side / 2 + i) * (mlx->bits_per_pixel / 8)) = 0xffffff;
+		i++;
+	}
+}
+
+void	delete_square(int side, int x, int y, t_mlx *mlx)
+{
+	int	i;
+
+	i = 0;
+	while (i < side)
+	{
+		if (y - side / 2 + i > 0 && y - side / 2 + i < mlx->win_height && x - side / 2 > 0 && x - side / 2 < mlx->win_width)
+			*(unsigned int *)(mlx->img_addr + (y - side / 2 + i) * mlx->line_length + (x - side / 2) * (mlx->bits_per_pixel / 8)) = 0x000000;
+		if (y - side / 2 + i > 0 && y - side / 2 + i < mlx->win_height && x + side / 2 > 0 && x + side / 2 < mlx->win_width)
+			*(unsigned int *)(mlx->img_addr + (y - side / 2 + i) * mlx->line_length + (x + side / 2) * (mlx->bits_per_pixel / 8)) = 0x000000;
+		if (x - side / 2 + i > 0 && x - side / 2 + i < mlx->win_width && y - side / 2 > 0 && y + side / 2 < mlx->win_height)
+			*(unsigned int *)(mlx->img_addr + (y - side / 2) * mlx->line_length + (x - side / 2 + i) * (mlx->bits_per_pixel / 8)) = 0x000000;
+		if (x - side / 2 + i > 0 && x - side / 2 + i < mlx->win_width && y - side / 2 > 0 && y + side / 2 < mlx->win_height)
+			*(unsigned int *)(mlx->img_addr + (y + side / 2) * mlx->line_length + (x - side / 2 + i) * (mlx->bits_per_pixel / 8)) = 0x000000;
+		i++;
+	}
+}
+
+int	move_square(t_pass *pass)
+{
+	t_mlx *mlx = pass->mlx;
+	t_player *player = pass->player;
+
+	if (player->x < 300)
+	{
+		printf("x: %d, y: %d\n", player->x, player->y);
+		//delete_square(100, player->x, player->y, mlx);
+		if (player->x < mlx->win_width)
+			player->x++;
+		draw_square(10, player->x, player->y, mlx);
+		
+	}
+
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+	return (1);
+}
+
 void	draw_line(t_mlx *mlx, t_line *line)
 {
 	int	height;
@@ -25,12 +88,20 @@ void	gpt_wrote_this(t_mlx *mlx)
 	line.x = mlx->win_width / 2;
 	mlx->img = mlx_new_image(mlx->mlx, mlx->win_width, mlx->win_height);
 	mlx->img_addr = mlx_get_data_addr(mlx->img, &(mlx->bits_per_pixel), &(mlx->line_length), &(mlx->endian));
-	draw_line(mlx, &line);
+	//draw_line(mlx, &line);
+	//draw_square(100, 200, 250, mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 
 }
 
+int	up (void *pass)
+{
+	t_player *player = ((t_pass *)pass)->player;
 
+	if (player->y)
+		player->y--;
+	return (0);
+}
 
 int	map_parse(t_data *data)
 {
@@ -50,15 +121,19 @@ int	map_parse(t_data *data)
 	return (0);
 }
 
-int	cast_ray(t_data *data, t_mlx *mlx)
-{
-	
-}
+
 
 int	main(int argc, char **argv)
 {
-	t_mlx	*mlx;
-	t_data	*data;
+	t_mlx		*mlx;
+	t_data		*data;
+	t_player	player;
+	t_pass		pass;
+
+	player.dir = 0;
+	player.x = 0;
+	player.y = 250;
+	pass.player = &player;
 
 	mlx = (t_mlx *)malloc(sizeof(t_mlx));
 	if (!mlx)
@@ -68,15 +143,16 @@ int	main(int argc, char **argv)
 		return (free(mlx), 1);
 	(void)argc;
 	(void)argv;
-	mlx->win_width = 800;
-	mlx->win_height = 600;
+	mlx->win_width = 1920;
+	mlx->win_height = 1080;
 	if (map_parse(data))
 		return (1);
 	mlx->mlx = mlx_init();
-	mlx->win = mlx_new_window(mlx->mlx, mlx->win_width, mlx->win_height, "FBI Kennedy assasination files");
+	mlx->win = mlx_new_window(mlx->mlx, mlx->win_width, mlx->win_height, "cub3D");
 	gpt_wrote_this(mlx);
-	write(1, "f", 1);
+	pass.mlx = mlx;
+	mlx_hook(mlx->win, 3, 1L<<0, up, &pass);
+	mlx_loop_hook(mlx->mlx, move_square, &pass);
 	mlx_loop(mlx->mlx);
-	write(1, "h", 1);
 	return (0);
 }
