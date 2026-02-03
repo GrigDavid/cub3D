@@ -3,7 +3,7 @@
 # include	<unistd.h>
 # include	<stdio.h>//
 # include	<stdlib.h>
-# include	"./minilibx_linux/mlx.h"
+# include	"./minilibx-linux/mlx.h"
 # include	"libft/libft.h"
 
 typedef struct	s_mlx
@@ -19,11 +19,17 @@ typedef struct	s_mlx
 	int		win_width;
 } t_mlx;
 
-typedef struct s_player
+typedef struct	s_vector
 {
-	int		x;
-	int		y;
-	float	dir;
+	float	x;
+	float	y;
+} t_vector;
+
+typedef struct	s_player
+{
+	float		x;
+	float		y;
+	t_vector	vector;
 } t_player;
 
 
