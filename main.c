@@ -84,6 +84,7 @@ void	gpt_wrote_this(t_mlx *mlx)
 {
 	t_line	line;
 
+	(void)line;
 	line.height = 100;
 	line.x = mlx->win_width / 2;
 	mlx->img = mlx_new_image(mlx->mlx, mlx->win_width, mlx->win_height);
@@ -94,12 +95,12 @@ void	gpt_wrote_this(t_mlx *mlx)
 
 }
 
-int	up (void *pass)
+int	up(void)
 {
-	t_player *player = ((t_pass *)pass)->player;
+	//t_player *player = ((t_pass *)pass)->player;
 
-	if (player->y)
-		player->y--;
+	//if (player->y)
+	//	player->y--;
 	return (0);
 }
 
@@ -152,7 +153,7 @@ int	main(int argc, char **argv)
 	gpt_wrote_this(mlx);
 	pass.mlx = mlx;
 	mlx_hook(mlx->win, 3, 1L<<0, up, &pass);
-	mlx_loop_hook(mlx->mlx, move_square, &pass);
+	//mlx_loop_hook(mlx->mlx, move_square, &pass);
 	mlx_loop(mlx->mlx);
 	return (0);
 }

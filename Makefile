@@ -1,40 +1,47 @@
-CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -Ilibft
-NAME		=	cub3D
-DEPS		=	cub3D.h
-SRCS		=	main.c
-OBJS		=	$(SRCS:.c=.o)
+CC						=	cc
+CFLAGS					=	-Wall -Wextra -Werror -I libft -I includes -I minilibx-linux -g3
+RM						=	rm -f
+NAME					=	cub3D
 
-LIBMAKE		=	libmake
+LIBFT_FILE				=	libft/libft.a
+LDFLAGS					=	-L libft -l ft
+MAKE_LIB				=	make -C
 
-LIBFT_DIR	=	./libft
-LIBFT		=	$(LIBFT_DIR)/libft.a
+MLX_FILE				=	minilibx-linux/mlx_linux
+MLX_FLAGS				=	-Lminilibx-linux -l mlx_Linux -l Xext -l X11 -l m
+MAKE_MLX				=	make -C
 
-MLX_DIR		=	minilibx_linux/
-MLX_INC		=	-I$(MLX_DIR)
-MLX_LIB		=	-L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
+CUB3D_SRC				=	main.c
 
-all: $(NAME) 
+CUB3D_OBJS				=	$(CUB3D_SRC:%.c=obj/%.o)
 
-$(NAME) : $(OBJS) $(LIBMAKE)
-	$(CC) $(CFLAGS) $(OBJS)  $(MLX_LIB) $(LIBFT) -o $(NAME)
+all:	$(NAME)
 
-$(LIBMAKE):
-	make -C $(LIBFT_DIR)
-	make -C $(MLX_DIR)
-
-%.o : %.c $(DEPS)
+$(CUB3D_OBJS):	obj/%.o: %.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-clean:
-	make clean -C $(LIBFT_DIR)
-	make clean -C $(MLX_DIR)
-	rm -f $(OBJS)
+$(LIBFT_FILE):
+	$(MAKE_LIB) libft
 
-fclean: clean
-	make fclean -C $(LIBFT_DIR)
-	rm -f  $(NAME)
+$(MLX_FILE):
+	$(MAKE_MLX) minilibx-linux
 
-re: fclean all
+$(NAME):	$(CUB3D_OBJS) $(LIBFT_FILE) $(MLX_FILE)
+	$(CC) $(CFLAGS) $(CUB3D_OBJS) $(LDFLAGS) $(MLX_FLAGS) -o $@
 
-.PHONY: all clean fclean re
+lib_clean:
+	$(MAKE_LIB) libft clean
+
+lib_fclean:
+	$(MAKE_LIB) libft fclean
+
+clean:	lib_clean
+	rm -rf obj
+
+fclean:	clean lib_fclean
+	$(RM) $(NAME)
+
+re:	fclean all
+
+.PHONY:	all lib_clean lib_fclean clean fclean re
