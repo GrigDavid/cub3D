@@ -11,7 +11,7 @@ MLX_FILE				=	minilibx-linux/mlx_linux
 MLX_FLAGS				=	-Lminilibx-linux -l mlx_Linux -l Xext -l X11 -l m
 MAKE_MLX				=	make -C
 
-CUB3D_SRC				=	main.c cast_ray.c
+CUB3D_SRC				=	main.c cast_ray.c init_data.c
 
 CUB3D_OBJS				=	$(CUB3D_SRC:%.c=obj/%.o)
 

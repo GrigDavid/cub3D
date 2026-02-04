@@ -1,5 +1,4 @@
-#include	"cub3D.h"
-
+#include "cub3D.h"
 
 float	square_sum(float a, float b)
 {
@@ -15,17 +14,16 @@ t_vector	mul_vector(t_vector vector, float k)
 
 float	get_cor(t_player *player, int x)
 {
-	float	delta_x;
+	float		delta_x;
 	t_vector	tmp;
 
 	delta_x = x - (player->x - (float)(int)(player->x));
 	tmp.x = player->vector.x;
 	tmp.y = player->vector.y;
-	return(mul_vector(tmp, delta_x).y);
+	return (mul_vector(tmp, delta_x).y);
 }
 
-
-int	get_len(t_player	*player, char	**map)
+int	get_len(t_player *player, char **map)
 {
 	int	x;
 	int	y;
