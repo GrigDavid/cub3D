@@ -29,26 +29,27 @@ int	get_len(t_player	*player, char	**map)
 {
 	int	x;
 	int	y;
-	int	delta_x;
-	int	delta_y;
 
 	x = 1;
 	y = 1;
 	while (1)
 	{
-		if (square_sum(player->vector.x + (float)x), get_cor(player, x) < square_sum(get_cor(player, y), player->vector.y + (float)y))
+		if (square_sum(player->vector.x + (float)x, get_cor(player, x)) < square_sum(get_cor(player, y), player->vector.y + (float)y))
 		{
 			//check with x
-			if (map[])
+			if (map[(int)(player->vector.x + (float)x)][(int)get_cor(player, x)] == 1 || map[(int)(player->vector.x + (float)x)][(int)get_cor(player, x) - 1] == 1)
+				return (square_sum(player->vector.x + (float)x, get_cor(player, x)));
+			x++;
 		}
 		else
 		{
-			//check with y
+			if (map[(int)get_cor(player, y)][(int)(player->vector.y + (float)y)] == 1 || map[(int)get_cor(player, y) - 1][(int)(player->vector.y + (float)y)] == 1)
+				return ((int)square_sum(player->vector.x + (float)x, (int)get_cor(player, x)));
 		}
 	}
 }
 
 int	cast_ray(t_player	*player, char	**map)
 {
-	return (get_len(t_player	*player, char	**map));
+	return (get_len(player, map));
 }

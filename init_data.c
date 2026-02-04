@@ -1,0 +1,39 @@
+#include "cub3D.h"
+
+int	map_parse(t_data *data)
+{
+	//this is just a test function	
+	data->map = ft_split("1111111111111111111\
+1000000000000000001\
+1000000000000000001\
+1000000000000000001\
+1000000000000000001\
+100000000N000000001\
+1000000000000000001\
+1000000000000000001\
+1000000000000000001\
+1111111111111111111", '\n');
+	if (!data->map)
+		return (-1);
+	return (0);
+}
+
+int	init_data(t_data **data)
+{
+	*data = (t_data *)malloc(sizeof(t_data));
+	if (!*data)
+		return (1);
+	if (map_parse(*data))
+		return (1);
+	(*data)->mlx = (t_mlx *)malloc(sizeof(t_mlx));
+	if (!((*data)->mlx))
+		return (free(*data), 1);//free map too
+	(*data)->mlx->win_height = 1080;
+	(*data)->mlx->win_width = 1920;
+	(*data)->mlx->mlx = mlx_init();
+	if (!(*data)->mlx->mlx)
+		return (1);//
+	(*data)->mlx->img = mlx_new_image((*data)->mlx->mlx, (*data)->mlx->win_width, (*data)->mlx->win_height);
+	(*data)->mlx->img_addr = mlx_get_data_addr((*data)->mlx->img, &((*data)->mlx->bits_per_pixel), &((*data)->mlx->line_length), &((*data)->mlx->endian));
+
+}

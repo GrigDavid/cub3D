@@ -1,4 +1,4 @@
-minilibx_linux
+minilibx-linux
 *.o
 cub3D
 *.a

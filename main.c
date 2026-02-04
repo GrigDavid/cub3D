@@ -1,6 +1,6 @@
 #include "cub3D.h"
 
-typedef struct dzyadz
+typedef struct s_pass
 {
 	t_player	*player;
 	t_mlx		*mlx;
@@ -49,16 +49,8 @@ int	move_square(t_pass *pass)
 	t_mlx *mlx = pass->mlx;
 	t_player *player = pass->player;
 
-	if (player->x < 300)
-	{
-		printf("x: %d, y: %d\n", player->x, player->y);
-		//delete_square(100, player->x, player->y, mlx);
-		if (player->x < mlx->win_width)
-			player->x++;
-		draw_square(10, player->x, player->y, mlx);
-		
-	}
-
+	printf("x: %f, y: %f\n", player->x, player->y);
+	draw_square(10, player->x, player->y, mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	return (1);
 }
@@ -95,32 +87,30 @@ void	gpt_wrote_this(t_mlx *mlx)
 
 }
 
-int	up(void)
+int	move(int keycode, void *pass)
 {
-	//t_player *player = ((t_pass *)pass)->player;
+	t_player *player = ((t_pass *)pass)->player;
 
-	//if (player->y)
-	//	player->y--;
+	(void)keycode;
+	printf("up\n");
+	delete_square(10, player->x, player->y, ((t_pass *)pass)->mlx);
+	if (keycode == XK_Up)
+	{
+		if (player->y > 1.0)
+			player->y -= 10;
+	}
+	else if (keycode == XK_Down)
+	{
+		player->y += 10;
+	}
+	else if (keycode == XK_Left)
+		(player->x)-= 10;
+	else if (keycode == XK_Right)
+		(player->x) += 10;
 	return (0);
 }
 
-int	map_parse(t_data *data)
-{
-	//this is just a test function	
-	data->map = ft_split("1111111111111111111\
-1000000000000000001\
-1000000000000000001\
-1000000000000000001\
-1000000000000000001\
-100000000N000000001\
-1000000000000000001\
-1000000000000000001\
-1000000000000000001\
-1111111111111111111", '\n');
-	if (!data->map)
-		return (-1);
-	return (0);
-}
+
 
 
 
@@ -131,8 +121,9 @@ int	main(int argc, char **argv)
 	t_player	player;
 	t_pass		pass;
 
-	player.dir = 0;
-	player.x = 0;
+	player.vector.x = 0;
+	player.vector.y = 1;
+	player.x = 600;
 	player.y = 250;
 	pass.player = &player;
 
@@ -152,8 +143,11 @@ int	main(int argc, char **argv)
 	mlx->win = mlx_new_window(mlx->mlx, mlx->win_width, mlx->win_height, "cub3D");
 	gpt_wrote_this(mlx);
 	pass.mlx = mlx;
-	mlx_hook(mlx->win, 3, 1L<<0, up, &pass);
-	//mlx_loop_hook(mlx->mlx, move_square, &pass);
+	mlx_hook(mlx->win, 2, KeyPressMask, move, &pass);
+	mlx_hook(mlx->win, 3, KeyReleaseMask, move, &pass);
+	mlx_loop_hook(mlx->mlx, move_square, &pass);
 	mlx_loop(mlx->mlx);
 	return (0);
 }
+
+
