@@ -46,6 +46,15 @@ int	move_square(t_data *data)
 	player = data->player;
 	mlx = data->mlx;
 	//printf("x: %f, y: %f\n", player->x, player->y);
+	delete_square(10, player->x, player->y, data->mlx);
+	if (data->keypress->w)
+		player->y -= STEP;
+	if (data->keypress->s)
+		player->y += STEP;
+	if (data->keypress->a)
+		player->x -= STEP;
+	if (data->keypress->d)
+		player->x += STEP;
 	draw_square(10, player->x, player->y, mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 	return (1);
@@ -84,25 +93,45 @@ void	gpt_wrote_this(t_mlx *mlx)
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }
 
-int	move(int keycode, t_data *data)
+int	key_press(int keycode, t_data *data)
 {
-	t_player	*player;
+	if (keycode == XK_w)
+	{
+		data->keypress->w = 1;
+	}
+	else if (keycode == XK_s)
+	{
+		data->keypress->s = 1;
+	}
+	else if (keycode == XK_a)
+	{
+		data->keypress->a = 1;
+	}
+	else if (keycode == XK_d)
+	{
+		data->keypress->d = 1;
+	}
+	return (0);
+}
 
-	player = data->player;
-	delete_square(10, player->x, player->y, data->mlx);
-	if (keycode == XK_Up)
+int	key_release(int keycode, t_data *data)
+{
+	if (keycode == XK_w)
 	{
-		if (player->y > 1.0)
-			player->y -= 5;
+		data->keypress->w = 0;
 	}
-	else if (keycode == XK_Down)
+	else if (keycode == XK_s)
 	{
-		player->y += 5;
+		data->keypress->s = 0;
 	}
-	else if (keycode == XK_Left)
-		(player->x) -= 5;
-	else if (keycode == XK_Right)
-		(player->x) += 5;
+	else if (keycode == XK_a)
+	{
+		data->keypress->a = 0;
+	}
+	else if (keycode == XK_d)
+	{
+		data->keypress->d = 0;
+	}
 	return (0);
 }
 
@@ -114,8 +143,8 @@ int	main(int argc, char **argv)
 	(void)argv;
 	if (init_data(&data))
 		return (1);
-	mlx_hook(data->mlx->win, 2, KeyPressMask, move, data);
-	//mlx_hook(data->mlx->win, 3, KeyReleaseMask, move, data);
+	mlx_hook(data->mlx->win, KeyPress, KeyPressMask, key_press, data);
+	mlx_hook(data->mlx->win, KeyRelease, KeyReleaseMask, key_release, data);
 	mlx_loop_hook(data->mlx->mlx, move_square, data);
 	mlx_loop(data->mlx->mlx);
 	return (0);

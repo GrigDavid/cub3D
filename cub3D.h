@@ -1,5 +1,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# define STEP 2
+
 # include <unistd.h>
 # include <stdio.h>//
 # include <stdlib.h>
@@ -8,6 +11,16 @@
 
 # include <X11/X.h>
 # include <X11/keysym.h>
+
+typedef struct s_keypress
+{
+	int w;
+	int	a;
+	int	s;
+	int	d;
+	int	left;
+	int	right;
+}	t_keypress;
 
 typedef struct s_mlx
 {
@@ -40,6 +53,7 @@ typedef struct s_data
 	t_mlx		*mlx;
 	char		**map;
 	t_player	*player;
+	t_keypress	*keypress;
 }	t_data;
 
 typedef struct s_line
