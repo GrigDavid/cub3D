@@ -1,4 +1,4 @@
-CC						=	clang-19 #this is for mlx to work on your computers, change before evaluation
+CC						=	clang #this is for mlx to work on your computers, change before evaluation
 CFLAGS					=	-Wall -Wextra -Werror -I libft -I includes -I minilibx-linux -g3
 RM						=	rm -f
 NAME					=	cub3D
@@ -11,7 +11,7 @@ MLX_FILE				=	minilibx-linux/mlx_linux
 MLX_FLAGS				=	-Lminilibx-linux -l mlx_Linux -l Xext -l X11 -l m
 MAKE_MLX				=	make -C
 
-CUB3D_SRC				=	main.c cast_ray.c init_data.c
+CUB3D_SRC				=	src/main.c src/cast_ray.c src/init_data.c
 
 CUB3D_OBJS				=	$(CUB3D_SRC:%.c=obj/%.o)
 

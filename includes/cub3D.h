@@ -6,8 +6,9 @@
 # include <unistd.h>
 # include <stdio.h>//
 # include <stdlib.h>
-# include "./minilibx-linux/mlx.h"
-# include "libft/libft.h"
+# include <fcntl.h>
+# include "mlx.h"
+# include "libft.h"
 
 # include <X11/X.h>
 # include <X11/keysym.h>

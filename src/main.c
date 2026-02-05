@@ -135,12 +135,30 @@ int	key_release(int keycode, t_data *data)
 	return (0);
 }
 
+int	check_valid_input_file(char *filename)
+{
+	size_t	len;
+
+	len = ft_strlen(filename);
+	if (len < 5)
+		return (0);
+	if (ft_strncmp(&filename[len - 4], ".cub", 5) != 0)
+		return (0);
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	*data;
+	int		fd;
 
-	(void)argc;
-	(void)argv;
+	if (argc != 2)							//	commented out for testing purposes
+		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), 1);
+	if (!check_valid_input_file(argv[1]))
+		return (ft_putstr_fd("Error\nInvalid input file\n", 2), 1);
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		return (ft_putstr_fd("Error\nCould not open input file\n", 2), 1);
 	if (init_data(&data))
 		return (1);
 	mlx_hook(data->mlx->win, KeyPress, KeyPressMask, key_press, data);
