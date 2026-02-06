@@ -36,27 +36,58 @@ static void	init_id(t_id *id)
 
 int	parse_map(int fd)
 {
+	///// add is_map_line is_id_line parse_map_line parse_id_line and make all flags just 1 structure
+	int		seen_content;
+	int		ids_complete;
+	int		map_started;
 	int		line_count;
 	t_id	*id;
 	char	*str;
 
 	init_id(id);
 	line_count = 0;
-	str = get_next_line(fd);
-	while (str)
+	while (1)
 	{
-		line_count++;
-		free(str);
 		str = get_next_line(fd);
 		if (!str)
-			return (0);  ///for now no error code for malloc
-		if (ft_strncmp(str, "\n", 2))
+			break ;
+		line_count++;
+		if (only_nl(str))
+		{
+			free(str);
 			continue ;
-		find_ids();
-		printf("%s", str);
-		
+		}
+		seen_content = 1;
+		if (!map_started)
+		{
+			if (is_id_line(str))
+			{
+				if (!parse_id_line(str))
+					return (free(str), ft_putstr_fd("Error\nInvalid identifier line\n", 2), 0);
+			}
+			else if (is_map_line(str))
+			{
+				map_started = 1;
+				if (!parse_map_line(str))
+					return (free(str), ft_putstr_fd("Error\nInvalid map line\n", 2), 0);
+			}
+			else
+            	return (free(str), ft_putstr_fd("Error\nInvalid line before map\n", 2), 0);
+		}
+		else if (ids_complete)
+		{
+			if (!is_map_line(str))
+				return (free(str), ft_putstr_fd("Error\nInvalid map line\n", 2), 0);
+			if (!parse_map_line(str))
+				return (free(str), ft_putstr_fd("Error\nInvalid map line\n", 2), 0);
+		}
+		else
+			return (free(str), ft_putstr_fd("Error\nMissing Ids\n", 2), 0);
+		free(str);
 	}
-	if (!line_count)
+	if (!line_count || !seen_content)
 		return(ft_putstr_fd("Error\nEmpty map\n", 2), 0);
+	if (!map_started)
+		return(ft_putstr_fd("Error\nNo map\n", 2), 0);
 	return (1);
 }
