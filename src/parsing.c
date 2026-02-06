@@ -34,6 +34,21 @@ static void	init_id(t_id *id)
 	id->f = 0;
 }
 
+int	ft_is_whitespace(char c)
+{
+	return(c == 32 || c == 9 || c == 10 || c == 11 || c == 12 || c == 13)
+}
+
+int	only_nl(char *str)
+{
+	int	i;
+	while(ft_is_whitespace(str[i])
+		i++;
+	if(str[i] != 0)
+		return (0);
+	return (1);
+}
+
 int	parse_map(int fd)
 {
 	///// add is_map_line is_id_line parse_map_line parse_id_line and make all flags just 1 structure
@@ -44,6 +59,7 @@ int	parse_map(int fd)
 	t_id	*id;
 	char	*str;
 
+	id = (t_id *)malloc(sizeof(t_id));
 	init_id(id);
 	line_count = 0;
 	while (1)
