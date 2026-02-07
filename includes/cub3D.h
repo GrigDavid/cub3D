@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:07:55 by rababaya          #+#    #+#             */
-/*   Updated: 2026/02/05 22:55:18 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/02/07 16:33:17 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,17 @@
 # include <stdio.h>//
 # include <stdlib.h>
 # include <fcntl.h>
+# include <errno.h>
 # include "mlx.h"
 # include "libft.h"
+# include "pars.h"
 
 # include <X11/X.h>
 # include <X11/keysym.h>
 
 typedef struct s_keypress
 {
-	int w;
+	int	w;
 	int	a;
 	int	s;
 	int	d;
@@ -75,17 +77,7 @@ typedef struct s_line
 	int	height;
 }	t_line;
 
-typedef struct s_id
-{
-	int	so;
-	int	no;
-	int	we;
-	int	ea;
-	int	f;
-	int	c;
-}	t_id;
-
-int	cast_ray(t_player	*player, char	**map);
+int	cast_ray(t_player *player, char **map);
 int	init_data(t_data **data);
 
 int	parse_map(int fd);
