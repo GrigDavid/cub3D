@@ -2,10 +2,12 @@
 # define CUB3D_H
 
 # define STEP 2
+# define SIDE 100
 
 # include <unistd.h>
 # include <stdio.h>//
 # include <stdlib.h>
+# include <math.h>
 # include "./minilibx-linux/mlx.h"
 # include "libft/libft.h"
 
@@ -62,7 +64,14 @@ typedef struct s_line
 	int	height;
 }	t_line;
 
-int	cast_ray(t_player	*player, char	**map);
-int	init_data(t_data **data);
+// int		cast_ray(t_player	*player, char	**map);
+t_vector	cast_ray(t_player	*player, char	**map);
+void		draw_ray_contact(int side, int x, int y, t_mlx *mlx);
+int			init_data(t_data **data);
+void		draw_square(int side, int x, int y, t_mlx *mlx);
+void		draw_walls(t_data *data);
+void		draw_line(t_mlx *mlx, t_line *line);
+void		delete_square(int side, int x, int y, t_mlx *mlx);
+void		draw_square(int side, int x, int y, t_mlx *mlx);
 
 #endif

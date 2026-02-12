@@ -17,7 +17,7 @@ float	get_cor(t_player *player, int x)
 	float		delta_x;
 	t_vector	tmp;
 
-	delta_x = x - (player->x - (float)(int)(player->x));
+	delta_x = x - (player->x - floorf(player->x));
 	tmp.x = player->vector.x;
 	tmp.y = player->vector.y;
 	return (mul_vector(tmp, delta_x).y);
@@ -43,11 +43,14 @@ int	get_len(t_player *player, char **map)
 		{
 			if (map[(int)get_cor(player, y)][(int)(player->vector.y + (float)y)] == 1 || map[(int)get_cor(player, y) - 1][(int)(player->vector.y + (float)y)] == 1)
 				return ((int)square_sum(player->vector.x + (float)x, (int)get_cor(player, x)));
+			y++;
 		}
 	}
 }
 
-int	cast_ray(t_player	*player, char	**map)
+t_vector	cast_ray(t_player	*player, char	**map)
 {
-	return (get_len(player, map));
+	t_vector	cont_point = mul_vector(player->vector, get_len(player, map));
+	// return (get_len(player, map));
+	return (cont_point);
 }

@@ -3,16 +3,18 @@
 int	map_parse(t_data *data)
 {
 	//this is just a test function	
-	data->map = ft_split("1111111111111111111\
-1000000000000000001\
-1000000000000000001\
-1000000000000000001\
-1000000000000000001\
-100000000N000000001\
-1000000000000000001\
-1000000000000000001\
-1000000000000000001\
-1111111111111111111", '\n');
+	data->map = ft_split("1111111111111111111;\
+1000000000000000001;\
+1000000000000000001;\
+1000000000000000001;\
+1000000000000000001;\
+100000000N000000001;\
+1000000000000000001;\
+1000000000000000001;\
+1000000000000000001;\
+1111111111111111111", ';');
+	data->mlx->win_height = 10 * SIDE;
+	data->mlx->win_width = 19 * SIDE;
 	if (!data->map)
 		return (-1);
 	return (0);
@@ -46,13 +48,11 @@ int	init_data(t_data **data)
 	(*data)->player->y = 600;
 	(*data)->player->vector.x = 0;
 	(*data)->player->vector.y = 1;
-	if (map_parse(*data))
-		return (1);//
 	(*data)->mlx = (t_mlx *)malloc(sizeof(t_mlx));
 	if (!((*data)->mlx))
 		return (free((*data)->player), free(*data), 1);
-	(*data)->mlx->win_height = 1080;
-	(*data)->mlx->win_width = 1920;
+	if (map_parse(*data))
+		return (1);//
 	(*data)->mlx->mlx = mlx_init();
 	if (!(*data)->mlx->mlx)
 		return (1);
