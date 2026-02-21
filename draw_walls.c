@@ -15,7 +15,7 @@ void	draw_walls(t_data *data)
 		{
 			if (map[i][j] == '1')
 			{
-				draw_square(SIDE, j * SIDE + SIDE / 2, i * SIDE + SIDE / 2, data->mlx);
+				draw_square(SIDE, j * SIDE + SIDE / 2, i * SIDE + SIDE / 2, data->params);
 			}
 			j++;
 		}

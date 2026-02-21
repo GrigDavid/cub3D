@@ -13,8 +13,8 @@ int	map_parse(t_data *data)
 1000000000000000001;\
 1000000000000000001;\
 1111111111111111111", ';');
-	data->mlx->win_height = 10 * SIDE;
-	data->mlx->win_width = 19 * SIDE;
+	data->params->win_height = 10 * SIDE;
+	data->params->win_width = 19 * SIDE;
 	if (!data->map)
 		return (-1);
 	return (0);
@@ -48,16 +48,16 @@ int	init_data(t_data **data)
 	(*data)->player->y = 600;
 	(*data)->player->vector.x = 0;
 	(*data)->player->vector.y = 1;
-	(*data)->mlx = (t_mlx *)malloc(sizeof(t_mlx));
-	if (!((*data)->mlx))
+	(*data)->params = (t_params *)malloc(sizeof(t_params));
+	if (!((*data)->params))
 		return (free((*data)->player), free(*data), 1);
 	if (map_parse(*data))
 		return (1);//
-	(*data)->mlx->mlx = mlx_init();
-	if (!(*data)->mlx->mlx)
+	(*data)->params->mlx = mlx_init();
+	if (!(*data)->params->mlx)
 		return (1);
-	(*data)->mlx->win = mlx_new_window((*data)->mlx->mlx, (*data)->mlx->win_width, (*data)->mlx->win_height, "cub3D");
-	(*data)->mlx->img = mlx_new_image((*data)->mlx->mlx, (*data)->mlx->win_width, (*data)->mlx->win_height);
-	(*data)->mlx->img_addr = mlx_get_data_addr((*data)->mlx->img, &((*data)->mlx->bits_per_pixel), &((*data)->mlx->line_length), &((*data)->mlx->endian));
+	(*data)->params->win = mlx_new_window((*data)->params->mlx, (*data)->params->win_width, (*data)->params->win_height, "cub3D");
+	(*data)->params->img = mlx_new_image((*data)->params->mlx, (*data)->params->win_width, (*data)->params->win_height);
+	(*data)->params->img_addr = mlx_get_data_addr((*data)->params->img, &((*data)->params->bits_per_pixel), &((*data)->params->line_length), &((*data)->params->endian));
 	return (0);
 }

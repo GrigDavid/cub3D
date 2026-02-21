@@ -24,7 +24,7 @@ typedef struct s_keypress
 	int	right;
 }	t_keypress;
 
-typedef struct s_mlx
+typedef struct s_params
 {
 	void	*mlx;
 	void	*win;
@@ -35,24 +35,31 @@ typedef struct s_mlx
 	int		endian;
 	int		win_height;
 	int		win_width;
-}	t_mlx;
+}	t_params;
 
 typedef struct s_vector
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 }	t_vector;
+
+typedef struct s_point
+{
+	double			x;
+	double			y;
+	unsigned int	color;
+}	t_point;
 
 typedef struct s_player
 {
-	float		x;
-	float		y;
+	double		x;
+	double		y;
 	t_vector	vector;
 }	t_player;
 
 typedef struct s_data
 {
-	t_mlx		*mlx;
+	t_params	*params;
 	char		**map;
 	t_player	*player;
 	t_keypress	*keypress;
@@ -65,13 +72,14 @@ typedef struct s_line
 }	t_line;
 
 // int		cast_ray(t_player	*player, char	**map);
-t_vector	cast_ray(t_player	*player, char	**map);
-void		draw_ray_contact(int side, int x, int y, t_mlx *mlx);
+//t_vector	cast_ray(t_player	*player, char	**map);
+void		draw_ray_contact(int side, int x, int y, t_params *p);
 int			init_data(t_data **data);
-void		draw_square(int side, int x, int y, t_mlx *mlx);
+void		draw_square(int side, int x, int y, t_params *p);
 void		draw_walls(t_data *data);
-void		draw_line(t_mlx *mlx, t_line *line);
-void		delete_square(int side, int x, int y, t_mlx *mlx);
-void		draw_square(int side, int x, int y, t_mlx *mlx);
+void		draw_line(t_params *p, t_line *line);
+void		delete_square(int side, int x, int y, t_params *p);
+void		draw_square(int side, int x, int y, t_params *p);
+t_point		dda(t_player player, char **map);
 
 #endif
