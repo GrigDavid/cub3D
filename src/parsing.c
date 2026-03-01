@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/02/07 17:02:22 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/02/14 14:55:20 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ int	check_valid_input_file(char *filename)
 	return (1);
 }
 
-static void	init_id(t_id *id)
+static void	init_id(t_flags *flags)
 {
-	id->so = 0;
-	id->no = 0;
-	id->ea = 0;
-	id->we = 0;
-	id->c = 0;
-	id->f = 0;
+	flags->id->so = 0;
+	flags->id->no = 0;
+	flags->id->ea = 0;
+	flags->id->we = 0;
+	flags->id->c = 0;
+	flags->id->f = 0;
 }
 
 int	ft_is_whitespace(char c)
 {
-	return (c == 32 || c == 9 || c == 10 || c == 11 || c == 12 || c == 13);
+	return (c == 32);
 }
 
 int	only_nl(char *str)
@@ -80,10 +80,34 @@ int	is_id_line(char *str, t_flags *flags)
 
 int	parse_id_line(char *str, t_flags *flags)
 {
-	int	i;
-	while (ft_is_whitespace(str[i]))
-		i++;
+	int		i;
+	char	**tmp;
+
+	tmp = ft_split(str, ' ');
+	if (!tmp)
+		return (0);
+	if (tmp[0] && tmp[1] && tmp[2] == NULL)
+	{
+		
+	}
 	
+	i = 0;
+	if (flags->id->no)
+	{
+		
+	}
+	
+	else if (flags->id->so && !ft_strncmp(&str[i], "SO", 2))
+		return (1);
+	else if (flags->id->we && !ft_strncmp(&str[i], "WE", 2))
+		return (1);
+	else if (flags->id->ea && !ft_strncmp(&str[i], "EA", 2))
+		return (1);
+	else if (flags->id->f && !ft_strncmp(&str[i], "F", 1))
+		return (1);
+	else if (flags->id->c && !ft_strncmp(&str[i], "C", 1))
+		return (1);
+	return (0);
 }
 
 int	parse_map(int fd)
@@ -94,7 +118,8 @@ int	parse_map(int fd)
 
 	flags = (t_flags *)malloc(sizeof(t_flags));
 	flags->id = (t_id *)malloc(sizeof(t_id));
-	init_id(flags->id);
+	flags->configs = (t_configs *)malloc(sizeof(t_configs));
+	init_id(flags);
 	flags->line_count = 0;
 	while (1)
 	{
@@ -141,4 +166,5 @@ int	parse_map(int fd)
 		return (free(flags->id), free(flags), ft_putstr_fd("Error\nEmpty map\n", 2), 0);
 	if (!flags->map_started)
 		return (free(flags->id), free(flags), ft_putstr_fd("Error\nNo map\n", 2), 0);
-	return (1)
+	return (1);
+}

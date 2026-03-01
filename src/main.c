@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:07:45 by rababaya          #+#    #+#             */
-/*   Updated: 2026/02/05 21:44:25 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/02/14 13:40:30 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int	main(int argc, char **argv)
 	t_data	*data;
 	int		fd;
 
-	if (argc != 2)							//	commented out for testing purposes
+	if (argc != 2)
 		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), 1);
 	if (!check_valid_input_file(argv[1]))
 		return (ft_putstr_fd("Error\nInvalid input file\n", 2), 1);
