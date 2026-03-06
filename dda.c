@@ -13,6 +13,19 @@ int	check(t_point p, char **map)
 	return (0);
 }
 
+int	check_d(t_point p, double dx, double dy,  char **map)
+{
+	if (map[(int)ceil(p.y + dy) / SIDE][(int)ceil(p.x + dx) / SIDE] == '1')
+		return (1);
+	if (map[(int)ceil(p.y + dy) / SIDE][(int)floor(p.x + dx) / SIDE] == '1')
+		return (1);
+	if (map[(int)floor(p.y + dy) / SIDE][(int)ceil(p.x + dx) / SIDE] == '1')
+		return (1);
+	if (map[(int)floor(p.y + dy) / SIDE][(int)floor(p.x + dx) / SIDE] == '1')
+		return (1);
+	return (0);
+}
+
 double	distance_sq(t_point a, t_point b)
 {
 	return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
@@ -46,12 +59,12 @@ t_point	dda_2(t_player player, char **map)
 
 	t_vector	dir = player.vector;
 	t_point		pos = {.x = player.x, .y = player.y};
-	double		delta_x;
-	double		delta_y;
-	double		moved_x;
-	double		moved_y;
-	double		dist_x;
-	double		dist_y;
+	double		delta_x; //how much x shoud move for one movement of y
+	double		delta_y; //same here
+	double		moved_x; //how much x moved to compare with y for one movement of x
+	double		moved_y; //same here
+	t_point		dist_x = {.x = player.x, .y = player.y};//current point for x
+	t_point		dist_y = {.x = player.x, .y = player.y};
 
 	if (dir.x == 0)
 		return (forward_y(player, map));
@@ -59,11 +72,18 @@ t_point	dda_2(t_player player, char **map)
 		return (forward_x(player, map));
 	delta_x = fabs(1 / dir.x);
 	delta_y = fabs(1 / dir.y);
-	moved_x = 0;
-	moved_y = 0;
+	moved_x = 1;
+	moved_y = 1;
 	while (1)
 	{
-
+		if (moved_x * delta_x > moved_y * delta_y)
+		{
+			
+		}
+		else
+		{
+			moved_x++;
+		}
 	}
 
 
