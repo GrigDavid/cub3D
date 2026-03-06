@@ -1,199 +1,127 @@
 #include "cub3D.h"
 
-int	check(t_point p, char **map)
+int	check(double x, double y,  char **map)
 {
-	if (map[(int)ceil(p.y) / SIDE][(int)ceil(p.x) / SIDE] == '1')
-		return (1);
-	if (map[(int)ceil(p.y) / SIDE][(int)floor(p.x) / SIDE] == '1')
-		return (1);
-	if (map[(int)floor(p.y) / SIDE][(int)ceil(p.x) / SIDE] == '1')
-		return (1);
-	if (map[(int)floor(p.y) / SIDE][(int)floor(p.x) / SIDE] == '1')
+	if (map[(int)(y / SIDE)][(int)(x / SIDE)] == '1')
 		return (1);
 	return (0);
 }
 
-int	check_d(t_point p, double dx, double dy,  char **map)
+double	get_dx(t_player player)
 {
-	if (map[(int)ceil(p.y + dy) / SIDE][(int)ceil(p.x + dx) / SIDE] == '1')
-		return (1);
-	if (map[(int)ceil(p.y + dy) / SIDE][(int)floor(p.x + dx) / SIDE] == '1')
-		return (1);
-	if (map[(int)floor(p.y + dy) / SIDE][(int)ceil(p.x + dx) / SIDE] == '1')
-		return (1);
-	if (map[(int)floor(p.y + dy) / SIDE][(int)floor(p.x + dx) / SIDE] == '1')
-		return (1);
-	return (0);
+	double	i;
+
+	i = 0;
+	while (i < player.x)
+		i += SIDE;
+	if (player.vector.x < 0)
+		i -= SIDE;
+	return (i - player.x);
+
+
+	// if (player.vector.x > 0)
+	// 	return (ceil(player.x) - player.x);
+	// return (floor(player.x) - player.x);
 }
 
-double	distance_sq(t_point a, t_point b)
+double	get_dy(t_player player)
 {
-	return ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+	double	i;
+
+	i = 0;
+	while (i < player.y)
+		i += SIDE;
+	if (player.vector.y < 0)
+		i -= SIDE;
+	return (i - player.y);
+
+	// if (player.vector.y > 0)
+	// 	return (ceil(player.y) - player.y);
+	// return (floor(player.y) - player.y);
 }
 
-double	get_y(double x, t_vector dir)
+t_point	forward_x(t_player player, char **map)
 {
-	if (dir.x == 0.0)
+	double	step;
+
+	step = 1;
+	player.x = ceil(player.x);
+	if (player.vector.x < 0)
 	{
-		return (0.0);
+		player.x--;
+		step = -1;
 	}
-	return (x * dir.y / dir.x);
-}
-
-double	get_x(double y, t_vector dir)
-{
-	if (dir.y == 0.0)
-	{
-		return (0.0);
-	}
-	return (y * dir.x / dir.y);
-}
-
-t_point	forward_x(t_player player, char **map);
-
-t_point	forward_y(t_player player, char **map);
-
-t_point	dda_2(t_player player, char **map)
-{
-	//this is another approach to writing DDA since the previous one is too complicated
-
-	t_vector	dir = player.vector;
-	t_point		pos = {.x = player.x, .y = player.y};
-	double		delta_x; //how much x shoud move for one movement of y
-	double		delta_y; //same here
-	double		moved_x; //how much x moved to compare with y for one movement of x
-	double		moved_y; //same here
-	t_point		dist_x = {.x = player.x, .y = player.y};//current point for x
-	t_point		dist_y = {.x = player.x, .y = player.y};
-
-	if (dir.x == 0)
-		return (forward_y(player, map));
-	if (dir.y == 0)
-		return (forward_x(player, map));
-	delta_x = fabs(1 / dir.x);
-	delta_y = fabs(1 / dir.y);
-	moved_x = 1;
-	moved_y = 1;
 	while (1)
 	{
-		if (moved_x * delta_x > moved_y * delta_y)
-		{
-			
-		}
-		else
-		{
-			moved_x++;
-		}
+		if (check(player.x, player.y, map))
+			return ((t_point){.x = player.x, .y = player.y, .color = 0x00ff00});
+		player.x += step;
 	}
+}
 
+t_point	forward_y(t_player player, char **map)
+{
+	double	step;
 
-
-
-
+	step = 1;
+	player.y = ceil(player.y);
+	if (player.vector.y < 0)
+	{
+		player.y--;
+		step = -1;
+	}
+	while (1)
+	{
+		if (check(player.x, player.y, map))
+			return ((t_point){.x = player.x, .y = player.y, .color = 0x00ff00});
+		player.y += step;
+	}
 }
 
 t_point	dda(t_player player, char **map)
 {
-	t_vector	dir = player.vector;
-	t_point		pos = {.x = player.x, .y = player.y};
-	t_point		colx = pos;
-	t_point		coly = pos;
-	double		x_step;
-	double		y_step;
+	double	k;
+	double	h;
+	double	l;
+	double	dy;
+	double	dx;
 
-	if (dir.x == 0)
-	{
-		if (dir.y > 0)
-		{
-			y_step = 1;
-			coly.y = ceil(coly.y);
-		}
-		else
-		{
-			y_step = -1;
-			coly.y = floor(coly.y);
-		}
-		while (1)
-		{
-			if (check(coly, map))
-				return (coly);
-			coly.y += y_step;
-		}
-	}
-	if (dir.y == 0)
-	{
-		if (dir.x > 0)
-		{
-			x_step = 1;
-			colx.x = ceil(colx.x);
-		}
-		else
-		{
-			x_step = -1;
-			colx.x = floor(colx.x);
-		}
-		while (1)
-		{
-			if (check(colx, map))
-				return (colx);
-			colx.x += x_step;
-		}
-	}
-	if (dir.x > 0)
-	{
-		colx.x = ceil(pos.x);
-		colx.y += get_y(colx.x - pos.x, dir);
-		x_step = 1.0;
-	}
-	else
-	{
-		colx.x = floor(pos.x);
-		colx.y += get_y(pos.x - colx.x, dir);
-		x_step = -1.0;
-	}
-	if (dir.y > 0)
-	{
-		coly.y = ceil(pos.y);
-		coly.x += get_x(coly.y - pos.y, dir);
-		y_step = 1.0;
-	}
-	else
-	{
-		coly.y = floor(pos.y);
-		coly.x += get_x(pos.y - coly.y, dir);
-		y_step = -1.0;
-	}
+	if (player.vector.x == 0)
+		return (forward_y(player, map));
+	if (player.vector.y == 0)
+		return (forward_x(player, map));
+	///////
+	int x_dir = (player.vector.x > 0) ? 1 : -1;
+	int y_dir = (player.vector.y > 0) ? 1 : -1;
+	///////
+	k = player.vector.y / player.vector.x;
+	
+	dy = get_dy(player);
+	dx = get_dx(player);
+	h = fabs(k * dx) * y_dir;
+	l = fabs(dy / k) * x_dir;
 	while (1)
 	{
-		if (distance_sq(colx, pos) > distance_sq(coly, pos))
+		// printf("k: %f, dx: %f, dy: %f, x: %f, y: %f\n", k, dx, dy, player.x, player.y);
+		if (fabs(h) > fabs(dy))
 		{
-			if (check(coly, map))
-				return (coly);
-			coly.y += y_step;
-			coly.x += get_x(fabs(pos.y - coly.y), dir);
-		}
+			draw_square(3, player.x + l, player.y + dy, (*datay)->params);
+			if (check(player.x + l, player.y + dy, map))
+				return ((t_point){.x = player.x + l, .y = player.y + dy, .color = 0x00ff00});
+			dy += SIDE * y_dir;
+			l += SIDE * x_dir / fabs(k);
+
+		}//changed SIDE to 1
 		else
 		{
-			if (check(colx, map))
-				return (colx);
-			colx.x += x_step;
-			colx.y += get_y(fabs(pos.x - colx.x), dir);
+			draw_square(3, player.x + dx, player.y + l, (*datay)->params);
+			if (check(player.x + dx, player.y + l, map))
+				return ((t_point){.x = player.x + dx, .y = player.y + l, .color = 0x00ff00});
+			dx += SIDE * x_dir;
+			h += SIDE * y_dir * fabs(k);
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 	char	**map = [

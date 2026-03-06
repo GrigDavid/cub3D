@@ -1,4 +1,4 @@
-CC						=	clang-19 #this is for mlx to work on your computers, change before evaluation
+# CC						=	clang-19 #this is for mlx to work on your computers, change before evaluation
 CFLAGS					=	-Wall -Wextra -Werror -I libft -I includes -I minilibx-linux -g3
 RM						=	rm -f
 NAME					=	cub3D

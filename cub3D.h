@@ -71,6 +71,7 @@ typedef struct s_line
 	int	height;
 }	t_line;
 
+extern t_data	**datay;
 // int		cast_ray(t_player	*player, char	**map);
 //t_vector	cast_ray(t_player	*player, char	**map);
 void		draw_ray_contact(int side, int x, int y, t_params *p);

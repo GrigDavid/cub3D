@@ -37,14 +37,14 @@ int	move_square(t_data *data)
 		player->x += STEP;
 	if (data->keypress->left && !data->keypress->right)
 	{
-		rotate(player, -0.01);
+		rotate(player, -0.001);
 	}
 	if (data->keypress->right && !data->keypress->left)
 	{
-		rotate(player, 0.01);
+		rotate(player, 0.001);
 	}
 	draw_square(10, player->x, player->y, p);
-	//draw_raypoint(data);
+	draw_raypoint(data);
 	draw_square(5, player->x + player->vector.x * 100, player->y + player->vector.y * 100, p);//camera
 	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
 	return (1);
@@ -111,19 +111,22 @@ int	key_release(int keycode, t_data *data)
 	}
 	return (0);
 }
-
+t_data ** datay;
 int	main(int argc, char **argv)
 {
-	t_data	*data;
+	//data is declared as global for testing purposes only. change datay to data and remove extern for .h when done
+	//t_data *data;
 
+	datay = malloc(sizeof(t_data *));
 	(void)argc;
 	(void)argv;
-	if (init_data(&data))
+	if (init_data(datay))
 		return (1);
-	draw_walls(data);
-	mlx_hook(data->params->win, KeyPress, KeyPressMask, key_press, data);
-	mlx_hook(data->params->win, KeyRelease, KeyReleaseMask, key_release, data);
-	mlx_loop_hook(data->params->mlx, move_square, data);
-	mlx_loop(data->params->mlx);
+	write(1, "hasa\n", 5);
+	draw_walls(*datay);
+	mlx_hook((*datay)->params->win, KeyPress, KeyPressMask, key_press, *datay);
+	mlx_hook((*datay)->params->win, KeyRelease, KeyReleaseMask, key_release, *datay);
+	mlx_loop_hook((*datay)->params->mlx, move_square, *datay);
+	mlx_loop((*datay)->params->mlx);
 	return (0);
 }
