@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/02/14 14:55:20 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/03/07 18:26:12 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,92 +24,6 @@ int	check_valid_input_file(char *filename)
 	return (1);
 }
 
-static void	init_id(t_flags *flags)
-{
-	flags->id->so = 0;
-	flags->id->no = 0;
-	flags->id->ea = 0;
-	flags->id->we = 0;
-	flags->id->c = 0;
-	flags->id->f = 0;
-}
-
-int	ft_is_whitespace(char c)
-{
-	return (c == 32);
-}
-
-int	only_nl(char *str)
-{
-	int	i;
-
-	while (ft_is_whitespace(str[i]))
-		i++;
-	if (str[i] != 0)
-		return (0);
-	return (1);
-}
-
-int	is_id(char *s, t_flags *flags)
-{
-	if (!ft_strncmp(s, "NO", 2))
-		return (flags->id->no = 1, 1);
-	else if (!ft_strncmp(s, "SO", 2))
-		return (flags->id->so = 1, 1);
-	else if (!ft_strncmp(s, "WE", 2))
-		return (flags->id->we = 1, 1);
-	else if (!ft_strncmp(s, "EA", 2))
-		return (flags->id->ea = 1, 1);
-	else if (!ft_strncmp(s, "F", 1))
-		return (flags->id->f = 1, 1);
-	else if (!ft_strncmp(s, "C", 1))
-		return (flags->id->c = 1, 1);
-	return (0);
-}
-
-int	is_id_line(char *str, t_flags *flags)
-{
-	int	i;
-
-	while (ft_is_whitespace(str[i]))
-		i++;
-	if (is_id(&str[i], flags))
-		return (1);
-	return (0);
-}
-
-int	parse_id_line(char *str, t_flags *flags)
-{
-	int		i;
-	char	**tmp;
-
-	tmp = ft_split(str, ' ');
-	if (!tmp)
-		return (0);
-	if (tmp[0] && tmp[1] && tmp[2] == NULL)
-	{
-		
-	}
-	
-	i = 0;
-	if (flags->id->no)
-	{
-		
-	}
-	
-	else if (flags->id->so && !ft_strncmp(&str[i], "SO", 2))
-		return (1);
-	else if (flags->id->we && !ft_strncmp(&str[i], "WE", 2))
-		return (1);
-	else if (flags->id->ea && !ft_strncmp(&str[i], "EA", 2))
-		return (1);
-	else if (flags->id->f && !ft_strncmp(&str[i], "F", 1))
-		return (1);
-	else if (flags->id->c && !ft_strncmp(&str[i], "C", 1))
-		return (1);
-	return (0);
-}
-
 int	parse_map(int fd)
 {
 	///// add is_map_line is_id_line parse_map_line parse_id_line and make all flags just 1 structure
@@ -120,6 +34,7 @@ int	parse_map(int fd)
 	flags->id = (t_id *)malloc(sizeof(t_id));
 	flags->configs = (t_configs *)malloc(sizeof(t_configs));
 	init_id(flags);
+	init_configs(flags);
 	flags->line_count = 0;
 	while (1)
 	{
@@ -140,24 +55,24 @@ int	parse_map(int fd)
 				if (!parse_id_line(str, flags))
 					return (free(flags->id), free(flags), free(str), ft_putstr_fd("Error\nInvalid identifier line\n", 2), 0);
 			}
-			else if (is_map_line(str))
-			{
-				flags->map_started = 1;
-				if (!parse_map_line(str))
-					return (free(flags->id), free(flags), free(str), ft_putstr_fd("Error\nInvalid map line\n", 2), 0);
-			}
-			else
-				return (free(flags->id), free(flags), free(str), ft_putstr_fd("Error\nInvalid line before map\n", 2), 0);
+			// else if (is_map_line(str) && flags->ids_complete)
+			// {
+			// 	flags->map_started = 1;
+			// 	if (!parse_map_line(str))
+			// 		return (free(flags->id), free(flags), free(str), ft_putstr_fd("Error\nInvalid map line\n", 2), 0);
+			// }
+			// else
+			// 	return (free(flags->id), free(flags), free(str), ft_putstr_fd("Error\nInvalid line before map\n", 2), 0);
 		}
-		else if (flags->ids_complete)
-		{
-			if (!is_map_line(str))
-				return (free(flags->id), free(flags), free(str), ft_putstr_fd("Error\nInvalid map line\n", 2), 0);
-			if (!parse_map_line(str))
-				return (free(flags->id), free(flags), free(str), ft_putstr_fd("Error\nInvalid map line\n", 2), 0);
-		}
-		else
-			return (free(flags->id), free(flags), free(str), ft_putstr_fd("Error\nMissing Ids\n", 2), 0);
+		// else if (flags->ids_complete)
+		// {
+		// 	if (!is_map_line(str))
+		// 		return (free(flags->id), free(flags), free(str), ft_putstr_fd("Error\nInvalid map line\n", 2), 0);
+		// 	if (!parse_map_line(str))
+		// 		return (free(flags->id), free(flags), free(str), ft_putstr_fd("Error\nInvalid map line\n", 2), 0);
+		// }
+		// else
+		// 	return (free(flags->id), free(flags), free(str), ft_putstr_fd("Error\nMissing Ids\n", 2), 0);
 		free(str);
 	}
 	if (errno)
