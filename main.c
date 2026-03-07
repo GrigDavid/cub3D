@@ -37,11 +37,11 @@ int	move_square(t_data *data)
 		player->x += STEP;
 	if (data->keypress->left && !data->keypress->right)
 	{
-		rotate(player, -0.001);
+		rotate(player, -0.005);
 	}
 	if (data->keypress->right && !data->keypress->left)
 	{
-		rotate(player, 0.001);
+		rotate(player, 0.005);
 	}
 	draw_square(10, player->x, player->y, p);
 	draw_raypoint(data);

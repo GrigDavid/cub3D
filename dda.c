@@ -2,8 +2,9 @@
 
 int	check(double x, double y,  char **map)
 {
-	// printf("x: %f, y: %f\n", x  /SIDE, y / SIDE);
 	if (map[(int)(y / SIDE)][(int)(x / SIDE)] == '1')
+		return (1);
+	if (map[(int)((y - 1) / SIDE)][(int)((x - 1) / SIDE)] == '1')
 		return (1);
 	return (0);
 }
@@ -54,7 +55,7 @@ t_point	forward_y(t_player player, char **map)
 
 	step = SIDE;
 	player.y += get_dy(player);
-	printf("%f\n", player.y);
+	// printf("%f\n", player.y);
 	if (player.vector.y < 0)
 		step = -SIDE;
 	while (1)
@@ -86,20 +87,20 @@ t_point	dda(t_player player, char **map)
 	dx = get_dx(player);
 	h = fabs(k * dx);
 	l = fabs(dy / k);
+	printf("k: %f, h: %f, dx: %f, dy: %f\n", k, h, dx, dy);//
 	while (1)
 	{
-		if (h > dy)
+		if (h > fabs(dy))
 		{
-			draw_square(3, player.x + x_dir * l, player.y + dy, (*datay)->params);
+			// draw_square(3, player.x + x_dir * l, player.y + dy, (*datay)->params);
 			if (check(player.x + x_dir * l, player.y + dy, map))
 				return ((t_point){.x = player.x + x_dir * l, .y = player.y + dy, .color = 0x00ff00});
 			dy += SIDE * y_dir;
 			l += SIDE / k;
-
 		}
 		else
 		{
-			draw_square(3, player.x + dx, player.y + y_dir * h, (*datay)->params);
+			// draw_square(3, player.x + dx, player.y + y_dir * h, (*datay)->params);
 			if (check(player.x + dx, player.y + y_dir * h, map))
 				return ((t_point){.x = player.x + dx, .y = player.y + y_dir * h, .color = 0x00ff00});
 			dx += SIDE * x_dir;
