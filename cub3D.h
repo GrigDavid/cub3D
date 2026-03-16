@@ -3,6 +3,7 @@
 
 # define STEP 2
 # define SIDE 100
+# define FOV 0.6
 
 # include <unistd.h>
 # include <stdio.h>//
@@ -82,5 +83,7 @@ void		draw_line(t_params *p, t_line *line);
 void		delete_square(int side, int x, int y, t_params *p);
 void		draw_square(int side, int x, int y, t_params *p);
 t_point		dda(t_player player, char **map);
+void		draw_vert_line(t_params *p, t_line *line);
+void		imcameraaxper(t_data *data, char **map);
 
 #endif

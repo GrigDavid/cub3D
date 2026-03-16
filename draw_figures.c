@@ -87,7 +87,7 @@ void	delete_square(int side, int x, int y, t_params *p)
 	}
 }
 
-void	draw_line(t_params *p, t_line *line)
+void	draw_vert_line(t_params *p, t_line *line)
 {
 	int	height;
 	int	x;

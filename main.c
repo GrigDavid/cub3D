@@ -5,8 +5,9 @@
 
 void	draw_raypoint(t_data *data)
 {
-	t_point	p = dda(*(data->player), data->map);
-	draw_square(10, p.x, p.y, data->params);
+	// t_point	p = dda(*(data->player), data->map);
+	// draw_square(10, p.x, p.y, data->params);
+	imcameraaxper(data, data->map);
 }
 
 void	rotate(t_player *player, double thetta)
@@ -27,21 +28,21 @@ int	move_square(t_data *data)
 	p = data->params;
 	delete_square(10, player->x, player->y, data->params);
 	delete_square(5, player->x + player->vector.x * 100, player->y + player->vector.y * 100, p);//camera
-	if (data->keypress->w && data->map[((int)player->y - STEP) / SIDE][((int)player->x) / SIDE] != '1')
+	if (data->keypress->w && data->map[((int)player->y - STEP - 1) / SIDE][((int)player->x) / SIDE] != '1')
 		player->y -= STEP;
-	if (data->keypress->s && data->map[((int)player->y + STEP) / SIDE][((int)player->x) / SIDE] != '1')
+	if (data->keypress->s && data->map[((int)player->y + STEP + 1) / SIDE][((int)player->x) / SIDE] != '1')
 		player->y += STEP;
-	if (data->keypress->a && data->map[((int)player->y) / SIDE][((int)player->x - STEP) / SIDE] != '1')
+	if (data->keypress->a && data->map[((int)player->y) / SIDE][((int)player->x - STEP - 1) / SIDE] != '1')
 		player->x -= STEP;
-	if (data->keypress->d && data->map[((int)player->y) / SIDE][((int)player->x + STEP) / SIDE] != '1')
+	if (data->keypress->d && data->map[((int)player->y) / SIDE][((int)player->x + STEP + 1) / SIDE] != '1')
 		player->x += STEP;
 	if (data->keypress->left && !data->keypress->right)
 	{
-		rotate(player, -0.005);
+		rotate(player, -0.05);
 	}
 	if (data->keypress->right && !data->keypress->left)
 	{
-		rotate(player, 0.005);
+		rotate(player, 0.05);
 	}
 	draw_square(10, player->x, player->y, p);
 	draw_raypoint(data);
