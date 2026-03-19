@@ -68,8 +68,9 @@ typedef struct s_data
 
 typedef struct s_line
 {
-	int	x;
-	int	height;
+	int				x;
+	int				height;
+	unsigned int	color;
 }	t_line;
 
 extern t_data	**datay;

@@ -102,8 +102,13 @@ void	draw_vert_line(t_params *p, t_line *line)
 		height = p->win_height;
 	y = (p->win_height - line->height) / 2;
 	color = 0x00eaff;
+	int	i = 0;
+	while (i < y)//
+		*(unsigned int *)(p->img_addr + i++ * p->line_length + x * (p->bits_per_pixel / 8)) = 0x000000;
 	while (y++ < (p->win_height + line->height) / 2)
-		*(unsigned int *)(p->img_addr + y * p->line_length + x * (p->bits_per_pixel / 8)) = color;
+		*(unsigned int *)(p->img_addr + y * p->line_length + x * (p->bits_per_pixel / 8)) = line->color;
+	while (y++ < p->win_height - 1)//
+		*(unsigned int *)(p->img_addr + y * p->line_length + x * (p->bits_per_pixel / 8)) = 0x222222;
 }
 
 //void	draw_line_ab(t_mlx *mlx, t_vector *a, t_vector *b)
