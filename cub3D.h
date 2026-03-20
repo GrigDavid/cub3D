@@ -1,7 +1,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define STEP 3
+# define STEP 1
 # define SIDE 100
 # define FOV 0.6
 
@@ -26,6 +26,17 @@ typedef struct s_keypress
 	int	left;
 	int	right;
 }	t_keypress;
+
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		height;
+	int		width;
+}	t_texture;
 
 typedef struct s_params
 {
@@ -62,10 +73,12 @@ typedef struct s_player
 
 typedef struct s_data
 {
-	t_params	*params;
-	char		**map;
-	t_player	*player;
-	t_keypress	*keypress;
+	t_params		*params;
+	char			**map;
+	t_player		*player;
+	t_keypress		*keypress;
+	struct timeval	time;
+	t_texture		*texture;
 }	t_data;
 
 typedef struct s_line
@@ -74,6 +87,8 @@ typedef struct s_line
 	int				height;
 	unsigned int	color;
 }	t_line;
+
+
 
 extern t_data	**datay;
 // int		cast_ray(t_player	*player, char	**map);
@@ -86,7 +101,7 @@ void		draw_line(t_params *p, t_line *line);
 void		delete_square(int side, int x, int y, t_params *p);
 void		draw_square(int side, int x, int y, t_params *p);
 t_point		dda(t_player player, char **map);
-void		draw_vert_line(t_params *p, t_line *line);
+void		draw_vert_line(t_params *p, t_line *line, t_texture *texture);
 void		imcameraaxper(t_data *data, char **map);
 
 t_vector	sum_vector(t_vector a, t_vector b);
@@ -95,5 +110,9 @@ double		scalar_mul(t_vector a, t_vector b);
 t_vector	mul_vector_num(t_vector a, double k);
 t_vector	div_vector_num(t_vector a, double k);
 void		rotate(t_vector *vector, double thetta);
+
+long long	timedif(struct timeval t1, struct timeval t2);
+
+t_texture	*read_texture(t_data *data, char *filename);
 
 #endif

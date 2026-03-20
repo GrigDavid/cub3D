@@ -87,7 +87,19 @@ void	delete_square(int side, int x, int y, t_params *p)
 	}
 }
 
-void	draw_vert_line(t_params *p, t_line *line)
+void	draw_texture(t_params *p, t_line *line, t_texture *texture)
+{
+	int	y;
+	int	x;
+	
+	(void)texture;
+	y = (p->win_height - line->height) / 2;
+	x = line->x;
+	while (y++ < (p->win_height + line->height) / 2)
+		*(unsigned int *)(p->img_addr + y * p->line_length + x * (p->bits_per_pixel / 8)) = line->color;
+}
+
+void	draw_vert_line(t_params *p, t_line *line, t_texture *texture)
 {
 	int	height;
 	int	x;
@@ -107,8 +119,8 @@ void	draw_vert_line(t_params *p, t_line *line)
 	int	i = 0;
 	while (i < y)//
 		*(unsigned int *)(p->img_addr + i++ * p->line_length + x * (p->bits_per_pixel / 8)) = 0x000000;
-	while (y++ < (p->win_height + line->height) / 2)
-		*(unsigned int *)(p->img_addr + y * p->line_length + x * (p->bits_per_pixel / 8)) = line->color;
+	draw_texture(p, line, texture);
+	y = (p->win_height + line->height) / 2;
 	while (y++ < p->win_height - 1)//
 		*(unsigned int *)(p->img_addr + y * p->line_length + x * (p->bits_per_pixel / 8)) = 0x222222;
 }

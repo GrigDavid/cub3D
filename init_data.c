@@ -59,5 +59,6 @@ int	init_data(t_data **data)
 	(*data)->params->win = mlx_new_window((*data)->params->mlx, (*data)->params->win_width, (*data)->params->win_height, "cub3D");
 	(*data)->params->img = mlx_new_image((*data)->params->mlx, (*data)->params->win_width, (*data)->params->win_height);
 	(*data)->params->img_addr = mlx_get_data_addr((*data)->params->img, &((*data)->params->bits_per_pixel), &((*data)->params->line_length), &((*data)->params->endian));
+	gettimeofday(&(*data)->time, NULL);
 	return (0);
 }

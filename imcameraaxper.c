@@ -44,7 +44,7 @@ void	imcameraaxper(t_data *data, char **map)
 		line.color = color_from_distance(camera, p);
 		// line.height = data->params->win_height / distance(*(data->player), p) * SIDE;
 		line.height = data->params->win_height / scalar_mul((t_vector){.x = p.x - camera.x, .y = p.y - camera.y}, data->player->vector) * SIDE;
-		draw_vert_line(data->params, &line);
+		draw_vert_line(data->params, &line, data->texture);
 		(line.x)++;
 		camera.vector = sum_vector(camera.vector, step);
 	}

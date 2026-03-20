@@ -21,11 +21,12 @@ void	rotate_player(t_player *player, double thetta)
 
 int	move_square(t_data *data)
 {
-	t_params	*p;
-	t_player	*player;
-	t_player	tmp;
+	struct timeval	time;
+	t_params		*p;
+	t_player		*player;
+	t_player		tmp;
 
-
+	gettimeofday(&time, NULL);
 	player = data->player;
 	tmp.vector = player->vector;
 	tmp.x = player->x;
@@ -36,25 +37,25 @@ int	move_square(t_data *data)
 
 	if (data->keypress->w)
 	{
-		tmp.y += STEP * player->vector.y;
-		tmp.x += STEP * player->vector.x;
+		tmp.y += STEP * player->vector.y * timedif(time, data->time) / 20;
+		tmp.x += STEP * player->vector.x * timedif(time, data->time) / 20;
 	}
 	if (data->keypress->s)
 	{
 		
-		tmp.y -= STEP * player->vector.y;
-		tmp.x -= STEP * player->vector.x;
+		tmp.y -= STEP * player->vector.y * timedif(time, data->time) / 20;
+		tmp.x -= STEP * player->vector.x * timedif(time, data->time) / 20;
 	}
 	if (data->keypress->d)
 	{
 		
-		tmp.x -= STEP * player->vector.y;
-		tmp.y += STEP * player->vector.x;
+		tmp.x -= STEP * player->vector.y * timedif(time, data->time) / 20;
+		tmp.y += STEP * player->vector.x * timedif(time, data->time) / 20;
 	}
 	if (data->keypress->a)
 	{
-		tmp.x += STEP * player->vector.y;
-		tmp.y -= STEP * player->vector.x;
+		tmp.x += STEP * player->vector.y * timedif(time, data->time) / 20;
+		tmp.y -= STEP * player->vector.x * timedif(time, data->time) / 20;
 	}
 	if (data->map[(int)(tmp.y / SIDE)][(int)(tmp.x / SIDE)] != '1')
 	{
@@ -64,14 +65,14 @@ int	move_square(t_data *data)
 	
 	if (data->keypress->left && !data->keypress->right)
 	{
-		rotate_player(player, -0.05);
+		rotate_player(player, -0.05 * timedif(time, data->time) / 50);
 	}
 	if (data->keypress->right && !data->keypress->left)
 	{
-		rotate_player(player, 0.05);
+		rotate_player(player, 0.05 * timedif(time, data->time) / 50);
 	}
 	
-
+	data->time = time;
 	// draw_square(10, player->x, player->y, p);
 	draw_raypoint(data);
 	// draw_square(5, player->x + player->vector.x * 100, player->y + player->vector.y * 100, p);//camera
@@ -151,9 +152,10 @@ int	main(int argc, char **argv)
 	(void)argv;
 	if (init_data(datay))
 		return (1);
-	// write(1, "hasa\n", 5);
-	draw_walls(*datay);
-	printf("vector y : %f\n", (*datay)->player->vector.y);
+	(*datay)->texture = read_texture(*datay, "texture.xpm", &(*datay)->params->bits_per_pixel, &(*datay)->params->line_length, &(*datay)->params->endian);
+	if (!(*datay)->texture)
+		return (1);//add data destruction later
+	// draw_walls(*datay);
 	mlx_hook((*datay)->params->win, KeyPress, KeyPressMask, key_press, *datay);
 	mlx_hook((*datay)->params->win, KeyRelease, KeyReleaseMask, key_release, *datay);
 	mlx_loop_hook((*datay)->params->mlx, move_square, *datay);
