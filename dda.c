@@ -2,12 +2,12 @@
 
 int	check(double x, double y, t_vector vector, char **map)
 {
-	printf("x: %f, y: %f\n", x, y);
-	if (map[(int)(y / SIDE)][(int)(x / SIDE)] == '1' && vector.x >= 0 && vector.y >= 0)
+	// printf("x: %f, y: %f\n", x, y);
+	if (vector.x >= 0 && vector.y >= 0 && map[(int)(y / SIDE)][(int)(x / SIDE)] == '1')
 		return (1);
-	if (map[(int)((y - 1) / SIDE)][(int)((x) / SIDE)] == '1' && vector.x >= 0 && vector.y <= 0)
+	if (vector.x >= 0 && vector.y <= 0 && map[(int)((y - 1) / SIDE)][(int)((x) / SIDE)] == '1')
 		return (1);
-	if (map[(int)((y) / SIDE)][(int)((x - 1) / SIDE)] == '1' && vector.x <= 0 && vector.y >= 0)
+	if (vector.x <= 0 && vector.y >= 0 && map[(int)((y) / SIDE)][(int)((x - 1) / SIDE)] == '1')
 		return (1);
 	if (map[(int)((y - 1) / SIDE)][(int)((x - 1) / SIDE)] == '1')
 		return (1);

@@ -97,6 +97,8 @@ void	draw_vert_line(t_params *p, t_line *line)
 	x = line->x;
 	if (x < 0 || x >= p->win_width)
 		return ;
+	if (line->height >= p->win_height)
+		line->height = p->win_height - 1;
 	height = line->height;
 	if (height >= p->win_height)
 		height = p->win_height;

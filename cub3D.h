@@ -1,7 +1,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define STEP 2
+# define STEP 3
 # define SIDE 100
 # define FOV 0.6
 
@@ -14,6 +14,8 @@
 
 # include <X11/X.h>
 # include <X11/keysym.h>
+
+# include <sys/time.h>
 
 typedef struct s_keypress
 {
@@ -86,5 +88,12 @@ void		draw_square(int side, int x, int y, t_params *p);
 t_point		dda(t_player player, char **map);
 void		draw_vert_line(t_params *p, t_line *line);
 void		imcameraaxper(t_data *data, char **map);
+
+t_vector	sum_vector(t_vector a, t_vector b);
+t_vector	sub_vector(t_vector a, t_vector b);
+double		scalar_mul(t_vector a, t_vector b);
+t_vector	mul_vector_num(t_vector a, double k);
+t_vector	div_vector_num(t_vector a, double k);
+void		rotate(t_vector *vector, double thetta);
 
 #endif

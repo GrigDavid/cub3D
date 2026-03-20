@@ -10,7 +10,7 @@ void	draw_raypoint(t_data *data)
 	imcameraaxper(data, data->map);
 }
 
-void	rotate(t_player *player, double thetta)
+void	rotate_player(t_player *player, double thetta)
 {
 	double old_x = player->vector.x;
 	double old_y = player->vector.y;
@@ -23,30 +23,58 @@ int	move_square(t_data *data)
 {
 	t_params	*p;
 	t_player	*player;
+	t_player	tmp;
+
 
 	player = data->player;
+	tmp.vector = player->vector;
+	tmp.x = player->x;
+	tmp.y = player->y;
 	p = data->params;
 	delete_square(10, player->x, player->y, data->params);
 	delete_square(5, player->x + player->vector.x * 100, player->y + player->vector.y * 100, p);//camera
-	if (data->keypress->w && data->map[((int)player->y - STEP - 1) / SIDE][((int)player->x) / SIDE] != '1')
-		player->y -= STEP;
-	if (data->keypress->s && data->map[((int)player->y + STEP + 1) / SIDE][((int)player->x) / SIDE] != '1')
-		player->y += STEP;
-	if (data->keypress->a && data->map[((int)player->y) / SIDE][((int)player->x - STEP - 1) / SIDE] != '1')
-		player->x -= STEP;
-	if (data->keypress->d && data->map[((int)player->y) / SIDE][((int)player->x + STEP + 1) / SIDE] != '1')
-		player->x += STEP;
+
+	if (data->keypress->w)
+	{
+		tmp.y += STEP * player->vector.y;
+		tmp.x += STEP * player->vector.x;
+	}
+	if (data->keypress->s)
+	{
+		
+		tmp.y -= STEP * player->vector.y;
+		tmp.x -= STEP * player->vector.x;
+	}
+	if (data->keypress->d)
+	{
+		
+		tmp.x -= STEP * player->vector.y;
+		tmp.y += STEP * player->vector.x;
+	}
+	if (data->keypress->a)
+	{
+		tmp.x += STEP * player->vector.y;
+		tmp.y -= STEP * player->vector.x;
+	}
+	if (data->map[(int)(tmp.y / SIDE)][(int)(tmp.x / SIDE)] != '1')
+	{
+		player->x = tmp.x;
+		player->y = tmp.y;
+	}
+	
 	if (data->keypress->left && !data->keypress->right)
 	{
-		rotate(player, -0.05);
+		rotate_player(player, -0.05);
 	}
 	if (data->keypress->right && !data->keypress->left)
 	{
-		rotate(player, 0.05);
+		rotate_player(player, 0.05);
 	}
-	draw_square(10, player->x, player->y, p);
+	
+
+	// draw_square(10, player->x, player->y, p);
 	draw_raypoint(data);
-	draw_square(5, player->x + player->vector.x * 100, player->y + player->vector.y * 100, p);//camera
+	// draw_square(5, player->x + player->vector.x * 100, player->y + player->vector.y * 100, p);//camera
 	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
 	return (1);
 }
@@ -123,8 +151,9 @@ int	main(int argc, char **argv)
 	(void)argv;
 	if (init_data(datay))
 		return (1);
-	write(1, "hasa\n", 5);
+	// write(1, "hasa\n", 5);
 	draw_walls(*datay);
+	printf("vector y : %f\n", (*datay)->player->vector.y);
 	mlx_hook((*datay)->params->win, KeyPress, KeyPressMask, key_press, *datay);
 	mlx_hook((*datay)->params->win, KeyRelease, KeyReleaseMask, key_release, *datay);
 	mlx_loop_hook((*datay)->params->mlx, move_square, *datay);
