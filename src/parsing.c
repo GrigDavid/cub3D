@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/03/07 18:26:12 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/03/21 13:51:00 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	parse_map(int fd)
 			if (is_id_line(str, flags))
 			{
 				if (!parse_id_line(str, flags))
-					return (free(flags->id), free(flags), free(str), ft_putstr_fd("Error\nInvalid identifier line\n", 2), 0);
+					return (free(flags->id), free(flags), free(str), 0);
 			}
 			// else if (is_map_line(str) && flags->ids_complete)
 			// {
@@ -75,6 +75,7 @@ int	parse_map(int fd)
 		// 	return (free(flags->id), free(flags), free(str), ft_putstr_fd("Error\nMissing Ids\n", 2), 0);
 		free(str);
 	}
+	printf("NO: %s\nSO: %s\nWE: %s\nEA: %s\nF: %d\nC: %d\nline count: %d\n", flags->configs->no, flags->configs->so, flags->configs->we, flags->configs->ea, flags->configs->f, flags->configs->c, flags->line_count);
 	if (errno)
 		return (free(flags->id), free(flags), 0);
 	if (!flags->line_count || !flags->seen_content)

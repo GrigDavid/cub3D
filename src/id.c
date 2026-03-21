@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 15:14:30 by rababaya          #+#    #+#             */
-/*   Updated: 2026/03/07 18:44:16 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/03/21 13:43:34 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,32 @@ int	safe_place(t_configs *config, char **spl, char config_name)
 	else if (config_name == 'W')
 		config->we = target;
 	free_split(spl);
+	return (1);
+}
+
+int	color_place(t_configs *config, char **spl, char config_name)
+{
+	int		rgb[3];
+	char	**color_split;
+
+	if (!textures_not_set(config) && !textures_are_complete(config))
+		return (free_split(spl), ft_putstr_fd("Error\nWrong config order", 2), 0);
+	if (spl[1] == NULL || spl[2] != NULL)
+		return (free_split(spl), ft_putstr_fd("Error\nInvalid color element count", 2), 0);
+	color_split = ft_split(spl[1], ',');
+	if (!color_split || !color_split[0] || !color_split[1] || !color_split[2] || color_split[3])
+		return (free_split(spl), free_split(color_split), ft_putstr_fd("Error\nInvalid color format", 2), 0);
+	rgb[0] = ft_atoi(color_split[0]);
+	rgb[1] = ft_atoi(color_split[1]);
+	rgb[2] = ft_atoi(color_split[2]);
+	if (rgb[0] < 0 || rgb[0] > 255 || rgb[1] < 0 || rgb[1] > 255 || rgb[2] < 0 || rgb[2] > 255)
+		return (free_split(spl), free_split(color_split), ft_putstr_fd("Error\nColor values must be between 0 and 255", 2), 0);
+	if (config_name == 'F')
+		config->f = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+	else if (config_name == 'C')
+		config->c = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+	free_split(spl);
+	free_split(color_split);
 	return (1);
 }
 
@@ -66,13 +92,14 @@ int	is_id_line(char *str, t_flags *flags)
 
 int	parse_id_line(char *str, t_flags *flags)
 {
-	int		i;
 	char	**tmp;
 
 	tmp = ft_split(str, ' ');
 	if (!tmp || !tmp[0])
 		return (0);
-	i = 0;
+	if (flags->id->no && flags->id->so && flags->id->we &&
+			flags->id->ea && flags->id->f && flags->id->c)
+		flags->ids_complete = 1;
 	if (flags->id->no && !flags->configs->no)
 		return (safe_place(flags->configs, tmp, 'N'));
 	else if (flags->id->so && !flags->configs->so)
@@ -82,9 +109,9 @@ int	parse_id_line(char *str, t_flags *flags)
 	else if (flags->id->ea && !flags->configs->ea)
 		return (safe_place(flags->configs, tmp, 'E'));
 	else if (flags->id->f && flags->configs->f == -1)
-		return (safe_place(flags->configs, tmp, 'F')); /////
+		return (color_place(flags->configs, tmp, 'F'));
 	else if (flags->id->c && flags->configs->c == -1)
-		return (safe_place(flags->configs, tmp, 'C')); /////
+		return (color_place(flags->configs, tmp, 'C'));
 	free_split(tmp);
-	return (0);
+	return (ft_putstr_fd("Error\nInvalid identifier line\n", 2), 0);
 }
