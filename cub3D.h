@@ -101,7 +101,7 @@ void		draw_line(t_params *p, t_line *line);
 void		delete_square(int side, int x, int y, t_params *p);
 void		draw_square(int side, int x, int y, t_params *p);
 t_point		dda(t_player player, char **map);
-void		draw_vert_line(t_params *p, t_line *line, t_texture *texture);
+void		draw_vert_line(t_data *data, t_line *line, t_point p);
 void		imcameraaxper(t_data *data, char **map);
 
 t_vector	sum_vector(t_vector a, t_vector b);

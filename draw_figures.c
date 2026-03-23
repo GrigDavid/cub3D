@@ -87,42 +87,62 @@ void	delete_square(int side, int x, int y, t_params *p)
 	}
 }
 
-void	draw_texture(t_params *p, t_line *line, t_texture *texture)
+unsigned int	*get_pixel(int x, int y, t_params *p)
 {
-	int	y;
-	int	x;
-	
-	(void)texture;
-	y = (p->win_height - line->height) / 2;
-	x = line->x;
-	while (y++ < (p->win_height + line->height) / 2)
-		*(unsigned int *)(p->img_addr + y * p->line_length + x * (p->bits_per_pixel / 8)) = line->color;
+	return ((unsigned int *)(p->img_addr + y * p->line_length + x * (p->bits_per_pixel / 8)));
+}
+unsigned int	*get_txt_pixel(int x, int y, t_texture *p)
+{
+	return ((unsigned int *)(p->addr + y * p->line_length + x * (p->bits_per_pixel / 8)));
 }
 
-void	draw_vert_line(t_params *p, t_line *line, t_texture *texture)
+void	draw_texture(t_data *data, t_line *line, t_point p)
+{
+	int			y;
+	int			txt_x;
+	t_params	*pr;
+	double		step;
+	double		txt_y;
+
+	step = line->height / data->texture->height;
+	pr = data->params;
+	y = (pr->win_height - line->height) / 2;
+	txt_x = (int)p.x % data->texture->width;
+	txt_y = 0;
+	while (y < (pr->win_height + line->height) / 2 && y < pr->win_height && txt_y < data->texture->height)
+	{
+		*(unsigned int *)get_pixel(line->x, y, data->params) = *(unsigned int *)get_txt_pixel(txt_x, (int)txt_y, data->texture);
+		y++;
+		txt_y += step;
+	}
+}
+
+void	draw_vert_line(t_data *data, t_line *line, t_point p)
 {
 	int	height;
+	t_params	*pr;
 	int	x;
 	int	y;
 	int	color;
 
+	pr = data->params;
 	x = line->x;
-	if (x < 0 || x >= p->win_width)
+	if (x < 0 || x >= pr->win_width)
 		return ;
-	if (line->height >= p->win_height)
-		line->height = p->win_height - 1;
+	if (line->height >= pr->win_height)
+		line->height = pr->win_height - 1;
 	height = line->height;
-	if (height >= p->win_height)
-		height = p->win_height;
-	y = (p->win_height - line->height) / 2;
+	if (height >= pr->win_height)
+		height = pr->win_height;
+	y = (pr->win_height - line->height) / 2;
 	color = 0x00eaff;
 	int	i = 0;
 	while (i < y)//
-		*(unsigned int *)(p->img_addr + i++ * p->line_length + x * (p->bits_per_pixel / 8)) = 0x000000;
-	draw_texture(p, line, texture);
-	y = (p->win_height + line->height) / 2;
-	while (y++ < p->win_height - 1)//
-		*(unsigned int *)(p->img_addr + y * p->line_length + x * (p->bits_per_pixel / 8)) = 0x222222;
+		*(unsigned int *)(pr->img_addr + i++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = 0x000000;
+	draw_texture(data, line, p);
+	y = (pr->win_height + line->height) / 2;
+	while (y++ < pr->win_height - 1)//
+		*(unsigned int *)(pr->img_addr + y * pr->line_length + x * (pr->bits_per_pixel / 8)) = 0x222222;
 }
 
 //void	draw_line_ab(t_mlx *mlx, t_vector *a, t_vector *b)
