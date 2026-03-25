@@ -104,12 +104,17 @@ void	draw_texture(t_data *data, t_line *line, t_point p)
 	double		step;
 	double		txt_y;
 
-	step = line->height / data->texture->height;
+	
 	pr = data->params;
-	y = (pr->win_height - line->height) / 2;
+	y = (pr->win_height - line->height) / 2.0;
+	if (line->height > data->params->win_height)
+		y = 0;
 	txt_x = (int)p.x % data->texture->width;
+	step = data->texture->height / line->height;
 	txt_y = 0;
-	while (y < (pr->win_height + line->height) / 2 && y < pr->win_height && txt_y < data->texture->height)
+	if (line->height > data->params->win_height)
+		txt_y = (line->height - data->params->win_height) / 2.0 * step;
+	while (y < pr->win_height && txt_y < data->texture->height)
 	{
 		*(unsigned int *)get_pixel(line->x, y, data->params) = *(unsigned int *)get_txt_pixel(txt_x, (int)txt_y, data->texture);
 		y++;
@@ -119,33 +124,24 @@ void	draw_texture(t_data *data, t_line *line, t_point p)
 
 void	draw_vert_line(t_data *data, t_line *line, t_point p)
 {
-	int	height;
+	int			height;
 	t_params	*pr;
-	int	x;
-	int	y;
-	int	color;
+	int			x;
+	int			y;
 
 	pr = data->params;
 	x = line->x;
 	if (x < 0 || x >= pr->win_width)
 		return ;
-	if (line->height >= pr->win_height)
-		line->height = pr->win_height - 1;
 	height = line->height;
 	if (height >= pr->win_height)
 		height = pr->win_height;
-	y = (pr->win_height - line->height) / 2;
-	color = 0x00eaff;
+	y = (pr->win_height - height) / 2;
 	int	i = 0;
-	while (i < y)//
-		*(unsigned int *)(pr->img_addr + i++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = 0x000000;
+	while (i < y)
+		*(unsigned int *)(pr->img_addr + i++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = 0x444444;
 	draw_texture(data, line, p);
-	y = (pr->win_height + line->height) / 2;
-	while (y++ < pr->win_height - 1)//
-		*(unsigned int *)(pr->img_addr + y * pr->line_length + x * (pr->bits_per_pixel / 8)) = 0x222222;
+	y = (pr->win_height + height) / 2;
+	while (y < pr->win_height)
+		*(unsigned int *)(pr->img_addr + y++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = 0x222222;
 }
-
-//void	draw_line_ab(t_mlx *mlx, t_vector *a, t_vector *b)
-//{
-
-//}
