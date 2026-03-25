@@ -152,7 +152,7 @@ int	main(int argc, char **argv)
 	(void)argv;
 	if (init_data(datay))
 		return (1);
-	(*datay)->texture = read_texture(*datay, "chess.xpm");
+	(*datay)->texture = read_texture(*datay, "grass.xpm");
 	if (!(*datay)->texture)
 		return (1);//add data destruction later
 	// draw_walls(*datay);

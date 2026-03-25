@@ -106,14 +106,14 @@ void	draw_texture(t_data *data, t_line *line, t_point p)
 
 	
 	pr = data->params;
-	y = (pr->win_height - line->height) / 2.0;
+	y = (pr->win_height - line->height) / 2;
 	if (line->height > data->params->win_height)
 		y = 0;
 	txt_x = (int)p.x % data->texture->width;
-	step = data->texture->height / line->height;
+	step = (double)data->texture->height / (double)line->height;
 	txt_y = 0;
 	if (line->height > data->params->win_height)
-		txt_y = (line->height - data->params->win_height) / 2.0 * step;
+		txt_y = (line->height - data->params->win_height) / 2;
 	while (y < pr->win_height && txt_y < data->texture->height)
 	{
 		*(unsigned int *)get_pixel(line->x, y, data->params) = *(unsigned int *)get_txt_pixel(txt_x, (int)txt_y, data->texture);
