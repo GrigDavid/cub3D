@@ -1,10 +1,18 @@
 #include "cub3D.h"
 
-
-
 double	distance(t_player player, t_point p)
 {
 	return (hypot(player.x - p.x, player.y - p.y));
+}
+
+t_vector	normalise(t_vector v)
+{
+	double	len;
+
+	len = hypot(v.x, v.y);
+	v.x /= len;
+	v.y /= len;
+	return (v);
 }
 
 unsigned int	color_from_distance(t_player player, t_point p)
@@ -41,10 +49,10 @@ void	imcameraaxper(t_data *data, char **map)
 	{
 		p = dda(camera, map);
 		// draw_square(10, p.x, p.y, data->params);
-		line.color = color_from_distance(camera, p);
+		// line.color = color_from_distance(camera, p);
 		// line.height = data->params->win_height / distance(*(data->player), p) * SIDE;
 		line.height = data->params->win_height / scalar_mul((t_vector){.x = p.x - camera.x, .y = p.y - camera.y}, data->player->vector) * SIDE;
-		draw_vert_line(data, &line, p);
+		draw_vert_line(data, line, p);
 		(line.x)++;
 		camera.vector = sum_vector(camera.vector, step);
 	}

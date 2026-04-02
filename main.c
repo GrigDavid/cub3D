@@ -22,63 +22,122 @@ void	rotate_player(t_player *player, double thetta)
 int	move_square(t_data *data)
 {
 	struct timeval	time;
-	t_params		*p;
-	t_player		*player;
+	t_player		*p;
 	t_player		tmp;
+	double			dt;
+	double			speed;
+	double			rot_speed;
 
 	gettimeofday(&time, NULL);
-	player = data->player;
-	tmp.vector = player->vector;
-	tmp.x = player->x;
-	tmp.y = player->y;
-	p = data->params;
-	delete_square(10, player->x, player->y, data->params);
-	delete_square(5, player->x + player->vector.x * 100, player->y + player->vector.y * 100, p);//camera
+	p = data->player;
 
+	dt = timedif(time, data->time);
+	speed = STEP * dt / 20.0;
+	rot_speed = 0.05 * dt / 50.0;
+	tmp = *p;
+
+	// 🔹 forward / backward
 	if (data->keypress->w)
 	{
-		tmp.y += STEP * player->vector.y * timedif(time, data->time) / 20;
-		tmp.x += STEP * player->vector.x * timedif(time, data->time) / 20;
+		tmp.x += p->vector.x * speed;
+		tmp.y += p->vector.y * speed;
 	}
 	if (data->keypress->s)
 	{
-		
-		tmp.y -= STEP * player->vector.y * timedif(time, data->time) / 20;
-		tmp.x -= STEP * player->vector.x * timedif(time, data->time) / 20;
+		tmp.x -= p->vector.x * speed;
+		tmp.y -= p->vector.y * speed;
+	}
+	// 🔹 strafing (perpendicular to direction)
+	if (data->keypress->a)
+	{
+		tmp.x += p->vector.y * speed;
+		tmp.y -= p->vector.x * speed;
 	}
 	if (data->keypress->d)
 	{
-		
-		tmp.x -= STEP * player->vector.y * timedif(time, data->time) / 20;
-		tmp.y += STEP * player->vector.x * timedif(time, data->time) / 20;
+		tmp.x -= p->vector.y * speed;
+		tmp.y += p->vector.x * speed;
 	}
-	if (data->keypress->a)
-	{
-		tmp.x += STEP * player->vector.y * timedif(time, data->time) / 20;
-		tmp.y -= STEP * player->vector.x * timedif(time, data->time) / 20;
-	}
-	if (data->map[(int)(tmp.y / SIDE)][(int)(tmp.x / SIDE)] != '1')
-	{
-		player->x = tmp.x;
-		player->y = tmp.y;
-	}
-	
+	/*	if (data->map[(int)(p->y / SIDE)][(int)((tmp.x - 5) / SIDE)] != '1')
+		if (data->map[(int)(p->y / SIDE)][(int)((tmp.x + 5) / SIDE)] != '1')
+			p->x = tmp.x;
+	if (data->map[(int)((tmp.y - 5) / SIDE)][(int)(p->x / SIDE)] != '1')
+		if (data->map[(int)((tmp.y + 5) / SIDE)][(int)(p->x / SIDE)] != '1')
+			p->y = tmp.y;*/
+	if (data->map[(int)(p->y / SIDE)][(int)(tmp.x / SIDE)] != '1')
+		p->x = tmp.x;
+	if (data->map[(int)(tmp.y / SIDE)][(int)(p->x / SIDE)] != '1')
+		p->y = tmp.y;
 	if (data->keypress->left && !data->keypress->right)
-	{
-		rotate_player(player, -0.05 * timedif(time, data->time) / 50);
-	}
+		rotate_player(p, -rot_speed);
 	if (data->keypress->right && !data->keypress->left)
-	{
-		rotate_player(player, 0.05 * timedif(time, data->time) / 50);
-	}
-	
+		rotate_player(p, rot_speed);
 	data->time = time;
-	// draw_square(10, player->x, player->y, p);
 	draw_raypoint(data);
-	// draw_square(5, player->x + player->vector.x * 100, player->y + player->vector.y * 100, p);//camera
-	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
-	return (1);
+	mlx_put_image_to_window(data->params->mlx, data->params->win, data->params->img, 0, 0);
+	return (0);
 }
+
+// int	move_square(t_data *data)
+// {
+// 	struct timeval	time;
+// 	t_params		*p;
+// 	t_player		*player;
+// 	t_player		tmp;
+
+// 	gettimeofday(&time, NULL);
+// 	player = data->player;
+// 	tmp.vector = player->vector;
+// 	tmp.x = player->x;
+// 	tmp.y = player->y;
+// 	p = data->params;
+// 	delete_square(10, player->x, player->y, data->params);
+// 	delete_square(5, player->x + player->vector.x * 100, player->y + player->vector.y * 100, p);//camera
+
+// 	if (data->keypress->w)
+// 	{
+// 		tmp.y += STEP * player->vector.y * timedif(time, data->time) / 20;
+// 		tmp.x += STEP * player->vector.x * timedif(time, data->time) / 20;
+// 	}
+// 	if (data->keypress->s)
+// 	{
+		
+// 		tmp.y -= STEP * player->vector.y * timedif(time, data->time) / 20;
+// 		tmp.x -= STEP * player->vector.x * timedif(time, data->time) / 20;
+// 	}
+// 	if (data->keypress->d)
+// 	{
+		
+// 		tmp.x -= STEP * player->vector.y * timedif(time, data->time) / 20;
+// 		tmp.y += STEP * player->vector.x * timedif(time, data->time) / 20;
+// 	}
+// 	if (data->keypress->a)
+// 	{
+// 		tmp.x += STEP * player->vector.y * timedif(time, data->time) / 20;
+// 		tmp.y -= STEP * player->vector.x * timedif(time, data->time) / 20;
+// 	}
+// 	if (data->map[(int)(tmp.y / SIDE)][(int)(tmp.x / SIDE)] != '1')
+// 	{
+// 		player->x = tmp.x;
+// 		player->y = tmp.y;
+// 	}
+	
+// 	if (data->keypress->left && !data->keypress->right)
+// 	{
+// 		rotate_player(player, -0.05 * timedif(time, data->time) / 50);
+// 	}
+// 	if (data->keypress->right && !data->keypress->left)
+// 	{
+// 		rotate_player(player, 0.05 * timedif(time, data->time) / 50);
+// 	}
+	
+// 	data->time = time;
+// 	draw_square(10, player->x, player->y, p);
+// 	draw_raypoint(data);
+// 	draw_square(5, player->x + player->vector.x * 100, player->y + player->vector.y * 100, p);//camera
+// 	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
+// 	return (1);
+// }
 
 int	key_press(int keycode, t_data *data)
 {
