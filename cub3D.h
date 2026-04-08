@@ -1,7 +1,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define STEP 1
+# define STEP 4
 # define SIDE 100
 # define FOV 0.6
 
@@ -16,6 +16,14 @@
 # include <X11/keysym.h>
 
 # include <sys/time.h>
+
+enum direction
+{
+	N = 0,
+	E = 1,
+	W = 2,
+	S = 3
+};
 
 typedef struct s_keypress
 {
@@ -78,7 +86,9 @@ typedef struct s_data
 	t_player		*player;
 	t_keypress		*keypress;
 	struct timeval	time;
-	t_texture		*texture;
+	t_texture		*texture[4];
+	unsigned int	top_color;
+	unsigned int	floor_color;
 }	t_data;
 
 typedef struct s_line
@@ -90,7 +100,7 @@ typedef struct s_line
 
 
 
-extern t_data	**datay;
+// extern t_data	**datay;
 // int		cast_ray(t_player	*player, char	**map);
 //t_vector	cast_ray(t_player	*player, char	**map);
 void		draw_ray_contact(int side, int x, int y, t_params *p);

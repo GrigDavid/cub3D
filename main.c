@@ -200,24 +200,32 @@ int	key_release(int keycode, t_data *data)
 	}
 	return (0);
 }
-t_data ** datay;
 int	main(int argc, char **argv)
 {
 	//data is declared as global for testing purposes only. change datay to data and remove extern for .h when done
-	//t_data *data;
+	t_data *data;
 
-	datay = malloc(sizeof(t_data *));
+	data = malloc(sizeof(t_data *));
 	(void)argc;
 	(void)argv;
-	if (init_data(datay))
+	if (init_data(&data))
 		return (1);
-	(*datay)->texture = read_texture(*datay, "grass.xpm");
-	if (!(*datay)->texture)
+	data->texture[N] = read_texture(data, "grass.xpm");
+	if (!data->texture[N])
 		return (1);//add data destruction later
-	// draw_walls(*datay);
-	mlx_hook((*datay)->params->win, KeyPress, KeyPressMask, key_press, *datay);
-	mlx_hook((*datay)->params->win, KeyRelease, KeyReleaseMask, key_release, *datay);
-	mlx_loop_hook((*datay)->params->mlx, move_square, *datay);
-	mlx_loop((*datay)->params->mlx);
+	
+	data->texture[S] = read_texture(data, "jake.xpm");
+	if (!data->texture[S])
+		return (1);//add data destruction later
+	data->texture[E] = read_texture(data, "texture.xpm");
+	if (!data->texture[E])
+		return (1);//add data destruction later
+	data->texture[W] = read_texture(data, "chess.xpm");
+	if (!data->texture[W])
+		return (1);//add data destruction later
+	mlx_hook(data->params->win, KeyPress, KeyPressMask, key_press, data);
+	mlx_hook(data->params->win, KeyRelease, KeyReleaseMask, key_release, data);
+	mlx_loop_hook(data->params->mlx, move_square, data);
+	mlx_loop(data->params->mlx);
 	return (0);
 }

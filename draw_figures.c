@@ -96,7 +96,7 @@ unsigned int	*get_txt_pixel(int x, int y, t_texture *p)
 	return ((unsigned int *)(p->addr + y * p->line_length + x * (p->bits_per_pixel / 8)));
 }
 
-int	get_texture_x(t_data *data, t_point p)
+int	get_texture_x(t_texture *txt, t_point p)
 {
 	double local;
 double wall_x;
@@ -107,10 +107,10 @@ else
     local = fmod(p.x, 100.0);
 
 wall_x = local / 100.0;
-return((int)(wall_x * data->texture->width));
+return((int)(wall_x * txt->width));
 }
 
-void	draw_texture(t_data *data, t_line line, t_point p)
+void	draw_texture(t_data *data, t_line line, t_point p, t_texture *txt)
 {
 	int			y;
 	int			txt_x;
@@ -122,20 +122,36 @@ void	draw_texture(t_data *data, t_line line, t_point p)
 	y = (pr->win_height - line.height) / 2;
 	if (line.height > data->params->win_height)
 		y = 0;
-	txt_x = get_texture_x(data, p);
+	txt_x = get_texture_x(txt, p);
 	// txt_x = (int)p.y % data->texture->width;
 	// if (p.x == ceil(p.x))
 	// 	txt_x = (int)p.x % data->texture->width;
-	step = (double)data->texture->height / (double)line.height;
+	step = (double)txt->height / (double)line.height;
 	txt_y = 0;
 	if (line.height > data->params->win_height)
-		txt_y = (line.height - data->params->win_height) / 2;
-	while (y < pr->win_height && txt_y < data->texture->height)
+		txt_y = (line.height - data->params->win_height) * step / 2;
+	while (y < pr->win_height && txt_y < txt->height)
 	{
-		*(unsigned int *)get_pixel(line.x, y, data->params) = *(unsigned int *)get_txt_pixel(txt_x, (int)txt_y, data->texture);
+		ft_putstr_fd("es\n", 1);
+		*(unsigned int *)get_pixel(line.x, y, data->params) = *(unsigned int *)get_txt_pixel(txt_x, (int)txt_y, txt);
+		ft_putstr_fd("em\n", 1);
+		ft_putnbr_fd(y, 1);
 		y++;
 		txt_y += step;
 	}
+}
+
+int	txt_side(t_player *player, t_point p)
+{
+	if (p.x - floor(p.x) < 0.00000001 || p.x - ceil(p.x) > -0.00000001)
+	{
+		if (player->x > p.x)
+			return (W);
+		return (E);
+	}
+	if (player->y > p.y)
+		return (S);
+	return (N);
 }
 
 void	draw_vert_line(t_data *data, t_line line, t_point p)
@@ -156,7 +172,9 @@ void	draw_vert_line(t_data *data, t_line line, t_point p)
 	int	i = 0;
 	while (i < y)
 		*(unsigned int *)(pr->img_addr + i++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = 0x444444;
-	draw_texture(data, line, p);
+	// ft_putstr_fd("es\n", 1);
+	draw_texture(data, line, p, data->texture[txt_side(data->player, p)]);
+	// ft_putstr_fd("em\n", 1);
 	y = (pr->win_height + height) / 2;
 	while (y < pr->win_height)
 		*(unsigned int *)(pr->img_addr + y++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = 0x222222;
