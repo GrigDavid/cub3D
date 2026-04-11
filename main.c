@@ -210,18 +210,18 @@ int	main(int argc, char **argv)
 	(void)argv;
 	if (init_data(&data))
 		return (1);
-	data->texture[N] = read_texture(data, "grass.xpm");
-	if (!data->texture[N])
+	data->texture[NW] = read_texture(data, "grass.xpm");
+	if (!data->texture[NW])
 		return (1);//add data destruction later
 	
-	data->texture[S] = read_texture(data, "jake.xpm");
-	if (!data->texture[S])
+	data->texture[SW] = read_texture(data, "jake.xpm");
+	if (!data->texture[SW])
 		return (1);//add data destruction later
-	data->texture[E] = read_texture(data, "texture.xpm");
-	if (!data->texture[E])
+	data->texture[EW] = read_texture(data, "texture.xpm");
+	if (!data->texture[EW])
 		return (1);//add data destruction later
-	data->texture[W] = read_texture(data, "chess.xpm");
-	if (!data->texture[W])
+	data->texture[SW] = read_texture(data, "chess.xpm");
+	if (!data->texture[SW])
 		return (1);//add data destruction later
 	mlx_hook(data->params->win, KeyPress, KeyPressMask, key_press, data);
 	mlx_hook(data->params->win, KeyRelease, KeyReleaseMask, key_release, data);

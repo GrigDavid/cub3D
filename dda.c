@@ -1,17 +1,35 @@
 #include "cub3D.h"
 
-int	check(double x, double y, t_vector vector, char **map)
+// int	check(double x, double y, t_vector vector, char **map)
+// {
+// 	// printf("x: %f, y: %f\n", x, y);
+// 	if (vector.x >= 0 && vector.y >= 0 && map[(int)(y / SIDE)][(int)(x / SIDE)] == '1')
+// 		return (1);
+// 	if (vector.x >= 0 && vector.y <= 0 && map[(int)((y - 1) / SIDE)][(int)((x) / SIDE)] == '1')
+// 		return (1);
+// 	if (vector.x <= 0 && vector.y >= 0 && map[(int)((y) / SIDE)][(int)((x - 1) / SIDE)] == '1')
+// 		return (1);
+// 	if (map[(int)((y - 1) / SIDE)][(int)((x - 1) / SIDE)] == '1')
+// 		return (1);
+// 	return (0);
+// }
+
+int	check(double x, double y, t_vector v, char **map)
 {
-	// printf("x: %f, y: %f\n", x, y);
-	if (vector.x >= 0 && vector.y >= 0 && map[(int)(y / SIDE)][(int)(x / SIDE)] == '1')
-		return (1);
-	if (vector.x >= 0 && vector.y <= 0 && map[(int)((y - 1) / SIDE)][(int)((x) / SIDE)] == '1')
-		return (1);
-	if (vector.x <= 0 && vector.y >= 0 && map[(int)((y) / SIDE)][(int)((x - 1) / SIDE)] == '1')
-		return (1);
-	if (map[(int)((y - 1) / SIDE)][(int)((x - 1) / SIDE)] == '1')
-		return (1);
-	return (0);
+	int map_x;
+	int map_y;
+	double eps = 0.0001;
+
+	// Shift slightly depending on ray direction
+	if (v.x < 0)
+		x -= eps;
+	if (v.y < 0)
+		y -= eps;
+
+	map_x = (int)(x / SIDE);
+	map_y = (int)(y / SIDE);
+
+	return (map[map_y][map_x] == '1');
 }
 
 double	get_dx(t_player player)
@@ -19,10 +37,9 @@ double	get_dx(t_player player)
 	double	i;
 
 	i = 0;
-	while (i < player.x)
+	i = floor(player.x / SIDE) * SIDE;
+	if (player.vector.x > 0)
 		i += SIDE;
-	if (player.vector.x < 0)
-		i -= SIDE;
 	return (i - player.x);
 }
 
@@ -31,10 +48,9 @@ double	get_dy(t_player player)
 	double	i;
 
 	i = 0;
-	while (i < player.y)
+	i = floor(player.y / SIDE) * SIDE;
+	if (player.vector.y > 0)
 		i += SIDE;
-	if (player.vector.y < 0)
-		i -= SIDE;
 	return (i - player.y);
 }
 

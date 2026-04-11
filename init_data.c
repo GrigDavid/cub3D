@@ -13,8 +13,8 @@ int	map_parse(t_data *data)
 1000000001111100001;\
 1000000000000000001;\
 1111111111111111111", ';');
-	data->params->win_height = 10 * SIDE;
-	data->params->win_width = 19 * SIDE;
+	data->params->win_height = 1080;
+	data->params->win_width = 1920;
 	if (!data->map)
 		return (-1);
 	return (0);

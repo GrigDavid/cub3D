@@ -15,14 +15,15 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 
+# include <limits.h>
 # include <sys/time.h>
 
 enum direction
 {
-	N = 0,
-	E = 1,
-	W = 2,
-	S = 3
+	NW = 0,
+	EW = 1,
+	WW = 2,
+	SW = 3
 };
 
 typedef struct s_keypress

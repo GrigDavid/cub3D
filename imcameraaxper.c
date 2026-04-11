@@ -51,6 +51,7 @@ void	imcameraaxper(t_data *data, char **map)
 		// draw_square(10, p.x, p.y, data->params);
 		// line.color = color_from_distance(camera, p);
 		// line.height = data->params->win_height / distance(*(data->player), p) * SIDE;
+		// printf("%.17f, %d\n", camera.x, line.x);
 		line.height = data->params->win_height / scalar_mul((t_vector){.x = p.x - camera.x, .y = p.y - camera.y}, data->player->vector) * SIDE;
 		draw_vert_line(data, line, p);
 		(line.x)++;

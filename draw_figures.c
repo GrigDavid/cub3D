@@ -98,14 +98,13 @@ unsigned int	*get_txt_pixel(int x, int y, t_texture *p)
 
 int	get_texture_x(t_texture *txt, t_point p)
 {
-	double local;
-double wall_x;
+double	local;
+double	wall_x;
 
 if (p.x - floor(p.x) < p.y - floor(p.y)) // vertical wall
     local = fmod(p.y, 100.0);
 else
     local = fmod(p.x, 100.0);
-
 wall_x = local / 100.0;
 return((int)(wall_x * txt->width));
 }
@@ -130,12 +129,14 @@ void	draw_texture(t_data *data, t_line line, t_point p, t_texture *txt)
 	txt_y = 0;
 	if (line.height > data->params->win_height)
 		txt_y = (line.height - data->params->win_height) * step / 2;
+	// ft_putnbr_fd(line.height, 1);
 	while (y < pr->win_height && txt_y < txt->height)
 	{
-		ft_putstr_fd("es\n", 1);
+		// ft_putstr_fd("es\n", 1);
 		*(unsigned int *)get_pixel(line.x, y, data->params) = *(unsigned int *)get_txt_pixel(txt_x, (int)txt_y, txt);
-		ft_putstr_fd("em\n", 1);
-		ft_putnbr_fd(y, 1);
+		// ft_putstr_fd("em\n", 1);
+		// if (y > INT_MAX / 2 - 3)
+		// 	ft_putnbr_fd(y, 1);
 		y++;
 		txt_y += step;
 	}
@@ -146,12 +147,12 @@ int	txt_side(t_player *player, t_point p)
 	if (p.x - floor(p.x) < 0.00000001 || p.x - ceil(p.x) > -0.00000001)
 	{
 		if (player->x > p.x)
-			return (W);
-		return (E);
+			return (SW);
+		return (EW);
 	}
 	if (player->y > p.y)
-		return (S);
-	return (N);
+		return (SW);
+	return (NW);
 }
 
 void	draw_vert_line(t_data *data, t_line line, t_point p)
