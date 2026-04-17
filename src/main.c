@@ -7,7 +7,7 @@ void	draw_raypoint(t_data *data)
 {
 	// t_point	p = dda(*(data->player), data->map);
 	// draw_square(10, p.x, p.y, data->params);
-	imcameraaxper(data, data->map);
+	imcameraaxper(data, data->configs->map->map);
 }
 
 void	rotate_player(t_player *player, double thetta)
@@ -64,9 +64,9 @@ int	move_square(t_data *data)
 	if (data->map[(int)((tmp.y - 5) / SIDE)][(int)(p->x / SIDE)] != '1')
 		if (data->map[(int)((tmp.y + 5) / SIDE)][(int)(p->x / SIDE)] != '1')
 			p->y = tmp.y;*/
-	if (data->map[(int)(p->y / SIDE)][(int)(tmp.x / SIDE)] != '1')
+	if (data->configs->map->map[(int)(p->y / SIDE)][(int)(tmp.x / SIDE)] != '1')
 		p->x = tmp.x;
-	if (data->map[(int)(tmp.y / SIDE)][(int)(p->x / SIDE)] != '1')
+	if (data->configs->map->map[(int)(tmp.y / SIDE)][(int)(p->x / SIDE)] != '1')
 		p->y = tmp.y;
 	if (data->keypress->left && !data->keypress->right)
 		rotate_player(p, -rot_speed);
@@ -204,24 +204,32 @@ int	main(int argc, char **argv)
 {
 	//data is declared as global for testing purposes only. change datay to data and remove extern for .h when done
 	t_data *data;
+	int		fd;
 
-	data = malloc(sizeof(t_data *));
-	(void)argc;
-	(void)argv;
+	data = malloc(sizeof(t_data *)); /////////////
+	if (argc != 2)
+		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), 1);
+	if (!check_valid_file(argv[1], ".cub"))
+		return (ft_putstr_fd("Error\nInvalid input file\n", 2), 1);
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		return (ft_putstr_fd("Error\nCould not open input file\n", 2), 1);
 	if (init_data(&data))
 		return (1);
-	data->texture[NW] = read_texture(data, "grass.xpm");
+	data->configs = parse_cub(fd);
+	if (!data->configs)
+		return (close(fd), printf("debug"), 1);
+	data->texture[NW] = read_texture(data, "textures/grass.xpm");
 	if (!data->texture[NW])
 		return (1);//add data destruction later
-	
-	data->texture[SW] = read_texture(data, "jake.xpm");
+	data->texture[SW] = read_texture(data, "textures/jake.xpm");
 	if (!data->texture[SW])
 		return (1);//add data destruction later
-	data->texture[EW] = read_texture(data, "texture.xpm");
+	data->texture[EW] = read_texture(data, "textures/texture.xpm");
 	if (!data->texture[EW])
 		return (1);//add data destruction later
-	data->texture[SW] = read_texture(data, "chess.xpm");
-	if (!data->texture[SW])
+	data->texture[WW] = read_texture(data, "textures/chess.xpm");
+	if (!data->texture[WW])
 		return (1);//add data destruction later
 	mlx_hook(data->params->win, KeyPress, KeyPressMask, key_press, data);
 	mlx_hook(data->params->win, KeyRelease, KeyReleaseMask, key_release, data);

@@ -3,14 +3,17 @@
 
 # define STEP 4
 # define SIDE 100
-# define FOV 0.6
+# define FOV 0.8
 
 # include <unistd.h>
 # include <stdio.h>//
 # include <stdlib.h>
+# include <fcntl.h>
+# include <errno.h>
 # include <math.h>
-# include "./minilibx-linux/mlx.h"
-# include "libft/libft.h"
+# include "mlx.h"
+# include "libft.h"
+# include "pars.h"
 
 # include <X11/X.h>
 # include <X11/keysym.h>
@@ -82,14 +85,14 @@ typedef struct s_player
 
 typedef struct s_data
 {
-	t_params		*params;
-	char			**map;
-	t_player		*player;
-	t_keypress		*keypress;
-	struct timeval	time;
-	t_texture		*texture[4];
 	unsigned int	top_color;
 	unsigned int	floor_color;
+	struct timeval	time;
+	t_configs		*configs;
+	t_texture		*texture[4];
+	t_params		*params;
+	t_player		*player;
+	t_keypress		*keypress;
 }	t_data;
 
 typedef struct s_line
@@ -125,5 +128,10 @@ void		rotate(t_vector *vector, double thetta);
 long long	timedif(struct timeval t1, struct timeval t2);
 
 t_texture	*read_texture(t_data *data, char *filename);
+
+
+t_configs	*parse_cub(int fd);
+int			check_valid_file(char *filename, char *ext);
+
 
 #endif

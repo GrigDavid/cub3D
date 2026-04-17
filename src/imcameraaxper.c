@@ -15,17 +15,17 @@ t_vector	normalise(t_vector v)
 	return (v);
 }
 
-unsigned int	color_from_distance(t_player player, t_point p)
-{
-	unsigned int	color;
-	double			dist;
+// unsigned int	color_from_distance(t_player player, t_point p)
+// {
+// 	unsigned int	color;
+// 	double			dist;
 
-	dist = distance(player, p);
-	color = 0x406094;
-	// color *= dist / 10000;
-	return (color);
+// 	dist = distance(player, p);
+// 	color = 0x406094;
+// 	// color *= dist / 10000;
+// 	return (color);
 
-}
+// }
 
 void	imcameraaxper(t_data *data, char **map)
 {

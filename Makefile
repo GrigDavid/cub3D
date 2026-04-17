@@ -11,7 +11,15 @@ MLX_FILE				=	minilibx-linux/mlx_linux
 MLX_FLAGS				=	-Lminilibx-linux -l mlx_Linux -l Xext -l X11 -l m
 MAKE_MLX				=	make -C
 
-CUB3D_SRC				=	main.c init_data.c draw_walls.c draw_figures.c dda.c imcameraaxper.c vector_operations.c timedif.c read_texture.c
+CUB3D_SRC				=	src/dda.c \
+						src/draw_figures.c \
+						src/draw_walls.c \
+						src/imcameraaxper.c \
+						src/init_data.c \
+						src/main.c \
+						src/read_texture.c \
+						src/timedif.c \
+						src/vector_operations.c src/parsing.c src/utils.c src/parse_id.c src/parse_map.c src/checkers.c src/init.c
 
 CUB3D_OBJS				=	$(CUB3D_SRC:%.c=obj/%.o)
 

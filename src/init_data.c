@@ -1,24 +1,24 @@
 #include "cub3D.h"
 
-int	map_parse(t_data *data)
-{
-	//this is just a test function	
-	data->map = ft_split("1111111111111111111;\
-1000000000000000001;\
-1000000000000000001;\
-1000000000000100001;\
-1000000000000100001;\
-100000000N000100001;\
-1000000000000100001;\
-1000000001111100001;\
-1000000000000000001;\
-1111111111111111111", ';');
-	data->params->win_height = 1080;
-	data->params->win_width = 1920;
-	if (!data->map)
-		return (-1);
-	return (0);
-}
+// int	map_parse(t_data *data)
+// {
+// 	//this is just a test function	
+// 	data->map = ft_split("1111111111111111111;
+// 1000000000000000001;
+// 1000000000000000001;
+// 1000000000000100001;
+// 1000000000000100001;
+// 100000000N000100001;
+// 1000000000000100001;
+// 1000000001111100001;
+// 1000000000000000001;
+// 1111111111111111111", ';');
+// 	data->params->win_height = 1080;
+// 	data->params->win_width = 1920;
+// 	if (!data->map)
+// 		return (-1);
+// 	return (0);
+// }
 
 int	init_keypress(t_data *data)
 {
@@ -44,15 +44,17 @@ int	init_data(t_data **data)
 		return (free(*data), 1);
 	if (init_keypress(*data))
 		return (1);
-	(*data)->player->x = 600;
-	(*data)->player->y = 600;
+	(*data)->player->x = 2750;
+	(*data)->player->y = 350;
 	(*data)->player->vector.x = 0;
 	(*data)->player->vector.y = 1;
 	(*data)->params = (t_params *)malloc(sizeof(t_params));
 	if (!((*data)->params))
 		return (free((*data)->player), free(*data), 1);
-	if (map_parse(*data))
-		return (1);//
+	// if (map_parse(*data))
+	// 	return (1);//
+	(*data)->params->win_height = 1080;
+	(*data)->params->win_width = 1920;
 	(*data)->params->mlx = mlx_init();
 	if (!(*data)->params->mlx)
 		return (1);

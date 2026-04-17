@@ -6,7 +6,7 @@ void	draw_walls(t_data *data)
 	int		i;
 	int		j;
 
-	map = data->map;
+	map = data->configs->map->map;
 	i = 0;
 	while (map[i])
 	{
