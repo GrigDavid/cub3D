@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:07:55 by rababaya          #+#    #+#             */
-/*   Updated: 2026/02/07 16:33:17 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/04/17 22:23:23 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # define STEP 2
+# define SIDE 100
 
 # include <unistd.h>
 # include <stdio.h>//
@@ -69,6 +70,7 @@ typedef struct s_data
 	char		**map;
 	t_player	*player;
 	t_keypress	*keypress;
+	t_configs	*configs;
 }	t_data;
 
 typedef struct s_line
@@ -77,10 +79,10 @@ typedef struct s_line
 	int	height;
 }	t_line;
 
-int	cast_ray(t_player *player, char **map);
-int	init_data(t_data **data);
+int			cast_ray(t_player *player, char **map);
+int			init_data(t_data **data);
 
-int	parse_map(int fd);
-int	check_valid_input_file(char *filename);
+t_configs	*parse_cub(int fd);
+int			check_valid_file(char *filename, char *ext);
 
 #endif

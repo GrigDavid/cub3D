@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:07:45 by rababaya          #+#    #+#             */
-/*   Updated: 2026/02/14 13:40:30 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/04/17 22:12:17 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,10 +159,12 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		return (ft_putstr_fd("Error\nCould not open input file\n", 2), 1);
-	if (!parse_map(fd))
-		return (close(fd), 1);
 	if (init_data(&data))
 		return (1);
+	data->configs = parse_cub(fd);
+	if (!data->configs)
+		return (close(fd), 1);
+	
 	mlx_hook(data->mlx->win, KeyPress, KeyPressMask, key_press, data);
 	mlx_hook(data->mlx->win, KeyRelease, KeyReleaseMask, key_release, data);
 	mlx_loop_hook(data->mlx->mlx, move_square, data);

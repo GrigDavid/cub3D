@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   id.c                                               :+:      :+:    :+:   */
+/*   parse_id.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 15:14:30 by rababaya          #+#    #+#             */
-/*   Updated: 2026/03/21 13:43:34 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/04/17 22:06:28 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	safe_place(t_configs *config, char **spl, char config_name)
+int	place_conf(t_configs *config, char **spl, char config_name)
 {
 	char	*target;
 
@@ -35,7 +35,7 @@ int	safe_place(t_configs *config, char **spl, char config_name)
 	return (1);
 }
 
-int	color_place(t_configs *config, char **spl, char config_name)
+int	place_color(t_configs *config, char **spl, char config_name)
 {
 	int		rgb[3];
 	char	**color_split;
@@ -90,7 +90,7 @@ int	is_id_line(char *str, t_flags *flags)
 	return (0);
 }
 
-int	parse_id_line(char *str, t_flags *flags)
+int	parse_id_line(char *str, t_flags *flags, t_configs *configs)
 {
 	char	**tmp;
 
@@ -100,18 +100,18 @@ int	parse_id_line(char *str, t_flags *flags)
 	if (flags->id->no && flags->id->so && flags->id->we &&
 			flags->id->ea && flags->id->f && flags->id->c)
 		flags->ids_complete = 1;
-	if (flags->id->no && !flags->configs->no)
-		return (safe_place(flags->configs, tmp, 'N'));
-	else if (flags->id->so && !flags->configs->so)
-		return (safe_place(flags->configs, tmp, 'S'));
-	else if (flags->id->we && !flags->configs->we)
-		return (safe_place(flags->configs, tmp, 'W'));
-	else if (flags->id->ea && !flags->configs->ea)
-		return (safe_place(flags->configs, tmp, 'E'));
-	else if (flags->id->f && flags->configs->f == -1)
-		return (color_place(flags->configs, tmp, 'F'));
-	else if (flags->id->c && flags->configs->c == -1)
-		return (color_place(flags->configs, tmp, 'C'));
+	if (flags->id->no && !configs->no)
+		return (place_conf(configs, tmp, 'N'));
+	else if (flags->id->so && !configs->so)
+		return (place_conf(configs, tmp, 'S'));
+	else if (flags->id->we && !configs->we)
+		return (place_conf(configs, tmp, 'W'));
+	else if (flags->id->ea && !configs->ea)
+		return (place_conf(configs, tmp, 'E'));
+	else if (flags->id->f && configs->f == -1)
+		return (place_color(configs, tmp, 'F'));
+	else if (flags->id->c && configs->c == -1)
+		return (place_color(configs, tmp, 'C'));
 	free_split(tmp);
 	return (ft_putstr_fd("Error\nInvalid identifier line\n", 2), 0);
 }
