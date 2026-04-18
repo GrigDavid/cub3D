@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 20:03:05 by rababaya          #+#    #+#             */
-/*   Updated: 2026/04/17 23:16:00 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/04/18 14:13:17 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,13 @@ int	parse_map(t_configs *config, char **first_line, int fd)
 		return (0);
 	size = 1;
 	temp = head;
-	line = get_next_line(fd);
+	line = get_next_line(fd);//
 	while (line)
 	{
 		temp->next = new_node(&line);
 		temp = temp->next;
 		free(line);
-		line = get_next_line(fd);
+		line = get_next_line(fd);//
 		++size;
 	}
 	config->map = list_to_map(head, size);

@@ -202,13 +202,16 @@ int	key_release(int keycode, t_data *data)
 }
 int	main(int argc, char **argv)
 {
+	//no check for invalid symbols in map!!!!!!1
 	//data is declared as global for testing purposes only. change datay to data and remove extern for .h when done
 	t_data *data;
 	int		fd;
 
-	data = malloc(sizeof(t_data *)); /////////////
 	if (argc != 2)
 		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), 1);
+
+	data = malloc(sizeof(t_data *)); /////////////
+
 	if (!check_valid_file(argv[1], ".cub"))
 		return (ft_putstr_fd("Error\nInvalid input file\n", 2), 1);
 	fd = open(argv[1], O_RDONLY);
@@ -219,16 +222,16 @@ int	main(int argc, char **argv)
 	data->configs = parse_cub(fd);
 	if (!data->configs)
 		return (close(fd), printf("debug"), 1);
-	data->texture[NW] = read_texture(data, "textures/grass.xpm");
+	data->texture[NW] = read_texture(data, data->configs->no);
 	if (!data->texture[NW])
 		return (1);//add data destruction later
-	data->texture[SW] = read_texture(data, "textures/jake.xpm");
+	data->texture[SW] = read_texture(data, data->configs->so);
 	if (!data->texture[SW])
 		return (1);//add data destruction later
-	data->texture[EW] = read_texture(data, "textures/texture.xpm");
+	data->texture[EW] = read_texture(data, data->configs->ea);
 	if (!data->texture[EW])
 		return (1);//add data destruction later
-	data->texture[WW] = read_texture(data, "textures/chess.xpm");
+	data->texture[WW] = read_texture(data, data->configs->we);
 	if (!data->texture[WW])
 		return (1);//add data destruction later
 	mlx_hook(data->params->win, KeyPress, KeyPressMask, key_press, data);

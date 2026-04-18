@@ -3,7 +3,7 @@
 
 # define STEP 4
 # define SIDE 100
-# define FOV 1.0
+# define FOV 0.8
 
 # include <unistd.h>
 # include <stdio.h>//
