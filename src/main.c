@@ -50,8 +50,8 @@ int	move_square(t_data *data)
 	// 🔹 strafing (perpendicular to direction)
 	if (data->keypress->a)
 	{
-		tmp.x += p->vector.y * speed;
-		tmp.y -= p->vector.x * speed;
+		tmp.x += p->vector.y * speed * 0.5;
+		tmp.y -= p->vector.x * speed * 0.5;
 	}
 	if (data->keypress->d)
 	{

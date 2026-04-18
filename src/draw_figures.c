@@ -1,4 +1,4 @@
-#include "cub3D.h"
+#include "../includes/cub3D.h"/////
 
 void	draw_square(int side, int x, int y, t_params *p)
 {
@@ -144,10 +144,27 @@ void	draw_texture(t_data *data, t_line line, t_point p, t_texture *txt)
 
 int	txt_side(t_player *player, t_point p)
 {
-	if (p.x - floor(p.x) < 0.00000001 || p.x - ceil(p.x) > -0.00000001)
+	// int	ns;
+	// int	ew;
+
+	// ns = 0;//north 0, south 1
+	// ew = 0;//east 0, west 1
+
+	// if (player->vector.y > 0)
+	// {
+	// 	ns++;
+	// }
+	// if (player->vector.x > 0)
+	// {
+	// 	ew++;
+	// }
+	// if ( )
+
+
+	if (fabs(p.x - floor(p.x)) < 0.00000001 || fabs(p.x - ceil(p.x)) < 0.00000001)
 	{
 		if (player->x > p.x)
-			return (SW);
+			return (WW);
 		return (EW);
 	}
 	if (player->y > p.y)
@@ -172,11 +189,11 @@ void	draw_vert_line(t_data *data, t_line line, t_point p)
 	y = (pr->win_height - height) / 2;
 	int	i = 0;
 	while (i < y)
-		*(unsigned int *)(pr->img_addr + i++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = 0x444444;
+		*(unsigned int *)(pr->img_addr + i++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = data->configs->c;
 	// ft_putstr_fd("es\n", 1);
 	draw_texture(data, line, p, data->texture[txt_side(data->player, p)]);
 	// ft_putstr_fd("em\n", 1);
 	y = (pr->win_height + height) / 2;
 	while (y < pr->win_height)
-		*(unsigned int *)(pr->img_addr + y++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = 0x222222;
+		*(unsigned int *)(pr->img_addr + y++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = data->configs->f;
 }

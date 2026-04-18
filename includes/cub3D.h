@@ -3,7 +3,7 @@
 
 # define STEP 4
 # define SIDE 100
-# define FOV 0.8
+# define FOV 1.0
 
 # include <unistd.h>
 # include <stdio.h>//
@@ -24,9 +24,9 @@
 enum direction
 {
 	NW = 0,
-	EW = 1,
-	WW = 2,
-	SW = 3
+	SW = 1,
+	EW = 2,
+	WW = 3
 };
 
 typedef struct s_keypress
