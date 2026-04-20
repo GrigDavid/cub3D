@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/04/18 14:47:47 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/04/20 20:43:45 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	check_valid_file(char *filename, char *ext)
 
 t_configs	*parse_cub(int fd)
 {
-	///// add is_map_line is_id_line parse_map_line parse_id_line and make all flags just 1 structure
 	t_flags	*flags;
 	t_configs	*configs;
 	char	*str;

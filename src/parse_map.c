@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 20:03:05 by rababaya          #+#    #+#             */
-/*   Updated: 2026/04/18 14:13:17 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/04/20 22:59:08 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ t_map	*list_to_map(t_map_list *hd, int sz)
 		map->map[i] = ft_strdup(temp->row);
 		if (!map->map[i])
 			return (free_map_pointers(hd, map, i), NULL);
-		if (map->max_width < ft_strlen(map->map[i]))
-			map->max_width = ft_strlen(map->map[i]);
+		if (map->max_width < (int)ft_strlen(map->map[i]))
+			map->max_width = (int)ft_strlen(map->map[i]);
 		temp = temp->next;
 	}
 	return (free_map_lst(hd), map->map[sz] = NULL, replace_spaces(map), map);

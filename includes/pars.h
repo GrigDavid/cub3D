@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 15:22:45 by rababaya          #+#    #+#             */
-/*   Updated: 2026/04/17 22:58:16 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/04/20 22:55:28 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ typedef struct s_map_list
 typedef struct s_map
 {
 	char	**map;
-	size_t	max_width;
-	size_t	height;
+	int		max_width;
+	int		height;
 }	t_map;
 
 typedef struct s_configs
@@ -57,7 +57,9 @@ int			textures_not_set(t_configs *c);
 int			colors_not_set(t_configs *c);
 int			textures_are_complete(t_configs *c);
 int			colors_are_complete(t_configs *c);
-int			check_first_arg(char *arg);
+int			is_player(char c);
+int			is_valid_char(char c);
+int			check_player_pos(t_map *map, int x, int y);
 void		init_id(t_flags *flags);
 t_map		*init_map(int height);
 void		init_configs(t_configs *configs);
@@ -71,3 +73,4 @@ int			parse_id_line(char *str, t_flags *flags, t_configs *configs);
 int			parse_map(t_configs *config, char **first_line, int fd);
 void		free_map_lst(t_map_list *head);
 void		free_map(t_map *map, int size);
+

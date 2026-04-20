@@ -131,6 +131,7 @@ t_texture	*read_texture(t_data *data, char *filename);
 
 
 t_configs	*parse_cub(int fd);
+int 		validate_cub(t_data *data);
 int			check_valid_file(char *filename, char *ext);
 
 

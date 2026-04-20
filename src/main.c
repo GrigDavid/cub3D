@@ -221,19 +221,21 @@ int	main(int argc, char **argv)
 		return (1);
 	data->configs = parse_cub(fd);
 	if (!data->configs)
-		return (close(fd), printf("debug"), 1);
+		return (close(fd), 1);//add data destruction later
+	if (!validate_cub(data))
+		return (close(fd), 1);//add data destruction later
 	data->texture[NW] = read_texture(data, data->configs->no);
 	if (!data->texture[NW])
-		return (1);//add data destruction later
+		return (close(fd), 1);//add data destruction later
 	data->texture[SW] = read_texture(data, data->configs->so);
 	if (!data->texture[SW])
-		return (1);//add data destruction later
+		return (close(fd), 1);//add data destruction later
 	data->texture[EW] = read_texture(data, data->configs->ea);
 	if (!data->texture[EW])
-		return (1);//add data destruction later
+		return (close(fd), 1);//add data destruction later
 	data->texture[WW] = read_texture(data, data->configs->we);
 	if (!data->texture[WW])
-		return (1);//add data destruction later
+		return (close(fd), 1);//add data destruction later
 	mlx_hook(data->params->win, KeyPress, KeyPressMask, key_press, data);
 	mlx_hook(data->params->win, KeyRelease, KeyReleaseMask, key_release, data);
 	mlx_loop_hook(data->params->mlx, move_square, data);
