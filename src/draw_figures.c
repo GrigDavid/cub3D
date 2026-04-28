@@ -98,15 +98,15 @@ unsigned int	*get_txt_pixel(int x, int y, t_texture *p)
 
 int	get_texture_x(t_texture *txt, t_point p)
 {
-double	local;
-double	wall_x;
+	double	local;
+	double	wall_x;
 
-if (p.x - floor(p.x) < p.y - floor(p.y)) // vertical wall
-    local = fmod(p.y, 100.0);
-else
-    local = fmod(p.x, 100.0);
-wall_x = local / 100.0;
-return((int)(wall_x * txt->width));
+	if (p.x - floor(p.x) < p.y - floor(p.y)) // vertical wall
+		local = fmod(p.y, 100.0);
+	else
+		local = fmod(p.x, 100.0);
+	wall_x = local / 100.0;
+	return((int)(wall_x * txt->width));
 }
 
 void	draw_texture(t_data *data, t_line line, t_point p, t_texture *txt)

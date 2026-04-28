@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 21:40:47 by rababaya          #+#    #+#             */
-/*   Updated: 2026/04/20 23:01:19 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/04/28 23:24:49 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ int	validate_map(t_data *data)
 		free_map(copy, copy->height);
 		return (ft_putstr_fd("Error\nOpen map", 2), 0);
 	}
+	data->player->x *= SIDE;
+	data->player->y *= SIDE;
 	free_map(copy, copy->height);
 	return (1);
 }
@@ -148,7 +150,6 @@ int validate_cub(t_data *data)
 		|| !check_valid_file(data->configs->ea, ".xpm")
 		|| !check_valid_file(data->configs->we, ".xpm"))
 		return (0);
-	printf("Textures have valid extensions\n");
 	if (!validate_map(data))
 		return (0);
 	if (!check_valid_dest(data->configs))
