@@ -1,92 +1,5 @@
 #include "../includes/cub3D.h"/////
 
-void	draw_square(int side, int x, int y, t_params *p)
-{
-	int	i;
-	int	x1;
-	int	y1;
-	int	x2;
-	int	y2;
-
-	i = 0;
-	x1 = x - side / 2;
-	y1 = y - side / 2;
-	x2 = x + side / 2;
-	y2 = y + side / 2;
-	while (i < side)
-	{
-		if ((x1 + i > 0 && x1 + i < p->win_width) && (y1 > 0 && y1 < p->win_height))
-			*(unsigned int *)(p->img_addr + (y1) * p->line_length + (x1 + i) * (p->bits_per_pixel / 8)) = 0xffffff;
-		if ((x1 > 0 && x1 < p->win_width) && (y1 + i > 0 && y1 + i < p->win_height))
-			*(unsigned int *)(p->img_addr + (y1 + i) * p->line_length + (x1) * (p->bits_per_pixel / 8)) = 0xffffff;
-		if ((x2 - i > 0 && x2- i < p->win_width) && (y2 > 0 && y2 < p->win_height))
-			*(unsigned int *)(p->img_addr + (y2) * p->line_length + (x2 - i) * (p->bits_per_pixel / 8)) = 0xffffff;
-		if ((x2 > 0 && x2 < p->win_width) && (y2 - i > 0 && y2 - i < p->win_height))
-			*(unsigned int *)(p->img_addr + (y2 - i) * p->line_length + (x2) * (p->bits_per_pixel / 8)) = 0xffffff;
-		i++;
-	}
-}
-
-void	draw_ray_contact(int side, int x, int y, t_params *p)
-{
-	int	i;
-	int	x1;
-	int	y1;
-	int	x2;
-	int	y2;
-
-	i = 0;
-	x1 = x - side / 2;
-	y1 = y - side / 2;
-	x2 = x + side / 2;
-	y2 = y + side / 2;
-	while (i < side)
-	{
-		if ((x1 + i > 0 && x1 + i < p->win_width) && (y1 > 0 && y1 < p->win_height))
-			*(unsigned int *)(p->img_addr + (y1) * p->line_length + (x1 + i) * (p->bits_per_pixel / 8)) = 0xff0000;
-		if ((x1 > 0 && x1 < p->win_width) && (y1 + i > 0 && y1 + i < p->win_height))
-			*(unsigned int *)(p->img_addr + (y1 + i) * p->line_length + (x1) * (p->bits_per_pixel / 8)) = 0xff0000;
-		if ((x2 - i > 0 && x2- i < p->win_width) && (y2 > 0 && y2 < p->win_height))
-			*(unsigned int *)(p->img_addr + (y2) * p->line_length + (x2 - i) * (p->bits_per_pixel / 8)) = 0xff0000;
-		if ((x2 > 0 && x2 < p->win_width) && (y2 - i > 0 && y2 - i < p->win_height))
-			*(unsigned int *)(p->img_addr + (y2 - i) * p->line_length + (x2) * (p->bits_per_pixel / 8)) = 0xff0000;
-
-		if ((x + i > 0 && x + i < p->win_width) && (y1 > 0 && y1 < p->win_height))
-			*(unsigned int *)(p->img_addr + (y1) * p->line_length + (x + i) * (p->bits_per_pixel / 8)) = 0xff0000;
-		if ((x1 > 0 && x1 < p->win_width) && (y + i > 0 && y + i < p->win_height))
-			*(unsigned int *)(p->img_addr + (y + i) * p->line_length + (x1) * (p->bits_per_pixel / 8)) = 0xff0000;
-		
-		i++;
-	}
-}
-
-void	delete_square(int side, int x, int y, t_params *p)
-{
-	int	i;
-	int	x1;
-	int	y1;
-	int	x2;
-	int	y2;
-
-	i = 0;
-	x1 = x - side / 2;
-	y1 = y - side / 2;
-	x2 = x + side / 2;
-	y2 = y + side / 2;
-	while (i < side)
-	{
-		if ((x1 + i > 0 && x1 + i < p->win_width) && (y1 > 0 && y1 < p->win_height))
-			*(unsigned int *)(p->img_addr + (y1) * p->line_length + (x1 + i) * (p->bits_per_pixel / 8)) = 0x000000;
-		if ((x1 > 0 && x1 < p->win_width) && (y1 + i > 0 && y1 + i < p->win_height))
-			*(unsigned int *)(p->img_addr + (y1 + i) * p->line_length + (x1) * (p->bits_per_pixel / 8)) = 0x000000;
-		if ((x2 - i > 0 && x2- i < p->win_width) && (y2 > 0 && y2 < p->win_height))
-			*(unsigned int *)(p->img_addr + (y2) * p->line_length + (x2 - i) * (p->bits_per_pixel / 8)) = 0x000000;
-		if ((x2 > 0 && x2 < p->win_width) && (y2 - i > 0 && y2 - i < p->win_height))
-			*(unsigned int *)(p->img_addr + (y2 - i) * p->line_length + (x2) * (p->bits_per_pixel / 8)) = 0x000000;
-		i++;
-	}
-}
-
 unsigned int	*get_pixel(int x, int y, t_params *p)
 {
 	return ((unsigned int *)(p->img_addr + y * p->line_length + x * (p->bits_per_pixel / 8)));
@@ -101,7 +14,7 @@ int	get_texture_x(t_texture *txt, t_point p)
 	double	local;
 	double	wall_x;
 
-	if (p.x - floor(p.x) < p.y - floor(p.y)) // vertical wall
+	if (p.x - floor(p.x) < p.y - floor(p.y))
 		local = fmod(p.y, 100.0);
 	else
 		local = fmod(p.x, 100.0);
@@ -122,21 +35,13 @@ void	draw_texture(t_data *data, t_line line, t_point p, t_texture *txt)
 	if (line.height > data->params->win_height)
 		y = 0;
 	txt_x = get_texture_x(txt, p);
-	// txt_x = (int)p.y % data->texture->width;
-	// if (p.x == ceil(p.x))
-	// 	txt_x = (int)p.x % data->texture->width;
 	step = (double)txt->height / (double)line.height;
 	txt_y = 0;
 	if (line.height > data->params->win_height)
 		txt_y = (line.height - data->params->win_height) * step / 2;
-	// ft_putnbr_fd(line.height, 1);
 	while (y < pr->win_height && txt_y < txt->height)
 	{
-		// ft_putstr_fd("es\n", 1);
 		*(unsigned int *)get_pixel(line.x, y, data->params) = *(unsigned int *)get_txt_pixel(txt_x, (int)txt_y, txt);
-		// ft_putstr_fd("em\n", 1);
-		// if (y > INT_MAX / 2 - 3)
-		// 	ft_putnbr_fd(y, 1);
 		y++;
 		txt_y += step;
 	}
@@ -144,23 +49,6 @@ void	draw_texture(t_data *data, t_line line, t_point p, t_texture *txt)
 
 int	txt_side(t_player *player, t_point p)
 {
-	// int	ns;
-	// int	ew;
-
-	// ns = 0;//north 0, south 1
-	// ew = 0;//east 0, west 1
-
-	// if (player->vector.y > 0)
-	// {
-	// 	ns++;
-	// }
-	// if (player->vector.x > 0)
-	// {
-	// 	ew++;
-	// }
-	// if ( )
-
-
 	if (fabs(p.x - floor(p.x)) < 0.00000001 || fabs(p.x - ceil(p.x)) < 0.00000001)
 	{
 		if (player->x > p.x)
@@ -190,9 +78,7 @@ void	draw_vert_line(t_data *data, t_line line, t_point p)
 	int	i = 0;
 	while (i < y)
 		*(unsigned int *)(pr->img_addr + i++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = data->configs->c;
-	// ft_putstr_fd("es\n", 1);
 	draw_texture(data, line, p, data->texture[txt_side(data->player, p)]);
-	// ft_putstr_fd("em\n", 1);
 	y = (pr->win_height + height) / 2;
 	while (y < pr->win_height)
 		*(unsigned int *)(pr->img_addr + y++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = data->configs->f;

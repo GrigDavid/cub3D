@@ -15,18 +15,6 @@ t_vector	normalise(t_vector v)
 	return (v);
 }
 
-// unsigned int	color_from_distance(t_player player, t_point p)
-// {
-// 	unsigned int	color;
-// 	double			dist;
-
-// 	dist = distance(player, p);
-// 	color = 0x406094;
-// 	// color *= dist / 10000;
-// 	return (color);
-
-// }
-
 void	imcameraaxper(t_data *data, char **map)
 {
 	t_player	camera;
@@ -48,10 +36,6 @@ void	imcameraaxper(t_data *data, char **map)
 	while (line.x < data->params->win_width)
 	{
 		p = dda(camera, map);
-		// draw_square(10, p.x, p.y, data->params);
-		// line.color = color_from_distance(camera, p);
-		// line.height = data->params->win_height / distance(*(data->player), p) * SIDE;
-		// printf("%.17f, %d\n", camera.x, line.x);
 		line.height = data->params->win_height / scalar_mul((t_vector){.x = p.x - camera.x, .y = p.y - camera.y}, data->player->vector) * SIDE;
 		draw_vert_line(data, line, p);
 		(line.x)++;

@@ -134,5 +134,10 @@ t_configs	*parse_cub(int fd);
 int 		validate_cub(t_data *data);
 int			check_valid_file(char *filename, char *ext);
 
+void		rotate_player(t_player *player, double thetta);
+int			movement(t_data *data);
+int			key_press(int keycode, t_data *data);
+int			key_release(int keycode, t_data *data);
+
 
 #endif

@@ -13,12 +13,12 @@ MAKE_MLX				=	make -C
 
 CUB3D_SRC				=	src/dda.c \
 						src/draw_figures.c \
-						src/draw_walls.c \
 						src/imcameraaxper.c \
 						src/init_data.c \
 						src/main.c \
 						src/read_texture.c \
 						src/timedif.c \
+						src/movement.c \
 						src/vector_operations.c src/parsing.c src/utils.c src/parse_id.c src/parse_map.c src/checkers.c src/init.c src/validating.c
 
 CUB3D_OBJS				=	$(CUB3D_SRC:%.c=obj/%.o)

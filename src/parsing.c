@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/04/28 23:25:28 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/04/29 14:31:52 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,6 @@ t_configs	*parse_cub(int fd)
 				return (free(flags->id), free(configs), free(flags), free(str), ft_putstr_fd("Error\nInvalid line before map\n", 2), NULL);
 		}
 	}
-	// if (errno)
-	// 	return (free(flags->id), free(flags), NULL);
-	
-	// printf("NO: %s\nSO: %s\nWE: %s\nEA: %s\nF: %d\nC: %d\nline count: %d\n", configs->no, configs->so, configs->we, configs->ea, configs->f, configs->c, flags->line_count);
-	// for (size_t i = 0; configs->map->map[i]; i++)
-	// {
-	// 	printf("map line %zu:\t%s\n", i, configs->map->map[i]);
-	// }
-	
 	if (!flags->line_count || !flags->seen_content)
 		return (free(flags->id), free(flags), ft_putstr_fd("Error\nEmpty map\n", 2), NULL);
 	if (!flags->map_started)

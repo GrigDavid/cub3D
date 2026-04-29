@@ -1,26 +1,11 @@
 #include "cub3D.h"
 
-// int	check(double x, double y, t_vector vector, char **map)
-// {
-// 	// printf("x: %f, y: %f\n", x, y);
-// 	if (vector.x >= 0 && vector.y >= 0 && map[(int)(y / SIDE)][(int)(x / SIDE)] == '1')
-// 		return (1);
-// 	if (vector.x >= 0 && vector.y <= 0 && map[(int)((y - 1) / SIDE)][(int)((x) / SIDE)] == '1')
-// 		return (1);
-// 	if (vector.x <= 0 && vector.y >= 0 && map[(int)((y) / SIDE)][(int)((x - 1) / SIDE)] == '1')
-// 		return (1);
-// 	if (map[(int)((y - 1) / SIDE)][(int)((x - 1) / SIDE)] == '1')
-// 		return (1);
-// 	return (0);
-// }
-
 int	check(double x, double y, t_vector v, char **map)
 {
 	int map_x;
 	int map_y;
 	double eps = 0.0001;
 
-	// Shift slightly depending on ray direction
 	if (v.x < 0)
 		x -= eps;
 	if (v.y < 0)
@@ -76,7 +61,6 @@ t_point	forward_y(t_player player, char **map)
 
 	step = SIDE;
 	player.y += get_dy(player);
-	// printf("%f\n", player.y);
 	if (player.vector.y < 0)
 		step = -SIDE;
 	while (1)
@@ -112,7 +96,6 @@ t_point	dda(t_player player, char **map)
 	{
 		if (h > fabs(dy))
 		{
-			// draw_square(3, player.x + x_dir * l, player.y + dy, (*datay)->params);
 			if (check(player.x + x_dir * l, player.y + dy, player.vector, map))
 				return ((t_point){.x = player.x + x_dir * l, .y = player.y + dy, .color = 0x00ff00});
 			dy += SIDE * y_dir;
@@ -120,7 +103,6 @@ t_point	dda(t_player player, char **map)
 		}
 		else
 		{
-			// draw_square(3, player.x + dx, player.y + y_dir * h, (*datay)->params);
 			if (check(player.x + dx, player.y + y_dir * h, player.vector, map))
 				return ((t_point){.x = player.x + dx, .y = player.y + y_dir * h, .color = 0x00ff00});
 			dx += SIDE * x_dir;

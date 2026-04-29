@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validating.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 21:40:47 by rababaya          #+#    #+#             */
-/*   Updated: 2026/04/28 23:24:49 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/04/29 14:31:29 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_map	*copy_map(t_map *map)
 
 	copy = init_map(map->height);
 	if (!copy)
-		return ( NULL);
+		return (printf("yyyyy: %d\n",map->height), NULL);
 	i = 0;
 	while (i < map->height)
 	{
