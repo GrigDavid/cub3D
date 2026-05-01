@@ -139,5 +139,7 @@ int			movement(t_data *data);
 int			key_press(int keycode, t_data *data);
 int			key_release(int keycode, t_data *data);
 
+void		free_data(t_data *data);
+
 
 #endif

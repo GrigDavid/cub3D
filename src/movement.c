@@ -63,7 +63,10 @@ int	movement(t_data *data)
 int	key_press(int keycode, t_data *data)
 {
 	if (keycode == XK_Escape)
+	{
+		free_data(data);
 		exit(0);
+	}
 	if (keycode == XK_w)
 		data->keypress->w = 1;
 	else if (keycode == XK_s)

@@ -136,8 +136,6 @@ int	init_data(t_data **data)
 		return (free_data(*data), 1);
 	(*data)->params->win_height = 1080;
 	(*data)->params->win_width = 1920;
-	(*data)->player->vector.x = 1;
-	(*data)->player->vector.y = 0;
 	(*data)->params->mlx = mlx_init();
 	if (!(*data)->params->mlx)
 		return (free_data(*data), 1);

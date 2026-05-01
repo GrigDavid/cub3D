@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/01 12:11:08 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/01 14:56:55 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,13 @@ t_configs	*parse_cub(int fd)
 			else
 				return (free(flags->id), free(configs), free(flags), free(str), ft_putstr_fd("Error\nInvalid line before map\n", 2), NULL);
 		}
+		free(str);
 	}
 	if (!flags->line_count || !flags->seen_content)
 		return (free(flags->id), free(flags), ft_putstr_fd("Error\nEmpty map\n", 2), NULL);
 	if (!flags->map_started)
 		return (free(flags->id), free(flags), ft_putstr_fd("Error\nNo map\n", 2), NULL);
+	free(flags->id);
+	free(flags);
 	return (configs);
 }
