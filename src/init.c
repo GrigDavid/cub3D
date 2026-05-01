@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 15:12:52 by rababaya          #+#    #+#             */
-/*   Updated: 2026/04/29 14:29:59 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/01 12:09:57 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ void	trim_newlines(char **src)
 	while (len > 0 && (*src)[len - 1] == '\n')
 		len--;
 	new = ft_substr(*src, 0, len);//
+	if (!new)
+	{
+		free(*src);
+		*src = NULL;
+		return ;
+	}
 	free(*src);
 	*src = ft_strdup(new);
 	free(new);
@@ -74,8 +80,12 @@ t_map_list	*new_node(char **val)
 	node = (t_map_list *)malloc(sizeof(t_map_list));
 	if (!node)
 		return (NULL);
-	trim_newlines(val);//			malloc
-	node->row = ft_strdup(*val);//	protections
-	node->next = NULL;//			where
+	trim_newlines(val);
+	if (!val || !*val)
+		return (free(node), NULL);
+	node->row = ft_strdup(*val);
+	if (!node->row)
+		return (free(node), NULL);
+	node->next = NULL;
 	return (node);
 }

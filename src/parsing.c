@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/04/29 14:31:52 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/01 12:11:08 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,19 @@ t_configs	*parse_cub(int fd)
 	char	*str;
 
 	flags = (t_flags *)malloc(sizeof(t_flags));
+	if (!flags)
+		return (ft_putstr_fd("Error\nMemory allocation failed\n", 2), NULL);
 	flags->id = (t_id *)malloc(sizeof(t_id));
+	if (!flags->id)
+		return (free(flags), ft_putstr_fd("Error\nMemory allocation failed\n", 2), NULL);
 	configs = (t_configs *)malloc(sizeof(t_configs));
-	//malloc protections??????
+	if (!configs)
+		return (free(flags->id), free(flags), ft_putstr_fd("Error\nMemory allocation failed\n", 2), NULL);
 	init_id(flags);
 	init_configs(configs);
 	flags->line_count = 0;
+	flags->seen_content = 0;
+	flags->map_started = 0;
 	while (1)
 	{
 		str = get_next_line(fd);

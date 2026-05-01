@@ -10,9 +10,6 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), 1);
-
-	data = malloc(sizeof(t_data *)); /////////////
-
 	if (!check_valid_file(argv[1], ".cub"))
 		return (ft_putstr_fd("Error\nInvalid input file\n", 2), 1);
 	fd = open(argv[1], O_RDONLY);

@@ -43,7 +43,7 @@ int	init_data(t_data **data)
 	if (!(*data)->player)
 		return (free(*data), 1);
 	if (init_keypress(*data))
-		return (1);
+		return (free((*data)->player), free(*data), 1);
 	(*data)->player->x = 2750;
 	(*data)->player->y = 350;
 	(*data)->player->vector.x = 0;
@@ -57,10 +57,12 @@ int	init_data(t_data **data)
 	(*data)->params->win_width = 1920;
 	(*data)->params->mlx = mlx_init();
 	if (!(*data)->params->mlx)
-		return (1);
+		return (free((*data)->params), free((*data)->player), free(*data), 1);
+	//these 3 lines no need malloc prot?
 	(*data)->params->win = mlx_new_window((*data)->params->mlx, (*data)->params->win_width, (*data)->params->win_height, "cub3D");
 	(*data)->params->img = mlx_new_image((*data)->params->mlx, (*data)->params->win_width, (*data)->params->win_height);
 	(*data)->params->img_addr = mlx_get_data_addr((*data)->params->img, &((*data)->params->bits_per_pixel), &((*data)->params->line_length), &((*data)->params->endian));
+	//these 3 lines no need malloc prot?
 	gettimeofday(&(*data)->time, NULL);
 	return (0);
 }
