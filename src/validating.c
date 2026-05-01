@@ -6,7 +6,7 @@
 /*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 21:40:47 by rababaya          #+#    #+#             */
-/*   Updated: 2026/04/29 14:31:29 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/01 14:43:35 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_map	*copy_map(t_map *map)
 
 	copy = init_map(map->height);
 	if (!copy)
-		return (printf("yyyyy: %d\n",map->height), NULL);
+		return (NULL);
 	i = 0;
 	while (i < map->height)
 	{
@@ -61,6 +61,32 @@ t_map	*copy_map(t_map *map)
 	copy->height = map->height;
 	copy->max_width = map->max_width;
 	return (copy);
+}
+
+void	set_player(t_data *data, int x, int y)
+{
+	data->player->x = x + 0.5;
+	data->player->y = y + 0.5;
+	if (data->configs->map->map[y][x] == 'N')
+	{
+		data->player->vector.x = 0;
+		data->player->vector.y = -1;
+	}
+	else if (data->configs->map->map[y][x] == 'S')
+	{
+		data->player->vector.x = 0;
+		data->player->vector.y = 1;
+	}
+	else if (data->configs->map->map[y][x] == 'E')
+	{
+		data->player->vector.x = 1;
+		data->player->vector.y = 0;
+	}
+	else if (data->configs->map->map[y][x] == 'W')
+	{
+		data->player->vector.x = -1;
+		data->player->vector.y = 0;
+	}
 }
 
 int	find_player(t_data *data, t_map *map)
@@ -83,8 +109,7 @@ int	find_player(t_data *data, t_map *map)
 				if (check_player_pos(map, x, y))
 					return (0);
 				player_count++;
-				data->player->x = x + 0.5;
-				data->player->y = y + 0.5;
+				set_player(data, x, y);
 				data->configs->map->map[y][x] = '0';
 			}
 		}

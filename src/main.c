@@ -37,6 +37,7 @@ int	main(int argc, char **argv)
 	mlx_hook(data->params->win, KeyPress, KeyPressMask, key_press, data);
 	mlx_hook(data->params->win, KeyRelease, KeyReleaseMask, key_release, data);
 	mlx_loop_hook(data->params->mlx, movement, data);
+	(void)data->params->mlx;
 	mlx_loop(data->params->mlx);
 	return (0);
 }
