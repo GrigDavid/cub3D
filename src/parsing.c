@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/03 15:43:14 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/03 16:54:03 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	check_valid_file(char *filename, char *ext)
 	return (1);
 }
 
-t_configs	*parse_cub(int fd)
+t_configs	*parse_cub(t_map_list *map_list)
 {
 	t_flags	*flags;
 	t_configs	*configs;
-	char	*str;
+	t_map_list	*tmp;
 
-	errno = 0;                         //reset errno before parsing //allowed?
+	tmp = map_list;
 	flags = (t_flags *)malloc(sizeof(t_flags));
 	if (!flags)
 		return (NULL);
@@ -45,40 +45,35 @@ t_configs	*parse_cub(int fd)
 	flags->line_count = 0;
 	flags->seen_content = 0;
 	flags->map_started = 0;
-	while (1)
+	while (tmp)
 	{
-		str = get_next_line(fd);
-		if (!str)
-			break ;
 		flags->line_count++;
-		if (only_nl(str))
+		if (only_nl(tmp->row))
 		{
-			free(str);
+			tmp = tmp->next;
 			continue ;
 		}
 		flags->seen_content = 1;
 		if (!flags->map_started)
 		{
-			if (is_id_line(str, flags))
+			if (is_id_line(tmp->row, flags))
 			{
-				if (!parse_id_line(str, flags, configs))
-					return (free(flags->id), free_configs(configs), free(flags), free(str), NULL);
+				if (!parse_id_line(tmp->row, flags, configs))
+					return (free(flags->id), free_configs(configs), free(flags), free_map_lst(map_list), NULL);
 			}
-			else if (ft_inset(*str, "10 ") && flags->ids_complete)
+			else if (ft_inset(*tmp->row, "10 ") && flags->ids_complete)
 			{
 				flags->map_started = 1;
-				if (!parse_map(configs, &str, fd))
-					return (free(flags->id), free_configs(configs), free(flags), free(str), NULL);
-				free(str);
+				if (!parse_map(configs, tmp))
+					return (free(flags->id), free_configs(configs), free(flags), free_map_lst(map_list), NULL);
 				break;
 			}
 			else
-				return (free(flags->id), free_configs(configs), free(flags), free(str), ft_putstr_fd("Error\nInvalid line before map\n", 2), NULL);
+				return (free(flags->id), free_configs(configs), free(flags), free_map_lst(map_list), ft_putstr_fd("Error\nInvalid line before map\n", 2), NULL);
 		}
-		free(str);
+		tmp = tmp->next;
 	}
-	if (errno)
-		return (free(flags->id), free(flags), free_configs(configs), NULL);
+	free_map_lst(map_list);
 	if (!flags->line_count || !flags->seen_content)
 		return (free(flags->id), free(flags), free_configs(configs), ft_putstr_fd("Error\nEmpty map\n", 2), NULL);
 	if (!flags->map_started)

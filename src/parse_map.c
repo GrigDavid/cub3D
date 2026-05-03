@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 20:03:05 by rababaya          #+#    #+#             */
-/*   Updated: 2026/04/29 14:31:37 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/03 16:49:07 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_map_empty_lines(t_map_list *head)
 	{
 		if (ft_strncmp(temp->row, "", 1))
 		{
-			ft_putstr_fd("Error\nWrong map", 2);
+			ft_putstr_fd("Error\nWrong map\n", 2);
 			return (1);
 		}
 		temp = temp->next;
@@ -68,7 +68,7 @@ t_map	*list_to_map(t_map_list *hd, int sz)
 		return (NULL);
 	map = init_map(sz);
 	if (!map)
-		return (free_map_lst(hd), NULL);
+		return (NULL);
 	i = -1;
 	temp = hd;
 	while (temp && ++i < sz)
@@ -82,34 +82,25 @@ t_map	*list_to_map(t_map_list *hd, int sz)
 			map->max_width = (int)ft_strlen(map->map[i]);
 		temp = temp->next;
 	}
-	return (free_map_lst(hd), map->map[sz] = NULL, replace_spaces(map), map);
+	return (map->map[sz] = NULL, replace_spaces(map), map);
 }
 
-int	parse_map(t_configs *config, char **first_line, int fd)
+int	parse_map(t_configs *config, t_map_list *first_line)
 {
 	int			size;
-	char		*line;
-	t_map_list	*head;
 	t_map_list	*temp;
 
 	if (!textures_are_complete(config) || !colors_are_complete(config))
-		return (ft_putstr_fd("Error\nWrong config order", 2), 0);
-	head = new_node(first_line);
-	if (!head)
-		return (0);
+		return (ft_putstr_fd("Error\nWrong config order\n", 2), 0);
 	size = 1;
-	temp = head;
-	line = get_next_line(fd);//
-	while (line)
+	temp = first_line;
+	while (temp->next)
 	{
-		temp->next = new_node(&line);
 		temp = temp->next;
-		free(line);
-		line = get_next_line(fd);//
-		++size;
+		size++;
 	}
-	config->map = list_to_map(head, size);
+	config->map = list_to_map(first_line, size);
 	if (!config->map)
-		return (free(line), 0);
-	return (free(line), 1);
+		return (0);
+	return (1);
 }

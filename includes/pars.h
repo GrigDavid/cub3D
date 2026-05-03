@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 15:22:45 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/03 14:32:08 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/03 16:18:31 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			ft_inset(char target, char *src);
 void		free_split(char **split);
 int			is_id_line(char *str, t_flags *flags);
 int			parse_id_line(char *str, t_flags *flags, t_configs *configs);
-int			parse_map(t_configs *config, char **first_line, int fd);
+int			parse_map(t_configs *config, t_map_list *first_line);
 void		free_map_lst(t_map_list *head);
 void		free_map(t_map *map, int size);
 void		free_configs(t_configs *configs);

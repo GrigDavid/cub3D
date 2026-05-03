@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 15:14:30 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/03 14:44:45 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/03 15:46:34 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ int	place_color(t_configs *config, char **spl, char config_name)
 	char	**color_split;
 
 	if (!textures_not_set(config) && !textures_are_complete(config))
-		return (free_split(spl), ft_putstr_fd("Error\nWrong config order", 2), 0);
+		return (free_split(spl), ft_putstr_fd("Error\nWrong config order\n", 2), 0);
 	if (spl[1] == NULL || spl[2] != NULL)
-		return (free_split(spl), ft_putstr_fd("Error\nInvalid color element count", 2), 0);
+		return (free_split(spl), ft_putstr_fd("Error\nInvalid color element count\n", 2), 0);
 	color_split = ft_split(spl[1], ',');
 	if (!color_split || !color_split[0] || !color_split[1] || !color_split[2] || color_split[3])
-		return (free_split(spl), free_split(color_split), ft_putstr_fd("Error\nInvalid color format", 2), 0);
+		return (free_split(spl), free_split(color_split), ft_putstr_fd("Error\nInvalid color format\n", 2), 0);
 	rgb[0] = ft_atoi(color_split[0]);
 	rgb[1] = ft_atoi(color_split[1]);
 	rgb[2] = ft_atoi(color_split[2]);
 	if (rgb[0] < 0 || rgb[0] > 255 || rgb[1] < 0 || rgb[1] > 255 || rgb[2] < 0 || rgb[2] > 255)
-		return (free_split(spl), free_split(color_split), ft_putstr_fd("Error\nColor values must be between 0 and 255", 2), 0);
+		return (free_split(spl), free_split(color_split), ft_putstr_fd("Error\nColor values must be between 0 and 255\n", 2), 0);
 	if (config_name == 'F')
 		config->f = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 	else if (config_name == 'C')

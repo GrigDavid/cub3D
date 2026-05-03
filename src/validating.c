@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validating.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 21:40:47 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/01 14:43:35 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/03 15:48:16 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,19 @@ int	check_valid_dest(t_configs *configs)
 
 	fd_north = open(configs->no, O_RDONLY);
 	if (fd_north == -1)
-		return (ft_putstr_fd("Error\nInvalid texture file", 2), 0);
+		return (ft_putstr_fd("Error\nInvalid texture file\n", 2), 0);
 	fd_south = open(configs->so, O_RDONLY);
 	if (fd_south == -1)
-		return (close(fd_north), ft_putstr_fd("Error\nInvalid texture file", 2), 0);
+		return (close(fd_north),
+			ft_putstr_fd("Error\nInvalid texture file\n", 2), 0);
 	fd_east = open(configs->ea, O_RDONLY);
 	if (fd_east == -1)
 		return (close(fd_north), close(fd_south),
-			ft_putstr_fd("Error\nInvalid texture file", 2), 0);
+			ft_putstr_fd("Error\nInvalid texture file\n", 2), 0);
 	fd_west = open(configs->we, O_RDONLY);
 	if (fd_west == -1)
 		return (close(fd_north), close(fd_south), close(fd_east),
-			ft_putstr_fd("Error\nInvalid texture file", 2), 0);
+			ft_putstr_fd("Error\nInvalid texture file\n", 2), 0);
 	close(fd_north);
 	close(fd_south);
 	close(fd_east);
@@ -103,7 +104,7 @@ int	find_player(t_data *data, t_map *map)
 		while (++x < (int)ft_strlen(map->map[y]))
 		{
 			if (!is_valid_char(map->map[y][x]))
-				return (ft_putstr_fd("Error\nInvalid char in map", 2), 0);
+				return (ft_putstr_fd("Error\nInvalid char in map\n", 2), 0);
 			if (is_player(map->map[y][x]))
 			{
 				if (check_player_pos(map, x, y))
@@ -115,7 +116,7 @@ int	find_player(t_data *data, t_map *map)
 		}
 	}
 	if (player_count != 1)
-		return (ft_putstr_fd("Error\nWrong player count", 2), 0);
+		return (ft_putstr_fd("Error\nWrong player count\n", 2), 0);
 	return (1);
 }
 
@@ -160,7 +161,7 @@ int	validate_map(t_data *data)
 	if (!flood_fill(copy, (int)data->player->x, (int)data->player->y))
 	{
 		free_map(copy, copy->height);
-		return (ft_putstr_fd("Error\nOpen map", 2), 0);
+		return (ft_putstr_fd("Error\nOpen map\n", 2), 0);
 	}
 	data->player->x *= SIDE;
 	data->player->y *= SIDE;
