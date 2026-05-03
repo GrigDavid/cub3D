@@ -1,7 +1,7 @@
-NO ./textures/chess.xpm
-SO ./textures/grass.xpm
-WE ./textures/texture.xpm
-EA ./textures/untitled.xpm
+NO ./textures/NEWS/N.xpm
+SO ./textures/NEWS/S.xpm
+WE ./textures/NEWS/W.xpm
+EA ./textures/NEWS/E.xpm
 F 140,108,83
 C 122,194,182
 

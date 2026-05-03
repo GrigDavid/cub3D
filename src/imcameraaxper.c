@@ -26,8 +26,8 @@ void	imcameraaxper(t_data *data, char **map)
 
 	start = data->player->vector;
 	end = data->player->vector;
-	rotate(&start, -FOV / 2);
-	rotate(&end, FOV / 2);
+	rotate(&start, -(double)FOV / 2);
+	rotate(&end, (double)FOV / 2);
 	step = div_vector_num(sub_vector(end, start), data->params->win_width); 
 	line.x = 0;
 	camera.vector = start;

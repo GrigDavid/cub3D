@@ -3,6 +3,10 @@
 
 #include "cub3D.h"
 
+//the wrong texture line when looking at it perpendicular
+//texture widening
+//texture mirroring
+
 int	main(int argc, char **argv)
 {
 	t_data *data;

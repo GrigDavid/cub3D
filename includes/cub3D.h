@@ -3,7 +3,7 @@
 
 # define STEP 4
 # define SIDE 100
-# define FOV 0.8
+# define FOV 0.9
 
 # include <unistd.h>
 # include <stdio.h>//
@@ -27,6 +27,12 @@ enum direction
 	SW = 1,
 	EW = 2,
 	WW = 3
+};
+
+enum wall
+{
+	HOR = 0,
+	VER = 1
 };
 
 typedef struct s_keypress
@@ -73,7 +79,7 @@ typedef struct s_point
 {
 	double			x;
 	double			y;
-	unsigned int	color;
+	int				wall;
 }	t_point;
 
 typedef struct s_player
@@ -99,7 +105,6 @@ typedef struct s_line
 {
 	int				x;
 	int				height;
-	unsigned int	color;
 }	t_line;
 
 

@@ -49,15 +49,33 @@ void	draw_texture(t_data *data, t_line line, t_point p, t_texture *txt)
 
 int	txt_side(t_player *player, t_point p)
 {
-	if (fabs(p.x - floor(p.x)) < 0.00000001 || fabs(p.x - ceil(p.x)) < 0.00000001)
+	t_vector	player_to_p;
+
+	player_to_p.x = p.x - player->x;
+	player_to_p.y = p.y - player->y;
+	if (p.wall == HOR)
 	{
-		if (player->x > p.x)
-			return (WW);
-		return (EW);
-	}
-	if (player->y > p.y)
+		if (player_to_p.y > 0)
+			return (NW);
 		return (SW);
-	return (NW);
+	}
+	if (player_to_p.x > 0)
+		return (EW);
+	return (WW);
+
+
+
+
+
+	//if (fabs(p.x - floor(p.x)) < 0.00000001 || fabs(p.x - ceil(p.x)) < 0.00000001)
+	//{
+	//	if (player->x > p.x)
+	//		return (WW);
+	//	return (EW);
+	//}
+	//if (player->y > p.y)
+	//	return (SW);
+	//return (NW);
 }
 
 void	draw_vert_line(t_data *data, t_line line, t_point p)

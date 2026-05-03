@@ -50,7 +50,7 @@ t_point	forward_x(t_player player, char **map)
 	while (1)
 	{
 		if (check(player.x, player.y, player.vector, map))
-			return ((t_point){.x = player.x, .y = player.y, .color = 0x00ff00});
+			return ((t_point){.x = player.x, .y = player.y, .wall = VER});
 		player.x += step;
 	}
 }
@@ -66,7 +66,7 @@ t_point	forward_y(t_player player, char **map)
 	while (1)
 	{
 		if (check(player.x, player.y, player.vector, map))
-			return ((t_point){.x = player.x, .y = player.y, .color = 0x00ff00});
+			return ((t_point){.x = player.x, .y = player.y, .wall = HOR});
 		player.y += step;
 	}
 }
@@ -97,14 +97,14 @@ t_point	dda(t_player player, char **map)
 		if (h > fabs(dy))
 		{
 			if (check(player.x + x_dir * l, player.y + dy, player.vector, map))
-				return ((t_point){.x = player.x + x_dir * l, .y = player.y + dy, .color = 0x00ff00});
+				return ((t_point){.x = player.x + x_dir * l, .y = player.y + dy, .wall = HOR});
 			dy += SIDE * y_dir;
 			l += SIDE / k;
 		}
 		else
 		{
 			if (check(player.x + dx, player.y + y_dir * h, player.vector, map))
-				return ((t_point){.x = player.x + dx, .y = player.y + y_dir * h, .color = 0x00ff00});
+				return ((t_point){.x = player.x + dx, .y = player.y + y_dir * h, .wall = VER});
 			dx += SIDE * x_dir;
 			h += SIDE * k;
 		}
