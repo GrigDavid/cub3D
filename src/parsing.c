@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/03 16:54:03 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/03 17:36:38 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_configs	*parse_cub(t_map_list *map_list)
 				if (!parse_id_line(tmp->row, flags, configs))
 					return (free(flags->id), free_configs(configs), free(flags), free_map_lst(map_list), NULL);
 			}
-			else if (ft_inset(*tmp->row, "10 ") && flags->ids_complete)
+			else if (ft_inset(*tmp->row, "10 "))
 			{
 				flags->map_started = 1;
 				if (!parse_map(configs, tmp))

@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 15:14:30 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/03 15:46:34 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/03 17:30:26 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,20 @@ int	place_conf(t_configs *config, char **spl, char config_name)
 	return (1);
 }
 
+int is_digits_only(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (!ft_isdigit(s[i]))
+			return (0);
+		++i;
+	}
+	return (1);
+}
+
 int	place_color(t_configs *config, char **spl, char config_name)
 {
 	int		rgb[3];
@@ -47,6 +61,8 @@ int	place_color(t_configs *config, char **spl, char config_name)
 	color_split = ft_split(spl[1], ',');
 	if (!color_split || !color_split[0] || !color_split[1] || !color_split[2] || color_split[3])
 		return (free_split(spl), free_split(color_split), ft_putstr_fd("Error\nInvalid color format\n", 2), 0);
+	if (!is_digits_only(color_split[0]) || !is_digits_only(color_split[1]) || !is_digits_only(color_split[2]))
+		return (free_split(spl), free_split(color_split), ft_putstr_fd("Error\nColor values must be numeric\n", 2), 0);
 	rgb[0] = ft_atoi(color_split[0]);
 	rgb[1] = ft_atoi(color_split[1]);
 	rgb[2] = ft_atoi(color_split[2]);

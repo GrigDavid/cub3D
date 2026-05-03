@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 21:40:47 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/03 15:48:16 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/03 17:39:59 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int validate_cub(t_data *data)
 		|| !check_valid_file(data->configs->so, ".xpm")
 		|| !check_valid_file(data->configs->ea, ".xpm")
 		|| !check_valid_file(data->configs->we, ".xpm"))
-		return (0);
+		return (ft_putstr_fd("Error\nWrong texture files\n", 2), 0);
 	if (!validate_map(data))
 		return (0);
 	if (!check_valid_dest(data->configs))
