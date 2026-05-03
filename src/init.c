@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 15:12:52 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/01 12:09:57 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/03 14:46:51 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	init_configs(t_configs *configs)
 	configs->no = NULL;
 	configs->so = NULL;
 	configs->we = NULL;
+	configs->map = NULL;
 	configs->f = -1;
 	configs->c = -1;
 }

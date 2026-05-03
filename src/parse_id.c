@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 15:14:30 by rababaya          #+#    #+#             */
-/*   Updated: 2026/04/17 22:06:28 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/03 14:44:45 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	place_conf(t_configs *config, char **spl, char config_name)
 	char	*target;
 
 	if (!colors_not_set(config) && !colors_are_complete(config))
-		return (free_split(spl), ft_putstr_fd("Error\nWrong config order", 2), 0);
+		return (free_split(spl), ft_putstr_fd("Error\nWrong config order\n", 2), 0);
 	if (spl[1] == NULL || spl[2] != NULL)
-		return (free_split(spl), ft_putstr_fd("Error\nInvalid path element count", 2), 0);
+		return (free_split(spl), ft_putstr_fd("Error\nInvalid path element count\n", 2), 0);
 	target = ft_strtrim(spl[1], "\n");
 	if (!target)
 		return (free_split(spl), 0);

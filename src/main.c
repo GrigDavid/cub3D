@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/03 14:22:07 by rababaya          #+#    #+#             */
+/*   Updated: 2026/05/03 14:37:07 by rababaya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 //https://youtu.be/NbSee-XM7WA?si=nx_mxe-1iqoI4h1p
 //https://lodev.org/cgtutor/raycasting.html
 
@@ -23,7 +35,7 @@ int	main(int argc, char **argv)
 		return (1);
 	data->configs = parse_cub(fd);
 	if (!data->configs)
-		return (close(fd), 1);//add data destruction later
+		return (close(fd), free_data(data), 1);//add data destruction later
 	if (!validate_cub(data))
 		return (close(fd), 1);//add data destruction later
 	data->texture[NW] = read_texture(data, data->configs->no);

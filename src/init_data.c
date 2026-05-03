@@ -121,7 +121,7 @@ void	free_data(t_data *data)
 }
 
 int	init_data(t_data **data)
-{//BEWARE: malloc protections are almost non-existant	:)
+{
 	*data = (t_data *)malloc(sizeof(t_data));
 	if (!*data)
 		return (1);
