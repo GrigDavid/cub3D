@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   imcameraaxper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 10:31:38 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 10:31:39 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 12:42:36 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,35 @@ t_vector	normalise(t_vector v)
 	return (v);
 }
 
+t_vector	calculate_step(t_vector start, int width)
+{
+	t_vector	end;
+
+	end = start;
+	rotate(&end, (double)FOV);
+	return (div_vector_num(sub_vector(end, start), width));
+}
+
+t_vector	camera_to_point(t_player camera, t_point p)
+{
+	t_vector	tmp;
+
+	tmp.x = p.x - camera.x;
+	tmp.y = p.y - camera.y;
+	return (tmp);
+}
+
 void	imcameraaxper(t_data *data, char **map)
 {
 	t_player	camera;
 	t_line		line;
 	t_point		p;
 	t_vector	start;
-	t_vector	end;
 	t_vector	step;
 
 	start = data->player->vector;
-	end = data->player->vector;
 	rotate(&start, -(double)FOV / 2);
-	rotate(&end, (double)FOV / 2);
-	step = div_vector_num(sub_vector(end, start), data->params->win_width);
+	step = calculate_step(start, data->params->win_width);
 	line.x = 0;
 	camera.vector = start;
 	camera.x = data->player->x;
@@ -48,7 +63,8 @@ void	imcameraaxper(t_data *data, char **map)
 	while (line.x < data->params->win_width)
 	{
 		p = dda(camera, map);
-		line.height = data->params->win_height / scalar_mul((t_vector){.x = p.x - camera.x, .y = p.y - camera.y}, data->player->vector) * SIDE;
+		line.height = data->params->win_height / scalar_mul(
+				camera_to_point(camera, p), data->player->vector) * SIDE;
 		draw_vert_line(data, line, p);
 		(line.x)++;
 		camera.vector = sum_vector(camera.vector, step);

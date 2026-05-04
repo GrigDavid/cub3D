@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_figures.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 10:29:54 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 11:57:30 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 12:46:26 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 unsigned int	*get_pixel(int x, int y, t_params *p)
 {
-	return ((unsigned int *)(p->img_addr + y * p->line_length + x * (p->bits_per_pixel / 8)));
+	return ((unsigned int *)(p->img_addr
+		+ y * p->line_length + x * (p->bits_per_pixel / 8)));
 }
 
 unsigned int	*get_txt_pixel(int x, int y, t_texture *p)
 {
-	return ((unsigned int *)(p->addr + y * p->line_length + x * (p->bits_per_pixel / 8)));
+	return ((unsigned int *)(p->addr
+		+ y * p->line_length + x * (p->bits_per_pixel / 8)));
 }
 
 int	get_texture_x(t_texture *txt, t_point p)
@@ -54,7 +56,8 @@ void	draw_texture(t_data *data, t_line line, t_point p, t_texture *txt)
 		txt_y = (line.height - data->params->win_height) * step / 2;
 	while (y < pr->win_height && txt_y < txt->height)
 	{
-		*(unsigned int *)get_pixel(line.x, y, data->params) = *(unsigned int *)get_txt_pixel(txt_x, (int)txt_y, txt);
+		*(unsigned int *)get_pixel(line.x, y, data->params)
+				= *(unsigned int *)get_txt_pixel(txt_x, (int)txt_y, txt);
 		y++;
 		txt_y += step;
 	}
@@ -75,15 +78,6 @@ int	txt_side(t_player *player, t_point p)
 	if (player_to_p.x > 0)
 		return (WW);
 	return (EW);
-	//if (fabs(p.x - floor(p.x)) < 0.00000001 || fabs(p.x - ceil(p.x)) < 0.00000001)
-	//{
-	//	if (player->x > p.x)
-	//		return (WW);
-	//	return (EW);
-	//}
-	//if (player->y > p.y)
-	//	return (SW);
-	//return (NW);
 }
 
 void	draw_vert_line(t_data *data, t_line line, t_point p)
@@ -104,9 +98,11 @@ void	draw_vert_line(t_data *data, t_line line, t_point p)
 	y = (pr->win_height - height) / 2;
 	i = 0;
 	while (i < y)
-		*(unsigned int *)(pr->img_addr + i++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = data->configs->c;
+		*(unsigned int *)(pr->img_addr + (i++) * pr->line_length
+				+ x * (pr->bits_per_pixel / 8)) = data->configs->c;
 	draw_texture(data, line, p, data->texture[txt_side(data->player, p)]);
 	y = (pr->win_height + height) / 2;
 	while (y < pr->win_height)
-		*(unsigned int *)(pr->img_addr + y++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = data->configs->f;
+		*(unsigned int *)(pr->img_addr + (y++) * pr->line_length
+				+ x * (pr->bits_per_pixel / 8)) = data->configs->f;
 }

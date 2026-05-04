@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 11:07:01 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 11:07:02 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 12:54:45 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-// static int	thanos(t_params *params)
-// {
-// 	mlx_destroy_image(params->mlx, params->img);
-// 	mlx_destroy_window(params->mlx, params->win);
-// 	mlx_destroy_display(params->mlx);
-// 	free(params->mlx);
-// 	exit(0);
-// 	return (1);
-// }
-
-// static int	acoustic_thanos(t_params *params, int n)
-// {
-// 	if (n >= 1)
-// 		mlx_destroy_window(params->mlx, params->win);
-// 	if (n >= 2)
-// 		mlx_destroy_image(params->mlx, params->img);
-// 	mlx_destroy_display(params->mlx);
-// 	free(params->mlx);
-// 	exit(0);
-// 	return (1);
-// }
 
 int	init_keypress(t_data *data)
 {
@@ -147,13 +125,17 @@ int	init_data(t_data **data)
 	(*data)->params->mlx = mlx_init();
 	if (!(*data)->params->mlx)
 		return (free_data(*data), 1);
-	(*data)->params->win = mlx_new_window((*data)->params->mlx, (*data)->params->win_width, (*data)->params->win_height, "cub3D");
+	(*data)->params->win = mlx_new_window((*data)->params->mlx,
+			(*data)->params->win_width, (*data)->params->win_height, "cub3D");
 	if (!(*data)->params->win)
 		return (free_data(*data), 1);
-	(*data)->params->img = mlx_new_image((*data)->params->mlx, (*data)->params->win_width, (*data)->params->win_height);
+	(*data)->params->img = mlx_new_image((*data)->params->mlx,
+			(*data)->params->win_width, (*data)->params->win_height);
 	if (!(*data)->params->img)
 		return (free_data(*data), 1);
-	(*data)->params->img_addr = mlx_get_data_addr((*data)->params->img, &((*data)->params->bits_per_pixel), &((*data)->params->line_length), &((*data)->params->endian));
+	(*data)->params->img_addr = mlx_get_data_addr((*data)->params->img,
+			&((*data)->params->bits_per_pixel), &((*data)->params->line_length),
+			&((*data)->params->endian));
 	gettimeofday(&(*data)->time, NULL);
 	return (0);
 }
