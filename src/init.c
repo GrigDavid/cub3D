@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 15:12:52 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/03 14:46:51 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 16:45:32 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,36 @@ t_map	*init_map(int height)
 	return (map);
 }
 
-void	init_id(t_flags *flags)
+t_flags	*init_id(void)
 {
+	t_flags	*flags;
+
+	flags = (t_flags *)malloc(sizeof(t_flags));
+	if (!flags)
+		return (NULL);
+	flags->id = (t_id *)malloc(sizeof(t_id));
+	if (!flags->id)
+		return (NULL);
 	flags->id->so = 0;
 	flags->id->no = 0;
 	flags->id->ea = 0;
 	flags->id->we = 0;
 	flags->id->c = 0;
 	flags->id->f = 0;
+	flags->line_count = 0;
+	flags->seen_content = 0;
+	flags->map_started = 0;
+	flags->res = 0;
+	return (flags);
 }
-void	init_configs(t_configs *configs)
+
+t_configs	*init_configs(void)
 {
+	t_configs	*configs;
+
+	configs = (t_configs *)malloc(sizeof(t_configs));
+	if (!configs)
+		return (NULL);
 	configs->ea = NULL;
 	configs->no = NULL;
 	configs->so = NULL;
@@ -50,6 +69,7 @@ void	init_configs(t_configs *configs)
 	configs->map = NULL;
 	configs->f = -1;
 	configs->c = -1;
+	return (configs);
 }
 
 void	trim_newlines(char **src)
@@ -62,7 +82,7 @@ void	trim_newlines(char **src)
 	len = ft_strlen(*src);
 	while (len > 0 && (*src)[len - 1] == '\n')
 		len--;
-	new = ft_substr(*src, 0, len);//
+	new = ft_substr(*src, 0, len);
 	if (!new)
 	{
 		free(*src);

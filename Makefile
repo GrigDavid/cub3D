@@ -20,6 +20,7 @@ CUB3D_SRC				=	src/dda.c \
 							src/movement.c \
 							src/vector_operations.c src/parsing.c src/utils.c \
 							src/parse_id.c src/parse_map.c src/checkers.c \
+							src/utils_utils.c src/parsing_checkers.c\
 							src/init.c src/validating.c
 
 CUB3D_OBJS				=	$(CUB3D_SRC:%.c=obj/%.o)

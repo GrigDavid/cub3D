@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 15:22:45 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 10:16:09 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 16:40:06 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_flags
 	int			ids_complete;
 	int			map_started;
 	int			line_count;
+	int			res;
 	t_id		*id;
 }	t_flags;
 
@@ -60,9 +61,9 @@ int			colors_are_complete(t_configs *c);
 int			is_player(char c);
 int			is_valid_char(char c);
 int			check_player_pos(t_map *map, int x, int y);
-void		init_id(t_flags *flags);
+t_flags		*init_id(void);
 t_map		*init_map(int height);
-void		init_configs(t_configs *configs);
+t_configs	*init_configs(void);
 t_map_list	*new_node(char **val);
 int			ft_is_whitespace(char c);
 int			only_nl(char *str);

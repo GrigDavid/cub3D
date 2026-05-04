@@ -1,44 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parsing_checkers.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/07 16:49:11 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 13:47:04 by rababaya         ###   ########.fr       */
+/*   Created: 2026/05/04 13:49:42 by rababaya          #+#    #+#             */
+/*   Updated: 2026/05/04 13:49:54 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	ft_is_whitespace(char c)
+int	textures_not_set(t_configs *c)
 {
-	return (c == 32 || c == '\n');
+	return (!c->no && !c->so && !c->ea && !c->we);
 }
 
-int	only_nl(char *str)
+int	colors_not_set(t_configs *c)
 {
-	int	i;
-
-	i = 0;
-	while (ft_is_whitespace(str[i]))
-		i++;
-	if (str[i] != 0)
-		return (0);
-	return (1);
+	return (c->c == -1 && c->f == -1);
 }
 
-int	ft_inset(char target, char *src)
+int	textures_are_complete(t_configs *c)
 {
-	size_t	i;
+	return (c->no && c->so && c->ea && c->we);
+}
 
-	i = 0;
-	while (src[i])
-	{
-		if (target == src[i])
-			return (1);
-		++i;
-	}
-	return (0);
+int	colors_are_complete(t_configs *c)
+{
+	return (c->c != -1 && c->f != -1);
 }
