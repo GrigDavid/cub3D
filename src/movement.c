@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 11:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 11:08:21 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:07:10 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,47 @@ void	rotate_player(t_player *player, double thetta)
 	player->vector.y = old_x * sin(thetta) + old_y * cos(thetta);
 }
 
+void	set_wasd(t_data *data, t_player tmp)
+{
+	
+	if (data->configs->map->map[(int)(data->player->y / SIDE)][(int)(tmp.x / SIDE)] != '1')
+		data->player->x = tmp.x;
+	if (data->configs->map->map[(int)(tmp.y / SIDE)][(int)(data->player->x / SIDE)] != '1')
+		data->player->y = tmp.y;
+}
+
+void	check_wasd(t_data *data, double speed)
+{
+	t_player tmp;
+
+	tmp = *(data->player);
+	if (data->keypress->w)
+	{
+		tmp.x += data->player->vector.x * speed;
+		tmp.y += data->player->vector.y * speed;
+	}
+	if (data->keypress->s)
+	{
+		tmp.x -= data->player->vector.x * speed;
+		tmp.y -= data->player->vector.y * speed;
+	}
+	if (data->keypress->a)
+	{
+		tmp.x += data->player->vector.y * speed * 0.5;
+		tmp.y -= data->player->vector.x * speed * 0.5;
+	}
+	if (data->keypress->d)
+	{
+		tmp.x -= data->player->vector.y * speed;
+		tmp.y += data->player->vector.x * speed;
+	}
+	set_wasd(data, tmp);
+}
+
 int	movement(t_data *data)
 {
 	struct timeval	time;
 	t_player		*p;
-	t_player		tmp;
 	double			dt;
 	double			speed;
 	double			rot_speed;
@@ -37,31 +73,7 @@ int	movement(t_data *data)
 	dt = timedif(time, data->time);
 	speed = STEP * dt / 20.0;
 	rot_speed = 0.05 * dt / 50.0;
-	tmp = *p;
-	if (data->keypress->w)
-	{
-		tmp.x += p->vector.x * speed;
-		tmp.y += p->vector.y * speed;
-	}
-	if (data->keypress->s)
-	{
-		tmp.x -= p->vector.x * speed;
-		tmp.y -= p->vector.y * speed;
-	}
-	if (data->keypress->a)
-	{
-		tmp.x += p->vector.y * speed * 0.5;
-		tmp.y -= p->vector.x * speed * 0.5;
-	}
-	if (data->keypress->d)
-	{
-		tmp.x -= p->vector.y * speed;
-		tmp.y += p->vector.x * speed;
-	}
-	if (data->configs->map->map[(int)(p->y / SIDE)][(int)(tmp.x / SIDE)] != '1')
-		p->x = tmp.x;
-	if (data->configs->map->map[(int)(tmp.y / SIDE)][(int)(p->x / SIDE)] != '1')
-		p->y = tmp.y;
+	check_wasd(data, speed);
 	if (data->keypress->left && !data->keypress->right)
 		rotate_player(p, -rot_speed);
 	if (data->keypress->right && !data->keypress->left)

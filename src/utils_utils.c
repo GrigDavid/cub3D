@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 13:46:12 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 13:46:56 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 16:53:11 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
 
 void	free_split(char **split)
 {

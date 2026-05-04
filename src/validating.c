@@ -6,7 +6,7 @@
 /*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 21:40:47 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 12:48:13 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/04 16:30:15 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	set_player(t_data *data, int x, int y)
 		data->player->vector.x = -1;
 		data->player->vector.y = 0;
 	}
+	// rotate(&data->player->vector, 0.00001);
 }
 
 int	find_player(t_data *data, t_map *map)

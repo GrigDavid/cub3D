@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 10:16:24 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 10:17:41 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 16:52:20 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,17 @@ typedef struct s_line
 	int				x;
 	int				height;
 }	t_line;
+
+typedef	struct s_dda
+{
+	double	k;
+	double	h;
+	double	l;
+	double	dy;
+	double	dx;
+	int		x_dir;
+	int		y_dir;
+} t_dda;
 
 // extern t_data	**datay;
 // int		cast_ray(t_player	*player, char	**map);
