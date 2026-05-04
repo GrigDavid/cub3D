@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 21:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/03 17:36:38 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 11:09:39 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_valid_file(char *filename, char *ext)
 
 t_configs	*parse_cub(t_map_list *map_list)
 {
-	t_flags	*flags;
+	t_flags		*flags;
 	t_configs	*configs;
 	t_map_list	*tmp;
 
@@ -66,7 +66,7 @@ t_configs	*parse_cub(t_map_list *map_list)
 				flags->map_started = 1;
 				if (!parse_map(configs, tmp))
 					return (free(flags->id), free_configs(configs), free(flags), free_map_lst(map_list), NULL);
-				break;
+				break ;
 			}
 			else
 				return (free(flags->id), free_configs(configs), free(flags), free_map_lst(map_list), ft_putstr_fd("Error\nInvalid line before map\n", 2), NULL);

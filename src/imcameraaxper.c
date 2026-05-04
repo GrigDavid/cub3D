@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   imcameraaxper.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/04 10:31:38 by rababaya          #+#    #+#             */
+/*   Updated: 2026/05/04 10:31:39 by rababaya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 double	distance(t_player player, t_point p)
@@ -28,7 +40,7 @@ void	imcameraaxper(t_data *data, char **map)
 	end = data->player->vector;
 	rotate(&start, -(double)FOV / 2);
 	rotate(&end, (double)FOV / 2);
-	step = div_vector_num(sub_vector(end, start), data->params->win_width); 
+	step = div_vector_num(sub_vector(end, start), data->params->win_width);
 	line.x = 0;
 	camera.vector = start;
 	camera.x = data->player->x;

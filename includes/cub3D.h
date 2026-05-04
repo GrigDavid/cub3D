@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/04 10:16:24 by rababaya          #+#    #+#             */
+/*   Updated: 2026/05/04 10:17:41 by rababaya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -21,7 +33,7 @@
 # include <limits.h>
 # include <sys/time.h>
 
-enum direction
+enum e_direction
 {
 	NW = 0,
 	SW = 1,
@@ -29,7 +41,7 @@ enum direction
 	WW = 3
 };
 
-enum wall
+enum e_wall
 {
 	HOR = 0,
 	VER = 1
@@ -37,7 +49,7 @@ enum wall
 
 typedef struct s_keypress
 {
-	int w;
+	int	w;
 	int	a;
 	int	s;
 	int	d;
@@ -107,8 +119,6 @@ typedef struct s_line
 	int				height;
 }	t_line;
 
-
-
 // extern t_data	**datay;
 // int		cast_ray(t_player	*player, char	**map);
 //t_vector	cast_ray(t_player	*player, char	**map);
@@ -135,7 +145,7 @@ long long	timedif(struct timeval t1, struct timeval t2);
 t_texture	*read_texture(t_data *data, char *filename);
 
 t_configs	*parse_cub(t_map_list *map_list);
-int 		validate_cub(t_data *data);
+int			validate_cub(t_data *data);
 int			check_valid_file(char *filename, char *ext);
 
 void		rotate_player(t_player *player, double thetta);
@@ -144,6 +154,5 @@ int			key_press(int keycode, t_data *data);
 int			key_release(int keycode, t_data *data);
 
 void		free_data(t_data *data);
-
 
 #endif

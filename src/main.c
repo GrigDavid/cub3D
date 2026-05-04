@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 14:22:07 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/03 16:52:10 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 11:11:25 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 //the wrong texture line when looking at it perpendicular
 //texture widening
 //texture mirroring
-
-
 void	print_map(t_map_list *head)
 {
 	t_map_list	*temp;
@@ -50,7 +48,7 @@ t_map_list	*read_to_list(int fd)
 		if (n != 0)
 		{
 			temp->next = new_node(&str);
-			if(!temp->next)
+			if (!temp->next)
 			{
 				free(str);
 				free_map_lst(head);
@@ -65,11 +63,10 @@ t_map_list	*read_to_list(int fd)
 	return (head);
 }
 
-
 int	main(int argc, char **argv)
 {
-	t_data *data;
-	int		fd;
+	t_data		*data;
+	int			fd;
 	t_map_list	*temp;
 
 	if (argc != 2)

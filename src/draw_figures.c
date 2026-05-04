@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_figures.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/04 10:29:54 by rababaya          #+#    #+#             */
+/*   Updated: 2026/05/04 10:29:55 by rababaya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3D.h"/////
 
 unsigned int	*get_pixel(int x, int y, t_params *p)
 {
 	return ((unsigned int *)(p->img_addr + y * p->line_length + x * (p->bits_per_pixel / 8)));
 }
+
 unsigned int	*get_txt_pixel(int x, int y, t_texture *p)
 {
 	return ((unsigned int *)(p->addr + y * p->line_length + x * (p->bits_per_pixel / 8)));
@@ -19,7 +32,7 @@ int	get_texture_x(t_texture *txt, t_point p)
 	else
 		local = fmod(p.x, 100.0);
 	wall_x = local / 100.0;
-	return((int)(wall_x * txt->width));
+	return ((int)(wall_x * txt->width));
 }
 
 void	draw_texture(t_data *data, t_line line, t_point p, t_texture *txt)
@@ -62,11 +75,6 @@ int	txt_side(t_player *player, t_point p)
 	if (player_to_p.x > 0)
 		return (EW);
 	return (WW);
-
-
-
-
-
 	//if (fabs(p.x - floor(p.x)) < 0.00000001 || fabs(p.x - ceil(p.x)) < 0.00000001)
 	//{
 	//	if (player->x > p.x)
@@ -84,6 +92,7 @@ void	draw_vert_line(t_data *data, t_line line, t_point p)
 	t_params	*pr;
 	int			x;
 	int			y;
+	int			i;
 
 	pr = data->params;
 	x = line.x;
@@ -93,7 +102,7 @@ void	draw_vert_line(t_data *data, t_line line, t_point p)
 	if (height >= pr->win_height)
 		height = pr->win_height;
 	y = (pr->win_height - height) / 2;
-	int	i = 0;
+	i = 0;
 	while (i < y)
 		*(unsigned int *)(pr->img_addr + i++ * pr->line_length + x * (pr->bits_per_pixel / 8)) = data->configs->c;
 	draw_texture(data, line, p, data->texture[txt_side(data->player, p)]);

@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 21:40:47 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/03 17:39:59 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 11:10:11 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	check_valid_dest(t_configs *configs)
 	close(fd_west);
 	return (1);
 }
+
 t_map	*copy_map(t_map *map)
 {
 	int		i;
@@ -169,7 +170,7 @@ int	validate_map(t_data *data)
 	return (1);
 }
 
-int validate_cub(t_data *data)
+int	validate_cub(t_data *data)
 {
 	if (!check_valid_file(data->configs->no, ".xpm")
 		|| !check_valid_file(data->configs->so, ".xpm")

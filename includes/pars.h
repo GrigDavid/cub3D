@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 15:22:45 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/03 16:18:31 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 10:16:09 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,3 @@ int			parse_map(t_configs *config, t_map_list *first_line);
 void		free_map_lst(t_map_list *head);
 void		free_map(t_map *map, int size);
 void		free_configs(t_configs *configs);
-

@@ -1,12 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/04 11:08:20 by rababaya          #+#    #+#             */
+/*   Updated: 2026/05/04 11:08:21 by rababaya         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 void	rotate_player(t_player *player, double thetta)
 {
-	double old_x = player->vector.x;
-	double old_y = player->vector.y;
+	double	old_x;
+	double	old_y;
 
-    player->vector.x = old_x * cos(thetta) - old_y * sin(thetta);
-    player->vector.y = old_x * sin(thetta) + old_y * cos(thetta);
+	old_x = player->vector.x;
+	old_y = player->vector.y;
+	player->vector.x = old_x * cos(thetta) - old_y * sin(thetta);
+	player->vector.y = old_x * sin(thetta) + old_y * cos(thetta);
 }
 
 int	movement(t_data *data)
@@ -20,12 +34,10 @@ int	movement(t_data *data)
 
 	gettimeofday(&time, NULL);
 	p = data->player;
-
 	dt = timedif(time, data->time);
 	speed = STEP * dt / 20.0;
 	rot_speed = 0.05 * dt / 50.0;
 	tmp = *p;
-
 	if (data->keypress->w)
 	{
 		tmp.x += p->vector.x * speed;

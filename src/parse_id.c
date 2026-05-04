@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 15:14:30 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/03 17:30:26 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 11:09:09 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	place_conf(t_configs *config, char **spl, char config_name)
 	return (1);
 }
 
-int is_digits_only(char *s)
+int	is_digits_only(char *s)
 {
 	int	i;
 
@@ -113,8 +113,8 @@ int	parse_id_line(char *str, t_flags *flags, t_configs *configs)
 	tmp = ft_split(str, ' ');
 	if (!tmp || !tmp[0])
 		return (0);
-	if (flags->id->no && flags->id->so && flags->id->we &&
-			flags->id->ea && flags->id->f && flags->id->c)
+	if (flags->id->no && flags->id->so && flags->id->we
+		&& flags->id->ea && flags->id->f && flags->id->c)
 		flags->ids_complete = 1;
 	if (flags->id->no && !configs->no)
 		return (place_conf(configs, tmp, 'N'));
