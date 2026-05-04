@@ -6,7 +6,7 @@
 /*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 11:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 19:00:00 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/04 19:01:32 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,17 @@ void	rotate_player(t_player *player, double thetta)
 
 void	set_wasd(t_data *data, t_player tmp)
 {
-	if (data->configs->map->map[(int)(data->player->y / SIDE)][(int)(tmp.x / SIDE)] != '1')
+	if (data->configs->map->map[(int)(data->player->y / SIDE)]
+			[(int)(tmp.x / SIDE)] != '1')
 		data->player->x = tmp.x;
-	if (data->configs->map->map[(int)(tmp.y / SIDE)][(int)(data->player->x / SIDE)] != '1')
+	if (data->configs->map->map[(int)(tmp.y / SIDE)]
+			[(int)(data->player->x / SIDE)] != '1')
 		data->player->y = tmp.y;
 }
 
 void	check_wasd(t_data *data, double speed)
 {
-	t_player tmp;
+	t_player	tmp;
 
 	tmp = *(data->player);
 	if (data->keypress->w)
@@ -79,7 +81,8 @@ int	movement(t_data *data)
 		rotate_player(p, rot_speed);
 	data->time = time;
 	imcameraaxper(data, data->configs->map->map);
-	mlx_put_image_to_window(data->params->mlx, data->params->win, data->params->img, 0, 0);
+	mlx_put_image_to_window(data->params->mlx, data->params->win,
+		data->params->img, 0, 0);
 	return (0);
 }
 

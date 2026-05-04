@@ -6,7 +6,7 @@
 /*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 14:22:07 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 18:42:41 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/04 19:04:28 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,20 @@ t_map_list	*read_to_list(int fd)
 
 int	set_textures(t_data *data)
 {
-		data->texture[NW] = read_texture(data, data->configs->no);
+	data->texture[NW] = read_texture(data, data->configs->no);
 	if (!data->texture[NW])
-		return (1);//add data destruction later
+		return (1);
 	data->texture[SW] = read_texture(data, data->configs->so);
 	if (!data->texture[SW])
-		return (1);//add data destruction later
+		return (1);
 	data->texture[EW] = read_texture(data, data->configs->ea);
 	if (!data->texture[EW])
-		return (1);//add data destruction later
+		return (1);
 	data->texture[WW] = read_texture(data, data->configs->we);
 	if (!data->texture[WW])
-		return (1);//add data destruction later
+		return (1);
 	return (0);
 }
-
 
 int	main(int argc, char **argv)
 {
@@ -102,9 +101,9 @@ int	main(int argc, char **argv)
 		return (free_data(data), 1);
 	data->configs = parse_cub(temp);
 	if (!data->configs)
-		return (free_data(data), 1);//add data destruction later
+		return (free_data(data), 1);
 	if (!validate_cub(data))
-		return (free_data(data), 1);//add data destruction later
+		return (free_data(data), 1);
 	if (set_textures(data))
 		return (free_data(data), 1);
 	mlx_do_key_autorepeatoff(data->params->mlx);

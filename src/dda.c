@@ -6,7 +6,7 @@
 /*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 10:24:44 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 16:52:28 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/04 19:02:45 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,19 @@ t_point	cycle(t_dda vars, t_player player, char **map)
 	{
 		if (vars.h > fabs(vars.dy))
 		{
-			if (check(player.x + vars.x_dir * vars.l, player.y + vars.dy, player.vector, map))
-				return ((t_point){.x = player.x + vars.x_dir * vars.l, .y = player.y + vars.dy, .wall = HOR});
+			if (check(player.x + vars.x_dir * vars.l, player.y
+					+ vars.dy, player.vector, map))
+				return ((t_point){.x = player.x + vars.x_dir * vars.l,
+					.y = player.y + vars.dy, .wall = HOR});
 			vars.dy += SIDE * vars.y_dir;
 			vars.l += SIDE / vars.k;
 		}
 		else
 		{
-			if (check(player.x + vars.dx, player.y + vars.y_dir * vars.h, player.vector, map))
-				return ((t_point){.x = player.x + vars.dx, .y = player.y + vars.y_dir * vars.h, .wall = VER});
+			if (check(player.x + vars.dx, player.y + vars.y_dir
+					* vars.h, player.vector, map))
+				return ((t_point){.x = player.x + vars.dx,
+					.y = player.y + vars.y_dir * vars.h, .wall = VER});
 			vars.dx += SIDE * vars.x_dir;
 			vars.h += SIDE * vars.k;
 		}
@@ -105,7 +109,7 @@ t_point	cycle(t_dda vars, t_player player, char **map)
 
 t_point	dda(t_player player, char **map)
 {
-	t_dda vars;
+	t_dda	vars;
 
 	if (fabs(player.vector.x) < 0.00000001)
 		return (forward_y(player, map));
