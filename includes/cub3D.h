@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 10:16:24 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 18:50:52 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/04 19:02:52 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ typedef struct s_line
 	int				height;
 }	t_line;
 
-typedef	struct s_dda
+typedef struct s_dda
 {
 	double	k;
 	double	h;
@@ -128,7 +128,7 @@ typedef	struct s_dda
 	double	dx;
 	int		x_dir;
 	int		y_dir;
-} t_dda;
+}	t_dda;
 
 // extern t_data	**datay;
 // int		cast_ray(t_player	*player, char	**map);
@@ -158,7 +158,7 @@ t_texture		*read_texture(t_data *data, char *filename);
 unsigned int	*get_pixel(int x, int y, t_params *p);
 unsigned int	*get_txt_pixel(int x, int y, t_texture *p);
 int				get_texture_x(t_texture *txt, t_point p);
-void			draw_texture(t_data *data, t_line line, t_point p, t_texture *txt);
+void			draw_texture(t_data *data, t_line l, t_point p, t_texture *t);
 int				txt_side(t_player *player, t_point p);
 
 t_configs		*parse_cub(t_map_list *map_list);

@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 18:08:57 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 18:09:09 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 19:02:42 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	get_texture_x(t_texture *txt, t_point p)
 	return ((int)(wall_x * txt->width));
 }
 
-void	draw_texture(t_data *data, t_line line, t_point p, t_texture *txt)
+void	draw_texture(t_data *data, t_line l, t_point p, t_texture *t)
 {
 	int			y;
 	int			txt_x;
@@ -46,18 +46,18 @@ void	draw_texture(t_data *data, t_line line, t_point p, t_texture *txt)
 	double		txt_y;
 
 	pr = data->params;
-	y = (pr->win_height - line.height) / 2;
-	if (line.height > data->params->win_height)
+	y = (pr->win_height - l.height) / 2;
+	if (l.height > data->params->win_height)
 		y = 0;
-	txt_x = get_texture_x(txt, p);
-	step = (double)txt->height / (double)line.height;
+	txt_x = get_texture_x(t, p);
+	step = (double)t->height / (double)l.height;
 	txt_y = 0;
-	if (line.height > data->params->win_height)
-		txt_y = (line.height - data->params->win_height) * step / 2;
-	while (y < pr->win_height && txt_y < txt->height)
+	if (l.height > data->params->win_height)
+		txt_y = (l.height - data->params->win_height) * step / 2;
+	while (y < pr->win_height && txt_y < t->height)
 	{
-		*(unsigned int *)get_pixel(line.x, y, data->params)
-				= *(unsigned int *)get_txt_pixel(txt_x, (int)txt_y, txt);
+		*(unsigned int *)get_pixel(l.x, y, data->params)
+				= *(unsigned int *)get_txt_pixel(txt_x, (int)txt_y, t);
 		y++;
 		txt_y += step;
 	}
