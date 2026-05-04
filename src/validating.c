@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 21:40:47 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 11:10:11 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 11:32:58 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	find_player(t_data *data, t_map *map)
 			if (is_player(map->map[y][x]))
 			{
 				if (check_player_pos(map, x, y))
-					return (0);
+					return (ft_putstr_fd("Error\nInvalid player position\n", 2), 0);
 				player_count++;
 				set_player(data, x, y);
 				data->configs->map->map[y][x] = '0';

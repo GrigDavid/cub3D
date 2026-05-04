@@ -1,0 +1,35 @@
+ 	  SO       textures/kargin/south.xpm
+			EA textures/kargin/east.xpm
+NO             textures/kargin/north.xpm
+			WE textures/kargin/west.xpm
+DO textures/kargin/door.xpm
+SP textures/kargin/character.xpm
+
+				F    255,                   171, 0
+C 21       ,   1,				148
+
+1111111111111111111111111111111111111111
+1                                      1
+1                                      1
+1   1                                1 1
+1   1                               1  1
+1   1   1                          1   1
+1   1   1                         1   1
+1   1   1   1                    1   1
+1   1   1   1                   1   1
+1   1 C 1   1   1              1   1
+1   1   1   1   1      C       1   1
+1   1   1   1   1              1   1
+1               D       N          1
+1   1   1   1   1              1   1
+1   1   1   1   1              1   1
+1   1   1   1   1              1   1
+1   1   1   1                   1   1
+1   1   1   1                    1   1
+1   1   1                         1   1
+1   1   1                          1  1
+1   1                                 1
+1   1                                 1
+1                                     1
+1                                      1
+1111111111111111111111111111111111111111

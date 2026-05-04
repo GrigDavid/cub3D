@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 20:03:05 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/03 16:49:07 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 11:54:55 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ t_map	*list_to_map(t_map_list *hd, int sz)
 	while (temp && ++i < sz)
 	{
 		if (ft_strncmp(temp->row, "", 1) == 0 && check_map_empty_lines(temp))
-			return (free_map_pointers(hd, map, i), NULL);
+			return (free_map(map, i), NULL);
 		map->map[i] = ft_strdup(temp->row);
 		if (!map->map[i])
-			return (free_map_pointers(hd, map, i), NULL);
+			return (free_map(map, i), NULL);
 		if (map->max_width < (int)ft_strlen(map->map[i]))
 			map->max_width = (int)ft_strlen(map->map[i]);
 		temp = temp->next;

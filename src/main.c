@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 14:22:07 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 11:11:25 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 11:26:57 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_map_list	*read_to_list(int fd)
 	str = get_next_line(fd);
 	head = new_node(&str);
 	if (!head)
-		return (free(str), NULL);
+		return (free(str), ft_putstr_fd("Error\nEmpty map file\n", 2), NULL);
 	temp = head;
 	while (str)
 	{

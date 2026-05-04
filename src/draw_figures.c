@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 10:29:54 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 10:29:55 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 11:57:30 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int	txt_side(t_player *player, t_point p)
 		return (SW);
 	}
 	if (player_to_p.x > 0)
-		return (EW);
-	return (WW);
+		return (WW);
+	return (EW);
 	//if (fabs(p.x - floor(p.x)) < 0.00000001 || fabs(p.x - ceil(p.x)) < 0.00000001)
 	//{
 	//	if (player->x > p.x)
