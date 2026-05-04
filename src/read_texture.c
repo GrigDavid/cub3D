@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 10:18:11 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 12:49:06 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:12:09 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ t_texture	*read_texture(t_data *data, char *filename)
 	texture->addr = mlx_get_data_addr(texture->img, &(texture->bits_per_pixel),
 			&(texture->line_length), &(texture->endian));
 	if (!texture->addr)
-		return (free(texture), NULL); //should add image destroy
+	{
+		mlx_destroy_image(data->params->mlx, texture->img);
+		free(texture);
+		return (NULL);
+	}
 	return (texture);
 }

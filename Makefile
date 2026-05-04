@@ -18,10 +18,14 @@ CUB3D_SRC				=	src/dda.c \
 							src/read_texture.c \
 							src/timedif.c \
 							src/movement.c \
+							src/free_everything.c \
 							src/vector_operations.c src/parsing.c src/utils.c \
 							src/parse_id.c src/parse_map.c src/checkers.c \
 							src/utils_utils.c src/parsing_checkers.c\
-							src/init.c src/validating.c
+							src/init.c src/validating.c \
+							src/draw_textures.c \
+							src/validating_utils.c \
+							src/parse_conf.c
 
 CUB3D_OBJS				=	$(CUB3D_SRC:%.c=obj/%.o)
 
