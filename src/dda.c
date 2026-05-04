@@ -6,7 +6,7 @@
 /*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 10:24:44 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 19:02:45 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/04 19:25:33 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,6 @@ int	check(double x, double y, t_vector v, char **map)
 	map_x = (int)(x / SIDE);
 	map_y = (int)(y / SIDE);
 	return (map[map_y][map_x] == '1');
-}
-
-double	get_dx(t_player player)
-{
-	double	i;
-
-	i = 0;
-	i = floor(player.x / SIDE) * SIDE;
-	if (player.vector.x > 0)
-		i += SIDE;
-	return (i - player.x);
-}
-
-double	get_dy(t_player player)
-{
-	double	i;
-
-	i = 0;
-	i = floor(player.y / SIDE) * SIDE;
-	if (player.vector.y > 0)
-		i += SIDE;
-	return (i - player.y);
 }
 
 t_point	forward_x(t_player player, char **map)

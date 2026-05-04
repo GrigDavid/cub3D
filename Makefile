@@ -11,7 +11,8 @@ MLX_FILE				=	minilibx-linux/mlx_linux
 MLX_FLAGS				=	-Lminilibx-linux -l mlx_Linux -l Xext -l X11 -l m
 
 CUB3D_SRC				=	src/dda.c \
-							src/draw_figures.c \
+							src/dda_utils.c \
+							src/draw_vert_line.c \
 							src/imcameraaxper.c \
 							src/init_data.c \
 							src/main.c \
@@ -19,10 +20,16 @@ CUB3D_SRC				=	src/dda.c \
 							src/timedif.c \
 							src/movement.c \
 							src/free_everything.c \
-							src/vector_operations.c src/parsing.c src/utils.c \
-							src/parse_id.c src/parse_map.c src/checkers.c \
-							src/utils_utils.c src/parsing_checkers.c\
-							src/init.c src/validating.c \
+							src/vector_operations.c \
+							src/parsing.c \
+							src/utils.c \
+							src/parse_id.c \
+							src/parse_map.c \
+							src/checkers.c \
+							src/utils_utils.c \
+							src/parsing_checkers.c\
+							src/init.c \
+							src/validating.c \
 							src/draw_textures.c \
 							src/validating_utils.c \
 							src/parse_conf.c

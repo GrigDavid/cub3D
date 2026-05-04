@@ -6,22 +6,11 @@
 /*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 11:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 19:01:32 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/04 19:22:33 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-void	rotate_player(t_player *player, double thetta)
-{
-	double	old_x;
-	double	old_y;
-
-	old_x = player->vector.x;
-	old_y = player->vector.y;
-	player->vector.x = old_x * cos(thetta) - old_y * sin(thetta);
-	player->vector.y = old_x * sin(thetta) + old_y * cos(thetta);
-}
 
 void	set_wasd(t_data *data, t_player tmp)
 {
@@ -76,9 +65,9 @@ int	movement(t_data *data)
 	rot_speed = 0.05 * dt / 50.0;
 	check_wasd(data, speed);
 	if (data->keypress->left && !data->keypress->right)
-		rotate_player(p, -rot_speed);
+		rotate(&(p->vector), -rot_speed);
 	if (data->keypress->right && !data->keypress->left)
-		rotate_player(p, rot_speed);
+		rotate(&(p->vector), rot_speed);
 	data->time = time;
 	imcameraaxper(data, data->configs->map->map);
 	mlx_put_image_to_window(data->params->mlx, data->params->win,
@@ -132,10 +121,4 @@ int	key_release(int keycode, t_data *data)
 		data->keypress->right = 0;
 	}
 	return (0);
-}
-
-int	close_game(t_data *data)
-{
-	free_data(data);
-	exit (0);
 }
