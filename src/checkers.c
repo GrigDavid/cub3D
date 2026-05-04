@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 15:08:01 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/01 14:36:08 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/04 12:20:14 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ int	is_player(char c)
 int	is_valid_char(char c)
 {
 	return (c == '1' || c == '0' || c == ' '
-		|| c == 'N' || c == 'S' || c == 'E' || c == 'W'
-		|| c == 'D' || c == 'C');
+		|| c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
 int	check_player_pos(t_map *map, int x, int y)

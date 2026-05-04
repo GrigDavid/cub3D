@@ -9,19 +9,18 @@ MAKE_LIB				=	make -C
 
 MLX_FILE				=	minilibx-linux/mlx_linux
 MLX_FLAGS				=	-Lminilibx-linux -l mlx_Linux -l Xext -l X11 -l m
-MAKE_MLX				=	make -C
 
 CUB3D_SRC				=	src/dda.c \
-						src/draw_figures.c \
-						src/imcameraaxper.c \
-						src/init_data.c \
-						src/main.c \
-						src/read_texture.c \
-						src/timedif.c \
-						src/movement.c \
-						src/vector_operations.c src/parsing.c src/utils.c \
-						src/parse_id.c src/parse_map.c src/checkers.c \
-						src/init.c src/validating.c
+							src/draw_figures.c \
+							src/imcameraaxper.c \
+							src/init_data.c \
+							src/main.c \
+							src/read_texture.c \
+							src/timedif.c \
+							src/movement.c \
+							src/vector_operations.c src/parsing.c src/utils.c \
+							src/parse_id.c src/parse_map.c src/checkers.c \
+							src/init.c src/validating.c
 
 CUB3D_OBJS				=	$(CUB3D_SRC:%.c=obj/%.o)
 
@@ -34,10 +33,10 @@ $(CUB3D_OBJS):	obj/%.o: %.c
 $(LIBFT_FILE):
 	$(MAKE_LIB) libft
 
-$(MLX_FILE):
-	$(MAKE_MLX) minilibx-linux
+# $(MLX_FILE):
+# 	$(MAKE_MLX) minilibx-linux
 
-$(NAME):	$(CUB3D_OBJS) $(LIBFT_FILE) $(MLX_FILE)
+$(NAME):	$(CUB3D_OBJS) $(LIBFT_FILE) #$(MLX_FILE)
 	$(CC) $(CFLAGS) $(CUB3D_OBJS) $(LDFLAGS) $(MLX_FLAGS) -o $@
 
 lib_clean:
