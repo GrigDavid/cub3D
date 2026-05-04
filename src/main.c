@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 14:22:07 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 11:26:57 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 18:42:41 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,24 @@ t_map_list	*read_to_list(int fd)
 	return (head);
 }
 
+int	set_textures(t_data *data)
+{
+		data->texture[NW] = read_texture(data, data->configs->no);
+	if (!data->texture[NW])
+		return (1);//add data destruction later
+	data->texture[SW] = read_texture(data, data->configs->so);
+	if (!data->texture[SW])
+		return (1);//add data destruction later
+	data->texture[EW] = read_texture(data, data->configs->ea);
+	if (!data->texture[EW])
+		return (1);//add data destruction later
+	data->texture[WW] = read_texture(data, data->configs->we);
+	if (!data->texture[WW])
+		return (1);//add data destruction later
+	return (0);
+}
+
+
 int	main(int argc, char **argv)
 {
 	t_data		*data;
@@ -79,29 +97,21 @@ int	main(int argc, char **argv)
 	if (init_data(&data))
 		return (1);
 	temp = read_to_list(fd);
+	close(fd);
 	if (!temp)
-		return (close(fd), free_data(data), 1);
+		return (free_data(data), 1);
 	data->configs = parse_cub(temp);
 	if (!data->configs)
-		return (close(fd), free_data(data), 1);//add data destruction later
+		return (free_data(data), 1);//add data destruction later
 	if (!validate_cub(data))
-		return (close(fd), free_data(data), 1);//add data destruction later
-	data->texture[NW] = read_texture(data, data->configs->no);
-	if (!data->texture[NW])
-		return (close(fd), free_data(data), 1);//add data destruction later
-	data->texture[SW] = read_texture(data, data->configs->so);
-	if (!data->texture[SW])
-		return (close(fd), free_data(data), 1);//add data destruction later
-	data->texture[EW] = read_texture(data, data->configs->ea);
-	if (!data->texture[EW])
-		return (close(fd), free_data(data), 1);//add data destruction later
-	data->texture[WW] = read_texture(data, data->configs->we);
-	if (!data->texture[WW])
-		return (close(fd), free_data(data), 1);//add data destruction later
+		return (free_data(data), 1);//add data destruction later
+	if (set_textures(data))
+		return (free_data(data), 1);
+	mlx_do_key_autorepeatoff(data->params->mlx);
 	mlx_hook(data->params->win, KeyPress, KeyPressMask, key_press, data);
 	mlx_hook(data->params->win, KeyRelease, KeyReleaseMask, key_release, data);
+	mlx_hook(data->params->win, 17, 17, close_game, data);
 	mlx_loop_hook(data->params->mlx, movement, data);
-	(void)data->params->mlx;
 	mlx_loop(data->params->mlx);
 	return (0);
 }

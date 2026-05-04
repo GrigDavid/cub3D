@@ -6,7 +6,7 @@
 /*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 11:08:20 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 17:07:10 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/04 19:00:00 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	rotate_player(t_player *player, double thetta)
 
 void	set_wasd(t_data *data, t_player tmp)
 {
-	
 	if (data->configs->map->map[(int)(data->player->y / SIDE)][(int)(tmp.x / SIDE)] != '1')
 		data->player->x = tmp.x;
 	if (data->configs->map->map[(int)(tmp.y / SIDE)][(int)(data->player->x / SIDE)] != '1')
@@ -87,10 +86,7 @@ int	movement(t_data *data)
 int	key_press(int keycode, t_data *data)
 {
 	if (keycode == XK_Escape)
-	{
-		free_data(data);
-		exit(0);
-	}
+		close_game(data);
 	if (keycode == XK_w)
 		data->keypress->w = 1;
 	else if (keycode == XK_s)
@@ -133,4 +129,10 @@ int	key_release(int keycode, t_data *data)
 		data->keypress->right = 0;
 	}
 	return (0);
+}
+
+int	close_game(t_data *data)
+{
+	free_data(data);
+	exit (0);
 }

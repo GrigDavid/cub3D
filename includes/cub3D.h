@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 10:16:24 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 18:18:05 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 18:50:52 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,5 +178,6 @@ int				key_press(int keycode, t_data *data);
 int				key_release(int keycode, t_data *data);
 
 void			free_data(t_data *data);
+int				close_game(t_data *data);
 
 #endif

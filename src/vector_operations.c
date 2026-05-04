@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_operations.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 10:20:02 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 10:22:08 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/04 18:58:56 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ t_vector	sub_vector(t_vector a, t_vector b)
 double	scalar_mul(t_vector a, t_vector b)
 {
 	return (a.x * b.x + a.y * b.y);
-}
-
-t_vector	mul_vector_num(t_vector a, double k)
-{
-	return ((t_vector){.x = a.x * k, .y = a.y * k});
 }
 
 t_vector	div_vector_num(t_vector a, double k)
