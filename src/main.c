@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 14:22:07 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 19:09:13 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/06 15:27:44 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,8 @@ int	set_textures(t_data *data)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+int	create_data(t_data **data, int argc, char **argv)
 {
-	t_data		*data;
 	int			fd;
 	t_map_list	*temp;
 
@@ -89,19 +88,28 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		return (ft_putstr_fd("Error\nCould not open input file\n", 2), 1);
-	if (init_data(&data))
+	if (init_data(data))
 		return (1);
 	temp = read_to_list(fd);
 	close(fd);
 	if (!temp)
-		return (free_data(data), 1);
-	data->configs = parse_cub(temp);
-	if (!data->configs)
-		return (free_data(data), 1);
-	if (!validate_cub(data))
-		return (free_data(data), 1);
-	if (set_textures(data))
-		return (free_data(data), 1);
+		return (free_data(*data), 1);
+	(*data)->configs = parse_cub(temp);
+	if (!(*data)->configs)
+		return (free_data(*data), 1);
+	if (!validate_cub(*data))
+		return (free_data(*data), 1);
+	if (set_textures(*data))
+		return (free_data(*data), 1);
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	t_data		*data;
+
+	if (create_data(&data, argc, argv))
+		return (1);
 	mlx_do_key_autorepeatoff(data->params->mlx);
 	mlx_hook(data->params->win, KeyPress, KeyPressMask, key_press, data);
 	mlx_hook(data->params->win, KeyRelease, KeyReleaseMask, key_release, data);
