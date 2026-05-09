@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 18:08:57 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 19:02:42 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/09 15:21:09 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int	get_texture_x(t_texture *txt, t_point p)
 	double	wall_x;
 
 	if (p.x - floor(p.x) < p.y - floor(p.y))
-		local = fmod(p.y, 100.0);
+		local = fmod(p.y, (double)SIDE);
 	else
-		local = fmod(p.x, 100.0);
-	wall_x = local / 100.0;
+		local = fmod(p.x, (double)SIDE);
+	wall_x = local / (double)SIDE;
 	return ((int)(wall_x * txt->width));
 }
 
@@ -77,5 +77,5 @@ int	txt_side(t_player *player, t_point p)
 	}
 	if (player_to_p.x > 0)
 		return (WW);
-	return (EW);
+	return (printf("w\n"), EW);
 }

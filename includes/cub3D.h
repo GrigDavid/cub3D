@@ -6,7 +6,7 @@
 /*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 10:16:24 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 19:30:27 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/09 15:22:04 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # define STEP 4
-# define SIDE 100
+# define SIDE 99
 # define FOV 0.9
 
 # include <unistd.h>
