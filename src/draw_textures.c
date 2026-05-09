@@ -6,7 +6,7 @@
 /*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 18:08:57 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/09 15:21:09 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/09 15:25:28 by dgrigor2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ int	txt_side(t_player *player, t_point p)
 	}
 	if (player_to_p.x > 0)
 		return (WW);
-	return (printf("w\n"), EW);
+	return (EW);
 }
