@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgrigor2 <dgrigor2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 14:22:07 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/06 15:27:44 by dgrigor2         ###   ########.fr       */
+/*   Updated: 2026/05/09 14:32:38 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,10 @@ int	create_data(t_data **data, int argc, char **argv)
 
 int	main(int argc, char **argv)
 {
-	t_data		*data;
+	t_data	*data;
 
 	if (create_data(&data, argc, argv))
 		return (1);
-	mlx_do_key_autorepeatoff(data->params->mlx);
 	mlx_hook(data->params->win, KeyPress, KeyPressMask, key_press, data);
 	mlx_hook(data->params->win, KeyRelease, KeyReleaseMask, key_release, data);
 	mlx_hook(data->params->win, 17, 17, close_game, data);

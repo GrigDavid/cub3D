@@ -6,38 +6,11 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 15:14:30 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 18:15:03 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/09 14:06:41 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-// int	place_conf(t_configs *config, char **spl, char config_name)
-// {
-// 	char	*target;
-
-// 	if (!colors_not_set(config) && !colors_are_complete(config))
-// 		return (free_split(spl),
-// 			ft_putstr_fd("Error\nWrong config order\n", 2), 0);
-// 	if (spl[1] == NULL || spl[2] != NULL)
-// 		return (free_split(spl),
-// 			ft_putstr_fd("Error\nInvalid path element count\n", 2), 0);
-// 	target = ft_strtrim(spl[1], "\n");
-// 	if (!target)
-// 		return (free_split(spl), 0);
-// 	if (config_name == 'N')
-// 		config->no = target;
-// 	else if (config_name == 'S')
-// 		config->so = target;
-// 	else if (config_name == 'E')
-// 		config->ea = target;
-// 	else if (config_name == 'W')
-// 		config->we = target;
-// 	free_split(spl);
-// 	return (1);
-// }
-
-/* moved to parse_conf.c */
 
 int	is_id(char *s, t_flags *flags)
 {

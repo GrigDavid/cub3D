@@ -6,7 +6,7 @@
 /*   By: rababaya <rababaya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 18:24:30 by rababaya          #+#    #+#             */
-/*   Updated: 2026/05/04 18:24:55 by rababaya         ###   ########.fr       */
+/*   Updated: 2026/05/09 14:32:08 by rababaya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,6 @@ int	place_color(t_configs *config, char **spl, char config_name)
 {
 	int	rgb[3];
 
-	if (!textures_not_set(config) && !textures_are_complete(config))
-		return (free_split(spl),
-			ft_putstr_fd("Error\nWrong config order\n", 2), 0);
 	if (spl[1] == NULL || spl[2] != NULL)
 		return (free_split(spl),
 			ft_putstr_fd("Error\nInvalid color element count\n", 2), 0);
@@ -73,9 +70,6 @@ int	place_conf(t_configs *config, char **spl, char config_name)
 {
 	char	*target;
 
-	if (!colors_not_set(config) && !colors_are_complete(config))
-		return (free_split(spl),
-			ft_putstr_fd("Error\nWrong config order\n", 2), 0);
 	if (spl[1] == NULL || spl[2] != NULL)
 		return (free_split(spl),
 			ft_putstr_fd("Error\nInvalid path element count\n", 2), 0);
